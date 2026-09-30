@@ -115,116 +115,81 @@ input, select, textarea { min-height: 44px; font-size: 16px !important; }
 
 
 
-<style id="mobile-menu-v177">
-@media screen and (max-width:700px){
-  html,body{
-    overflow-x:hidden!important;
-    width:100%!important;
-    max-width:100%!important;
-  }
 
+
+<script src="./config.js"></script>
+
+<style id="cloud-account-ui-v181">
+.auth-card{width:min(560px,100%);margin:auto}
+.auth-form{display:grid;gap:12px;margin-top:18px}
+.auth-form .field{margin:0}
+.auth-divider{display:flex;align-items:center;gap:10px;margin:18px 0;color:#6b7280;font-size:13px}
+.auth-divider:before,.auth-divider:after{content:"";height:1px;background:#e5e7eb;flex:1}
+.auth-error{display:none;margin-top:12px;padding:11px 13px;border-radius:10px;background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+.auth-error.show{display:block}
+.setup-shell{width:min(980px,100%);margin:auto}
+.setup-progress{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:0 0 22px}
+.setup-step{font-size:12px;text-align:center;color:#6b7280;font-weight:700}
+.setup-step .bar{height:7px;border-radius:999px;background:#e5e7eb;margin-bottom:6px}
+.setup-step.active,.setup-step.done{color:#111827}
+.setup-step.active .bar,.setup-step.done .bar{background:#111827}
+.setup-nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+.question-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.question-grid .span-2{grid-column:span 2}
+.calorie-review{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:15px}
+.calorie-review .review-card{padding:14px;border:1px solid #e5e7eb;border-radius:12px;background:#f8fafc}
+.sync-pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:6px 9px;border-radius:999px;background:#f3f4f6;color:#4b5563}
+.sync-pill.ok{background:#ecfdf5;color:#166534}
+.sync-pill.warn{background:#fff7ed;color:#9a3412}
+.protein-meter{margin-top:12px}
+.protein-meter .progress{margin-top:6px}
+.admin-table{width:100%;border-collapse:collapse}
+.admin-table th,.admin-table td{padding:9px 8px;border-bottom:1px solid #e5e7eb;text-align:left;vertical-align:top}
+.admin-table th{font-size:12px;color:#6b7280}
+.admin-editor{width:100%;min-height:340px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}
+@media(max-width:760px){
+  .question-grid{grid-template-columns:1fr}
+  .question-grid .span-2{grid-column:auto}
+  .setup-progress{gap:3px}
+  .setup-step{font-size:10px}
+  .calorie-review{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .admin-table{font-size:12px}
+  .admin-extra{display:none}
+}
+</style>
+
+
+<style id="mobile-menu-v181">
+@media(max-width:700px){
+  html,body{overflow-x:hidden!important;width:100%!important;max-width:100%!important}
   #mobileMenuButton{
-    display:none!important;
-    position:fixed!important;
-    top:max(10px,env(safe-area-inset-top))!important;
-    right:12px!important;
-    left:auto!important;
-    z-index:2147483647!important;
-    width:48px!important;
-    height:48px!important;
-    min-width:48px!important;
-    min-height:48px!important;
-    padding:0!important;
-    margin:0!important;
-    box-sizing:border-box!important;
-    border:1px solid #c8ced8!important;
-    border-radius:12px!important;
-    background:#fff!important;
-    color:#111827!important;
-    align-items:center!important;
-    justify-content:center!important;
-    font-family:Arial,sans-serif!important;
-    font-size:29px!important;
-    font-weight:700!important;
-    line-height:1!important;
-    box-shadow:0 3px 12px rgba(0,0,0,.18)!important;
-    -webkit-appearance:none!important;
-    appearance:none!important;
-    cursor:pointer!important;
-    touch-action:manipulation!important;
+    display:none!important;position:fixed!important;
+    top:max(10px,env(safe-area-inset-top))!important;right:12px!important;left:auto!important;
+    z-index:2147483647!important;width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;
+    padding:0!important;margin:0!important;border:1px solid #c8ced8!important;border-radius:12px!important;
+    background:#fff!important;color:#111827!important;align-items:center!important;justify-content:center!important;
+    font-family:Arial,sans-serif!important;font-size:29px!important;font-weight:700!important;line-height:1!important;
+    box-shadow:0 3px 12px rgba(0,0,0,.18)!important;cursor:pointer!important;-webkit-appearance:none!important;appearance:none!important
   }
   #mobileMenuButton.visible{display:flex!important}
-
-  #mobileMenuBackdrop{
-    display:none!important;
-    position:fixed!important;
-    inset:0!important;
-    z-index:2147483645!important;
-    background:rgba(0,0,0,.35)!important;
-  }
+  #mobileMenuBackdrop{display:none!important;position:fixed!important;inset:0!important;z-index:2147483645!important;background:rgba(0,0,0,.35)!important}
   #mobileMenuBackdrop.open{display:block!important}
-
   #mobileMenuPanel{
-    display:none!important;
-    position:fixed!important;
-    top:0!important;
-    right:0!important;
-    bottom:0!important;
-    left:auto!important;
-    z-index:2147483646!important;
-    width:min(310px,84vw)!important;
-    height:100dvh!important;
-    max-height:100dvh!important;
-    overflow-y:auto!important;
-    overflow-x:hidden!important;
-    padding:78px 12px 20px!important;
-    margin:0!important;
-    box-sizing:border-box!important;
-    background:#fff!important;
-    color:#111827!important;
-    box-shadow:-10px 0 32px rgba(0,0,0,.22)!important;
-    direction:ltr!important;
-    transform:none!important;
+    display:none!important;position:fixed!important;top:0!important;right:0!important;bottom:0!important;left:auto!important;
+    z-index:2147483646!important;width:min(310px,84vw)!important;height:100dvh!important;max-height:100dvh!important;
+    overflow-y:auto!important;overflow-x:hidden!important;padding:78px 12px 20px!important;margin:0!important;
+    box-sizing:border-box!important;background:#fff!important;color:#111827!important;box-shadow:-10px 0 32px rgba(0,0,0,.22)!important
   }
   #mobileMenuPanel.open{display:block!important}
-
-  #mobileMenuPanel .mobile-menu-title{
-    display:block!important;
-    width:100%!important;
-    margin:0 6px 15px!important;
-    font-size:21px!important;
-    font-weight:800!important;
-  }
-
+  #mobileMenuPanel .mobile-menu-title{display:block!important;width:100%!important;margin:0 6px 15px!important;font-size:21px!important;font-weight:800!important}
   #mobileMenuPanel .mobile-nav-item{
-    display:flex!important;
-    width:100%!important;
-    height:auto!important;
-    min-height:50px!important;
-    margin:0 0 8px!important;
-    padding:13px 15px!important;
-    box-sizing:border-box!important;
-    align-items:center!important;
-    justify-content:flex-start!important;
-    border:1px solid #e5e7eb!important;
-    border-radius:10px!important;
-    background:#f8fafc!important;
-    color:#111827!important;
-    font:inherit!important;
-    font-size:16px!important;
-    text-align:left!important;
-    white-space:nowrap!important;
-    cursor:pointer!important;
-    touch-action:manipulation!important;
-    -webkit-tap-highlight-color:rgba(0,0,0,.08)!important;
+    display:flex!important;width:100%!important;min-height:50px!important;margin:0 0 8px!important;padding:13px 15px!important;
+    box-sizing:border-box!important;align-items:center!important;justify-content:flex-start!important;border:1px solid #e5e7eb!important;
+    border-radius:10px!important;background:#f8fafc!important;color:#111827!important;font:inherit!important;text-align:left!important;cursor:pointer!important
   }
-
   .sidebar{display:none!important}
 }
-
-@media screen and (min-width:701px){
-  #mobileMenuButton,#mobileMenuPanel,#mobileMenuBackdrop{display:none!important}
-}
+@media(min-width:701px){#mobileMenuButton,#mobileMenuPanel,#mobileMenuBackdrop{display:none!important}}
 </style>
 
 </head>
@@ -236,7 +201,7 @@ input, select, textarea { min-height: 44px; font-size: 16px !important; }
   </div>
 </div>
 
-<div id="onboardingModal" class="modal"><div class="modal-box" style="max-width:900px"><div class="modal-head"><h2>Create your profile</h2><button class="close" onclick="closeModal('onboardingModal')">×</button></div><p class="muted">Answer everything below first. Your profile and calorie target will only be generated after you finish the complete setup.</p>
+<div id="onboardingModal" class="modal" style="display:none!important"><div class="modal-box" style="max-width:900px"><div class="modal-head"><h2>Create your profile</h2><button class="close" onclick="closeModal('onboardingModal')">×</button></div><p class="muted">Answer everything below first. Your profile and calorie target will only be generated after you finish the complete setup.</p>
 <div class="form-grid" style="margin-top:14px">
 <div class="field"><label>Profile name</label><input id="oName" maxlength="40" placeholder="e.g. Beshoy"></div>
 <div class="field"><label>Gender</label><select id="oGender"><option value="male">Male</option><option value="female">Female</option><option value="other">Other / use neutral equation</option></select></div>
@@ -266,10 +231,10 @@ input, select, textarea { min-height: 44px; font-size: 16px !important; }
     <button data-page="profile">Profile & Goal <span class="info-btn" title="What does Profile & Goal track?" onclick="event.stopPropagation();showInfo('Profile & Goal','Your saved weight, height, age, gender, selected calorie deficit, and daily-activity questionnaire. These are used to estimate BMR, maintenance calories, and your calorie target.')">i</span></button>
     <button data-page="data">Data <span class="info-btn" title="What does Data track?" onclick="event.stopPropagation();showInfo('Data','Backup and recovery tools for your profiles and logs. Export your data to JSON, import a previous backup, or reset all app data stored in this browser.')">i</span></button>
   </nav>
-  <div class="sidebar-foot">Stored locally in this browser. No account or server is required.<div class="app-version">Version 1.7.7</div></div>
+  <div class="sidebar-foot">Cloud account sync • browser storage is kept as a local cache.<div class="app-version">Version 1.8.1</div></div>
 </aside>
 <main class="main">
-  <header class="topbar"><h1 id="pageTitle">Dashboard</h1><div class="top-actions"><button class="btn" onclick="quickLog()">+ Quick Log</button><button class="btn primary" onclick="openProfileModal()">Profiles</button></div></header>
+  <header class="topbar"><h1 id="pageTitle">Dashboard</h1><div class="top-actions"><span id="cloudSyncStatus" class="sync-pill">Not signed in</span><button id="adminTopButton" class="btn" style="display:none" onclick="openAdminPanel()">Admin</button><button class="btn" onclick="quickLog()">+ Quick Log</button><button class="btn primary" onclick="openProfileModal()">Profiles</button><button class="btn" onclick="logout()">Log out</button></div></header>
   <div class="content">
     <section id="page-dashboard" class="page active">
       <div class="card dashboard-daybar">
@@ -284,7 +249,7 @@ input, select, textarea { min-height: 44px; font-size: 16px !important; }
         </div>
       </div>
       <div class="hero card" id="dashboardHero"></div>
-      <div id="dashboardVersionHome" class="muted mini" style="margin:10px 2px 0;font-weight:700;">Calorie Compass • Version 1.7.7</div>
+      <div id="dashboardVersionHome" class="muted mini" style="margin:10px 2px 0;font-weight:700;">Calorie Compass • Version 1.8.1</div>
       <div class="grid grid-4" style="margin-top:16px" id="kpis"></div>
       <div class="two-col" style="margin-top:16px">
         <div class="card"><div class="between"><h3 class="heading-with-info"><span id="dashboardTodayHeading">Today <span class="info-btn" title="What does Today track?" onclick="showInfo('Dashboard day','This card compares your logged food intake with your daily calorie target and shows exercise and quick-add controls for the date selected above. You can move backward and forward by day and edit historical days.')">i</span></h3><span id="todayStatus"></span></div><div id="todaySummary"></div></div>
@@ -314,13 +279,13 @@ input, select, textarea { min-height: 44px; font-size: 16px !important; }
       <div class="card" style="margin-top:16px"><h3>Calculated targets</h3><div id="calcDetails"></div></div>
     </section>
 
-    <section id="page-data" class="page"><div class="grid grid-2"><div class="card"><h2>Data & backup</h2><p class="muted">Export your profiles and logs to a JSON file, or import a previous backup. Your data remains in this browser until you clear it.</p><div class="small-actions"><button class="btn primary" onclick="exportData()">Export JSON</button><button class="btn" onclick="document.getElementById('importFile').click()">Import JSON</button><input id="importFile" type="file" accept="application/json" hidden onchange="importData(event)"></div></div><div class="card"><h2>Reset app</h2><p class="muted">This removes all three profiles, food logs, exercises, custom foods, weights, and settings from this browser.</p><button class="btn danger" onclick="resetAll()">Reset everything</button></div></div><div class="card" style="margin-top:16px"><h3>Nutrition data notes</h3><div class="notice">Restaurant items are stored as standard-menu calories and may vary with portion size, customization, seasonal menus, preparation, or location. When you know the exact calorie number from the restaurant or package, use the manual calorie override for the most accurate log.</div><div class="source" style="margin-top:10px">Built-in restaurant examples are based on official nutrition/menu sources and are intentionally presented as standard-item estimates. Verify customized orders or seasonal/local offerings before relying on a number.</div><div class="source" style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap"><a href="https://www.mcdonalds.com/us/en-us/about-our-food/nutrition-calculator.html" target="_blank" rel="noopener">McDonald&apos;s nutrition</a><a href="https://www.chick-fil-a.com/nutrition-allergens" target="_blank" rel="noopener">Chick-fil-A nutrition</a><a href="https://www.subway.com/en-us/menunutrition1/nutrition" target="_blank" rel="noopener">Subway nutrition</a><a href="https://www.tacobell.com/food/tacos" target="_blank" rel="noopener">Taco Bell menu</a><a href="https://help.bk.com/hc/en-us/articles/36913083446935-Where-can-I-view-the-nutrition-and-allergen-information-for-Burger-King-menu-items" target="_blank" rel="noopener">Burger King nutrition</a><a href="https://locations.wendys.com/united-states/va/fairfax/9688-main-street" target="_blank" rel="noopener">Wendy&apos;s nutrition info</a><a href="https://www.panerabread.com/en-us/menu/nutritious-eating/allergen-and-nutrition-information.html" target="_blank" rel="noopener">Panera nutrition</a><a href="https://www.fiveguys.com/menu/" target="_blank" rel="noopener">Five Guys menu</a><a href="https://www.arbys.com/nutrition/" target="_blank" rel="noopener">Arby&apos;s nutrition</a><a href="https://www.dunkindonuts.com/nutrition/" target="_blank" rel="noopener">Dunkin&apos; nutrition</a><a href="https://www.pandaexpress.com/nutritioninformation" target="_blank" rel="noopener">Panda Express nutrition</a><a href="https://www.chipotle.com/nutrition-calculator" target="_blank" rel="noopener">Chipotle nutrition</a><a href="https://www.raisingcanes.com/menu" target="_blank" rel="noopener">Raising Cane&apos;s menu & nutrition</a><a href="https://www.starbucks.com/menu" target="_blank" rel="noopener">Starbucks menu</a><a href="https://www.dominos.com/en/pages/content/nutrition" target="_blank" rel="noopener">Domino&apos;s nutrition</a><a href="https://www.pizzahut.com/c/content/nutrition-allergens" target="_blank" rel="noopener">Pizza Hut nutrition</a><a href="https://littlecaesars.com/en-us/nutrition/" target="_blank" rel="noopener">Little Caesars nutrition</a><a href="https://shakeshack.com/nutritionandallergeninfo" target="_blank" rel="noopener">Shake Shack nutrition</a><a href="https://subs.jerseymikes.com/nutrition" target="_blank" rel="noopener">Jersey Mike&apos;s nutrition</a><a href="https://www.qdoba.com/nutrition-allergens" target="_blank" rel="noopener">QDOBA nutrition</a></div></div></section>
+    <section id="page-data" class="page"><div class="grid grid-2"><div class="card"><h2>Data & backup</h2><p class="muted">Export your profiles and logs to a JSON file, or import a previous backup. Your signed-in account is the cloud copy. JSON export/import is still available for backup and migration.</p><div class="small-actions"><button class="btn primary" onclick="exportData()">Export JSON</button><button class="btn" onclick="document.getElementById('importFile').click()">Import JSON</button><input id="importFile" type="file" accept="application/json" hidden onchange="importData(event)"></div></div><div class="card"><h2>Reset app</h2><p class="muted">This removes all three profiles, food logs, exercises, custom foods, weights, and settings from this browser.</p><button class="btn danger" onclick="resetAll()">Reset everything</button></div></div><div class="card" style="margin-top:16px"><h3>Nutrition data notes</h3><div class="notice">Restaurant items are stored as standard-menu calories and may vary with portion size, customization, seasonal menus, preparation, or location. When you know the exact calorie number from the restaurant or package, use the manual calorie override for the most accurate log.</div><div class="source" style="margin-top:10px">Built-in restaurant examples are based on official nutrition/menu sources and are intentionally presented as standard-item estimates. Verify customized orders or seasonal/local offerings before relying on a number.</div><div class="source" style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap"><a href="https://www.mcdonalds.com/us/en-us/about-our-food/nutrition-calculator.html" target="_blank" rel="noopener">McDonald&apos;s nutrition</a><a href="https://www.chick-fil-a.com/nutrition-allergens" target="_blank" rel="noopener">Chick-fil-A nutrition</a><a href="https://www.subway.com/en-us/menunutrition1/nutrition" target="_blank" rel="noopener">Subway nutrition</a><a href="https://www.tacobell.com/food/tacos" target="_blank" rel="noopener">Taco Bell menu</a><a href="https://help.bk.com/hc/en-us/articles/36913083446935-Where-can-I-view-the-nutrition-and-allergen-information-for-Burger-King-menu-items" target="_blank" rel="noopener">Burger King nutrition</a><a href="https://locations.wendys.com/united-states/va/fairfax/9688-main-street" target="_blank" rel="noopener">Wendy&apos;s nutrition info</a><a href="https://www.panerabread.com/en-us/menu/nutritious-eating/allergen-and-nutrition-information.html" target="_blank" rel="noopener">Panera nutrition</a><a href="https://www.fiveguys.com/menu/" target="_blank" rel="noopener">Five Guys menu</a><a href="https://www.arbys.com/nutrition/" target="_blank" rel="noopener">Arby&apos;s nutrition</a><a href="https://www.dunkindonuts.com/nutrition/" target="_blank" rel="noopener">Dunkin&apos; nutrition</a><a href="https://www.pandaexpress.com/nutritioninformation" target="_blank" rel="noopener">Panda Express nutrition</a><a href="https://www.chipotle.com/nutrition-calculator" target="_blank" rel="noopener">Chipotle nutrition</a><a href="https://www.raisingcanes.com/menu" target="_blank" rel="noopener">Raising Cane&apos;s menu & nutrition</a><a href="https://www.starbucks.com/menu" target="_blank" rel="noopener">Starbucks menu</a><a href="https://www.dominos.com/en/pages/content/nutrition" target="_blank" rel="noopener">Domino&apos;s nutrition</a><a href="https://www.pizzahut.com/c/content/nutrition-allergens" target="_blank" rel="noopener">Pizza Hut nutrition</a><a href="https://littlecaesars.com/en-us/nutrition/" target="_blank" rel="noopener">Little Caesars nutrition</a><a href="https://shakeshack.com/nutritionandallergeninfo" target="_blank" rel="noopener">Shake Shack nutrition</a><a href="https://subs.jerseymikes.com/nutrition" target="_blank" rel="noopener">Jersey Mike&apos;s nutrition</a><a href="https://www.qdoba.com/nutrition-allergens" target="_blank" rel="noopener">QDOBA nutrition</a></div></div></section>
   </div>
 </main></div>
 
 <div id="profileModal" class="modal"><div class="modal-box"><div class="modal-head"><h2>Profiles</h2><button class="close" onclick="closeModal('profileModal')">×</button></div><p class="muted">Create up to 3 separate profiles. Each profile and its daily history is stored independently.</p><div id="profileCards" class="stack"></div><div style="margin-top:14px"><button class="btn primary" onclick="createProfile()">+ Create profile</button></div></div></div>
 
-<div id="foodModal" class="modal"><div class="modal-box"><div class="modal-head"><div><h2>Add food</h2><div class="muted mini">Search restaurant foods or common foods. Pick an item to autofill the calories.</div></div><button class="close" onclick="closeModal('foodModal')">×</button></div><div class="searchbar" style="margin-top:14px"><input id="foodPickerSearch" placeholder="Type a food or restaurant…" oninput="renderFoodPickerResults()"><select id="foodPickerChain" onchange="renderFoodPickerResults()"></select></div><div class="quick-restaurant" style="margin-top:10px"><button class="btn" onclick="openRestaurantBuilder('Panda Express')">🐼 Build Panda Express meal</button><button class="btn" onclick="openRestaurantBuilder('Chipotle')">🌯 Build Chipotle meal</button></div><div id="foodPickerResults" class="food-picker-results" style="margin-top:10px"></div><div class="divider"></div><div class="form-grid"><div class="field"><label>Food name</label><input id="cfName"></div><div class="field"><label>Calories per serving</label><input id="cfCal" type="number" min="0" step="1"></div><div class="field"><label>Servings / amount</label><input id="cfServings" type="number" min="0.1" step="0.1" value="1"></div><div class="field"><label>Date</label><input id="cfDate" type="date"></div><div class="field span2"><label>Notes</label><textarea id="cfNotes" rows="3" placeholder="Optional: homemade meal ingredients, package size, restaurant customization, etc."></textarea></div></div><div class="small-actions" style="margin-top:14px"><button class="btn primary" onclick="saveCustomFoodLog()">Add to day</button><button class="btn" onclick="closeModal('foodModal')">Cancel</button></div></div></div>
+<div id="foodModal" class="modal"><div class="modal-box"><div class="modal-head"><div><h2>Add food</h2><div class="muted mini">Search restaurant foods or common foods. Pick an item to autofill the calories.</div></div><button class="close" onclick="closeModal('foodModal')">×</button></div><div class="searchbar" style="margin-top:14px"><input id="foodPickerSearch" placeholder="Type a food or restaurant…" oninput="renderFoodPickerResults()"><select id="foodPickerChain" onchange="renderFoodPickerResults()"></select></div><div class="quick-restaurant" style="margin-top:10px"><button class="btn" onclick="openRestaurantBuilder('Panda Express')">🐼 Build Panda Express meal</button><button class="btn" onclick="openRestaurantBuilder('Chipotle')">🌯 Build Chipotle meal</button></div><div id="foodPickerResults" class="food-picker-results" style="margin-top:10px"></div><div class="divider"></div><div class="form-grid"><div class="field"><label>Food name</label><input id="cfName"></div><div class="field"><label>Calories per serving</label><input id="cfCal" type="number" min="0" step="1"></div><div class="field"><label>Protein per serving (g)</label><input id="cfProtein" type="number" min="0" step="0.1" placeholder="Optional"></div><div class="field"><label>Servings / amount</label><input id="cfServings" type="number" min="0.1" step="0.1" value="1"></div><div class="field"><label>Date</label><input id="cfDate" type="date"></div><div class="field span2"><label>Notes</label><textarea id="cfNotes" rows="3" placeholder="Optional: homemade meal ingredients, package size, restaurant customization, etc."></textarea></div></div><div class="small-actions" style="margin-top:14px"><button class="btn primary" onclick="saveCustomFoodLog()">Add to day</button><button class="btn" onclick="closeModal('foodModal')">Cancel</button></div></div></div>
 
 <div id="restaurantBuilderModal" class="modal"><div class="modal-box"><div class="modal-head"><div><h2 id="builderTitle">Build restaurant meal</h2><div id="builderSubtitle" class="muted mini"></div></div><button class="close" onclick="closeModal('restaurantBuilderModal')">×</button></div><div id="restaurantBuilderBody" style="margin-top:12px"></div></div></div>
 
@@ -509,7 +474,7 @@ function updateProfileWeightUnit(){const unit=document.getElementById('pWeightUn
 function updateOnboardingWeightPlaceholder(){const unit=document.getElementById('oWeightUnit').value;document.getElementById('oWeightLabel').textContent=`Weight (${unit})`;document.getElementById('oWeight').placeholder=unit==='kg'?'81.6':'180'}
 function saveProfile(){const p=active();if(!p)return;p.name=document.getElementById('pName').value.trim()||'Profile';p.gender=document.getElementById('pGender').value;const unit=document.getElementById('pWeightUnit').value;const w=parseFloat(document.getElementById('pWeight').value);p.weightUnit=unit;p.weightLb=unit==='kg'?w/0.45359237:w;p.age=parseInt(document.getElementById('pAge').value)||25;p.heightFt=parseInt(document.getElementById('pHeightFt').value)||5;p.heightIn=parseInt(document.getElementById('pHeightIn').value)||0;p.deficit=parseFloat(document.getElementById('pDeficit').value)||.15;save();alert('Profile saved and calories recalculated.')}
 function saveQuestionnaire(){const p=active();p.questionnaire={work:document.getElementById('qWork').value,intensity:document.getElementById('qIntensity').value,commute:document.getElementById('qCommute').value,walk:document.getElementById('qWalk').value};save();alert('Activity profile saved.')}
-function showStartup(){const screen=document.getElementById('startupScreen'),app=document.querySelector('.app');if(!screen)return;if(state.profiles.length){document.getElementById('startupContent').innerHTML=`<h1 class="startup-title">Welcome back</h1><p class="startup-sub">Select the profile you want to use for this session. Each profile keeps its own weight history, food logs, exercise logs, and calorie goal.</p><div class="startup-section stack">${state.profiles.map(p=>{const c=calculate(p);return `<div class="profile-choice"><div><strong>${esc(p.name)}</strong><div class="muted mini">${p.weightUnit==='kg'?lbsToKg(p.weightLb).toFixed(1)+' kg':p.weightLb.toFixed(1)+' lb'} • age ${p.age} • target ${fmt(c.target)} kcal/day</div></div><button class="btn primary" onclick="activateStartupProfile('${p.id}')">Select</button></div>`}).join('')}</div><div class="startup-actions">${state.profiles.length<3?'<button class="btn" onclick="createProfile()">+ Create another profile</button>':''}</div>`}else{document.getElementById('startupContent').innerHTML=`<h1 class="startup-title">Let’s set up your first profile</h1><p class="startup-sub">Start by answering your basic information and daily-activity questions. The app will use those answers to calculate your estimated maintenance calories and your selected deficit target.</p><div class="startup-actions"><button class="btn primary" onclick="createProfile()">Create my profile</button></div><div class="app-version">Version 1.7.7</div><div class="required-note">You can create up to 3 profiles later and switch between them from the Profiles button.</div>`}screen.style.display='flex';app?.classList.add('locked')}
+function showStartup(){const screen=document.getElementById('startupScreen'),app=document.querySelector('.app');if(!screen)return;if(state.profiles.length){document.getElementById('startupContent').innerHTML=`<h1 class="startup-title">Welcome back</h1><p class="startup-sub">Select the profile you want to use for this session. Each profile keeps its own weight history, food logs, exercise logs, and calorie goal.</p><div class="startup-section stack">${state.profiles.map(p=>{const c=calculate(p);return `<div class="profile-choice"><div><strong>${esc(p.name)}</strong><div class="muted mini">${p.weightUnit==='kg'?lbsToKg(p.weightLb).toFixed(1)+' kg':p.weightLb.toFixed(1)+' lb'} • age ${p.age} • target ${fmt(c.target)} kcal/day</div></div><button class="btn primary" onclick="activateStartupProfile('${p.id}')">Select</button></div>`}).join('')}</div><div class="startup-actions">${state.profiles.length<3?'<button class="btn" onclick="createProfile()">+ Create another profile</button>':''}</div>`}else{document.getElementById('startupContent').innerHTML=`<h1 class="startup-title">Let’s set up your first profile</h1><p class="startup-sub">Start by answering your basic information and daily-activity questions. The app will use those answers to calculate your estimated maintenance calories and your selected deficit target.</p><div class="startup-actions"><button class="btn primary" onclick="createProfile()">Create my profile</button></div><div class="app-version">Version 1.8.1</div><div class="required-note">You can create up to 3 profiles later and switch between them from the Profiles button.</div>`}screen.style.display='flex';app?.classList.add('locked')}
 function activateStartupProfile(id){state.activeId=id;save();selectedDate=todayISO();dashboardDate=todayISO();document.getElementById('startupScreen').style.display='none';document.querySelector('.app')?.classList.remove('locked');selectedDate=todayISO();document.getElementById('foodDate').value=selectedDate;document.getElementById('exerciseDate').value=selectedDate;renderAll()}
 function finishOnboarding(){if(state.profiles.length>=3)return alert('You can have up to 3 profiles.');const name=document.getElementById('oName').value.trim();const gender=document.getElementById('oGender').value;const unit=document.getElementById('oWeightUnit').value;const enteredWeight=parseFloat(document.getElementById('oWeight').value);const age=parseInt(document.getElementById('oAge').value);const ft=parseInt(document.getElementById('oHeightFt').value);const inch=parseInt(document.getElementById('oHeightIn').value)||0;if(!name||!(enteredWeight>0)||!(age>=13&&age<=100)||!(ft>=3&&ft<=8)||!(inch>=0&&inch<=11))return alert('Please complete every required field with valid values.');const p=profileTemplate(name);p.gender=gender;p.weightUnit=unit;p.weightLb=unit==='kg'?enteredWeight/0.45359237:enteredWeight;p.age=age;p.heightFt=ft;p.heightIn=inch;p.deficit=parseFloat(document.getElementById('oDeficit').value);p.questionnaire={work:document.getElementById('oWork').value,intensity:document.getElementById('oIntensity').value,commute:document.getElementById('oCommute').value,walk:document.getElementById('oWalk').value};p.weights.push({date:todayISO(),lb:p.weightLb});state.profiles.push(p);state.activeId=p.id;selectedDate=todayISO();dashboardDate=todayISO();closeModal('onboardingModal');save();document.getElementById('startupScreen').style.display='none';document.querySelector('.app')?.classList.remove('locked');renderAll();showPage('dashboard')}
 function openProfileModal(){renderProfileCards();document.getElementById('profileModal').classList.add('show')}
@@ -576,134 +541,352 @@ initUI();
 
 
 
-<script id="mobile-menu-v177">
+
+
+
+<script id="mobile-menu-v181">
 (function(){
-  var ITEMS = [
-    ["dashboard","Dashboard"],
-    ["calendar","Calendar"],
-    ["food","Food"],
-    ["exercise","Exercise"],
-    ["profile","Profile & Goal"],
-    ["data","Data & Backup"]
-  ];
-
-  function profileSelected(){
-    try{
-      return !!(typeof state!=="undefined" &&
-                state &&
-                Array.isArray(state.profiles) &&
-                state.profiles.length &&
-                state.activeId);
-    }catch(e){
-      return false;
-    }
-  }
-
-  function closeMenu(){
-    var p=document.getElementById("mobileMenuPanel");
-    var b=document.getElementById("mobileMenuBackdrop");
-    var x=document.getElementById("mobileMenuButton");
-    if(p) p.classList.remove("open");
-    if(b) b.classList.remove("open");
-    if(x) x.setAttribute("aria-expanded","false");
-    document.body.style.overflow="";
-  }
-
-  function openMenu(){
-    var p=document.getElementById("mobileMenuPanel");
-    var b=document.getElementById("mobileMenuBackdrop");
-    var x=document.getElementById("mobileMenuButton");
-    if(p) p.classList.add("open");
-    if(b) b.classList.add("open");
-    if(x) x.setAttribute("aria-expanded","true");
-    document.body.style.overflow="hidden";
-  }
-
+  const baseItems=[["dashboard","Dashboard"],["calendar","Calendar"],["food","Food"],["exercise","Exercise"],["profile","Profile & Goal"],["data","Data & Backup"]];
+  function loggedIn(){try{return !!(window.__calorieAuth?.user && state?.activeId)}catch(e){return false}}
+  function admin(){return window.__calorieAuth?.user?.role==="admin"}
+  function closeMenu(){const p=document.getElementById("mobileMenuPanel"),b=document.getElementById("mobileMenuBackdrop"),x=document.getElementById("mobileMenuButton");p?.classList.remove("open");b?.classList.remove("open");x?.setAttribute("aria-expanded","false");document.body.style.overflow=""}
+  function openMenu(){const p=document.getElementById("mobileMenuPanel"),b=document.getElementById("mobileMenuBackdrop"),x=document.getElementById("mobileMenuButton");p?.classList.add("open");b?.classList.add("open");x?.setAttribute("aria-expanded","true");document.body.style.overflow="hidden"}
   function build(){
-    if(window.innerWidth>700) return;
-
-    var x=document.getElementById("mobileMenuButton");
-    if(!x){
-      x=document.createElement("button");
-      x.id="mobileMenuButton";
-      x.type="button";
-      x.textContent="☰";
-      x.setAttribute("aria-label","Open menu");
-      x.setAttribute("aria-expanded","false");
-      document.body.appendChild(x);
-      x.addEventListener("click",function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        var p=document.getElementById("mobileMenuPanel");
-        if(p && p.classList.contains("open")) closeMenu();
-        else openMenu();
-      });
-    }
-
-    var panel=document.getElementById("mobileMenuPanel");
-    if(!panel){
-      panel=document.createElement("aside");
-      panel.id="mobileMenuPanel";
-      document.body.appendChild(panel);
-    }
-
-    var backdrop=document.getElementById("mobileMenuBackdrop");
-    if(!backdrop){
-      backdrop=document.createElement("div");
-      backdrop.id="mobileMenuBackdrop";
-      document.body.appendChild(backdrop);
-      backdrop.addEventListener("click",closeMenu);
-    }
-
-    if(!profileSelected()){
-      x.classList.remove("visible");
-      closeMenu();
-      return;
-    }
-
+    if(innerWidth>700)return;
+    let x=document.getElementById("mobileMenuButton");
+    if(!x){x=document.createElement("button");x.id="mobileMenuButton";x.type="button";x.textContent="☰";x.setAttribute("aria-label","Open menu");document.body.appendChild(x);x.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();document.getElementById("mobileMenuPanel")?.classList.contains("open")?closeMenu():openMenu()})}
+    let p=document.getElementById("mobileMenuPanel");if(!p){p=document.createElement("aside");p.id="mobileMenuPanel";document.body.appendChild(p)}
+    let b=document.getElementById("mobileMenuBackdrop");if(!b){b=document.createElement("div");b.id="mobileMenuBackdrop";document.body.appendChild(b);b.addEventListener("click",closeMenu)}
+    if(!loggedIn()){x.classList.remove("visible");closeMenu();return}
     x.classList.add("visible");
-
-    /* Static labels: never copy the desktop buttons or their "i" info icons. */
-    panel.innerHTML='<div class="mobile-menu-title">Menu</div>';
-
-    ITEMS.forEach(function(pair){
-      var page=pair[0], label=pair[1];
-      var item=document.createElement("button");
-      item.type="button";
-      item.className="mobile-nav-item";
-      item.textContent=label;
-      item.setAttribute("aria-label",label);
-
-      item.addEventListener("click",function(e){
-        e.preventDefault();
-        e.stopPropagation();
-
-        try{
-          if(typeof showPage==="function") showPage(page);
-          else {
-            var target=document.querySelector('.nav button[data-page="'+page+'"]');
-            if(target) target.click();
-          }
-        }catch(err){}
-
-        closeMenu();
-      });
-
-      panel.appendChild(item);
-    });
+    p.innerHTML='<div class="mobile-menu-title">Menu</div>';
+    const items=baseItems.slice();if(admin())items.push(["__admin__","Admin"]);
+    items.forEach(([page,label])=>{const item=document.createElement("button");item.type="button";item.className="mobile-nav-item";item.textContent=label;item.addEventListener("click",e=>{e.preventDefault();if(page==="__admin__")window.openAdminPanel?.();else showPage(page);closeMenu()});p.appendChild(item)});
   }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>{build();setTimeout(build,400)});
+  else {build();setTimeout(build,400)}
+  setInterval(build,1000);addEventListener("resize",build);
+})();
+</script>
 
-  function init(){
-    build();
-    setTimeout(build,300);
-    setTimeout(build,1000);
+
+<script id="cloud-account-v181">
+(function(){
+"use strict";
+
+const API_BASE=(window.CALORIE_API_URL || (!location.hostname.endsWith("github.io") ? location.origin : "")).replace(/\/+$/,"");
+const AUTH_KEY="calorieCompass_auth_v1";
+const LEGACY_KEYS=[STORAGE_KEY,"calorieCompass_v1"];
+let authSession=null;
+let setupStep=1,setupMode="account",setupImportedState=null,setupAccount=null;
+let setupDraft={account:{},body:{},activity:{}};
+window.__calorieAuth=null;
+
+function apiConfigured(){return !!API_BASE}
+function getAuth(){try{return JSON.parse(localStorage.getItem(AUTH_KEY)||"null")}catch(e){return null}}
+function setAuth(v){authSession=v||null;window.__calorieAuth=authSession;if(v)localStorage.setItem(AUTH_KEY,JSON.stringify(v));else localStorage.removeItem(AUTH_KEY);updateAuthUI()}
+async function api(path,opts){
+  if(!apiConfigured())throw new Error("Cloud server is not configured yet.");
+  const o=Object.assign({headers:{}},opts||{});o.headers=Object.assign({"Content-Type":"application/json"},o.headers||{});
+  if(authSession?.token)o.headers.Authorization="Bearer "+authSession.token;
+  const r=await fetch(API_BASE+path,o);let b=null;try{b=await r.json()}catch(e){}
+  if(!r.ok)throw new Error(b?.error||("Request failed ("+r.status+")"));return b;
+}
+function status(t,k){const e=document.getElementById("cloudSyncStatus");if(e){e.textContent=t;e.className="sync-pill"+(k?" "+k:"")}}
+function updateAuthUI(){
+  const a=document.getElementById("adminTopButton");if(a)a.style.display=authSession?.user?.role==="admin"?"":"none";
+  if(!authSession)status("Not signed in","");
+  else status(apiConfigured()?("Signed in as "+authSession.user.username):"Cloud not configured",apiConfigured()?"":"warn");
+}
+function v(id){return document.getElementById(id)?.value??""}
+function err(m){const e=document.getElementById("wizardError");if(e){e.textContent=m;e.classList.add("show")}else alert(m)}
+function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+
+function proteinEstimate(f){
+  if(Number.isFinite(Number(f?.protein)))return Number(f.protein);
+  const n=(String(f?.name||"")+" "+String(f?.category||"")).toLowerCase(),cal=Math.max(0,Number(f?.cal)||0);
+  if(/sauce|dressing|drink|soda|lemonade|oil|mayo|ketchup|mustard/.test(n))return Math.max(0,Math.round(cal/100));
+  if(/chicken|nugget|strip|tender|wing|turkey|steak|beef|burger|fish|shrimp|barbacoa|carnitas/.test(n))return Math.max(5,Math.min(65,Math.round(cal/15)));
+  if(/egg|yogurt|milk|cheese|bean|protein/.test(n))return Math.max(3,Math.min(40,Math.round(cal/22)));
+  if(/pizza|sub|sandwich|burrito|bowl|taco|wrap|quesadilla/.test(n))return Math.max(5,Math.min(50,Math.round(cal/24)));
+  return Math.max(0,Math.round(cal/30));
+}
+function proteinGoalFor(p){return Math.round(Math.max(90,Math.min(220,lbsToKg(Number(p.weightLb)||180)*1.6)))}
+function migrate(s){
+  let x;try{x=JSON.parse(JSON.stringify(s))}catch(e){return seed()}
+  if(!x?.profiles)return seed();x.version=5;
+  x.profiles=x.profiles.slice(0,3).map(p=>{
+    p.questionnaire=Object.assign({
+      stepsBand:"4-8k",offDayStepsBand:"4-8k",stepsIncludeWork:true,walkPace:"normal",
+      work:"light",workDays:5,workHours:8,standingHours:2,liftingMinutes:0,
+      commute:"car",commuteMinutes:20,commuteDays:5,schoolDays:5,schoolHours:4,
+      schoolWalkingMinutes:0,schoolStandingHours:0,exerciseDays:0,exerciseMinutes:30,
+      exerciseIntensity:"moderate",exerciseType:"walking",householdMinutes:30,householdDays:3,
+      stairsBand:"1-2",sittingHours:8,weekendActivity:"same",sleepHours:"7"
+    },p.questionnaire||{});
+    p.weightLb=Number(p.weightLb)||180;p.weightUnit=p.weightUnit||"lb";p.age=Number(p.age)||25;p.heightFt=Number(p.heightFt)||5;p.heightIn=Number(p.heightIn)||10;p.deficit=Number(p.deficit)||.15;
+    p.weights=Array.isArray(p.weights)?p.weights:[];p.foods=Array.isArray(p.foods)?p.foods:[];p.exercises=Array.isArray(p.exercises)?p.exercises:[];
+    p.proteinGoal=Number(p.proteinGoal)||proteinGoalFor(p);p.foods=p.foods.map(f=>{f.protein=Number.isFinite(Number(f.protein))?Number(f.protein):proteinEstimate(f);return f});return p;
+  });return x;
+}
+function oldBrowserData(){for(const k of LEGACY_KEYS)try{const raw=localStorage.getItem(k);if(raw){const x=JSON.parse(raw);if(x?.profiles?.length)return migrate(x)}}catch(e){}return null}
+
+function stepMid(b){return {"under-1k":700,"1-2k":1500,"2-4k":3000,"4-6k":5000,"6-8k":7000,"8-10k":9000,"10-12k":11000,"12-15k":13500,"15-18k":16500,"18k+":19000}[b]||5000}
+function stairsMid(b){return {"none":0,"1-2":2,"3-5":4,"6-10":8,"10-20":15,"20+":25}[b]||0}
+function met(t,i){const b={walking:3.2,brisk:4.3,cycling:7,weights:5,hiit:9,sports:7.5,swimming:6.5,other:5}[t]||5;return i==="low"?b*.82:i==="high"?b*1.15:b}
+function pace(v){return v==="slow"?.9:v==="brisk"?1.12:1}
+
+/* Detailed starting TDEE estimate. Real weight trend should be used later to calibrate it. */
+calculate=function(p){
+  const q=p.questionnaire||{},kg=lbsToKg(Number(p.weightLb)||180),cm=inToCm((Number(p.heightFt)||5)*12+(Number(p.heightIn)||10)),age=Number(p.age)||25;
+  const sex=p.gender==="male"?5:p.gender==="female"?-161:-78,bmr=10*kg+6.25*cm-5*age+sex;
+  let tdee=bmr*1.20;
+  const workDays=Math.min(7,Math.max(0,Number(q.workDays)||0))/7,schoolDays=Math.min(7,Math.max(0,Number(q.schoolDays)||0))/7,busy=Math.min(1,workDays+schoolDays);
+  const steps=stepMid(q.stepsBand||"4-8k")*busy+stepMid(q.offDayStepsBand||q.stepsBand||"4-8k")*(1-busy);
+  tdee+=Math.max(0,steps-3000)*0.00050*kg*pace(q.walkPace||"normal");
+  const wh=Math.max(0,Number(q.workHours)||0),wadd={sedentary:0,light:22,moderate:55,high:95}[q.work]??22;
+  tdee+=wh*wadd*workDays;
+  tdee+=Math.max(0,Number(q.standingHours)||0)*18*workDays;
+  tdee+=Math.max(0,Number(q.liftingMinutes)||0)*2.2*workDays;
+  const cd=Math.min(7,Math.max(0,Number(q.commuteDays)||0))/7,cmn=Math.max(0,Number(q.commuteMinutes)||0);
+  if(q.commute==="walk")tdee+=kcalFromMET(3.2,kg,cmn*2)*cd;
+  if(q.commute==="bike")tdee+=kcalFromMET(5.5,kg,cmn*2)*cd;
+  if(q.commute==="transit")tdee+=cmn*2*.25*cd;
+  tdee+=kcalFromMET(3.2,kg,Math.max(0,Number(q.schoolWalkingMinutes)||0))*schoolDays;
+  tdee+=Math.max(0,Number(q.schoolStandingHours)||0)*15*schoolDays;
+  const ed=Math.min(7,Math.max(0,Number(q.exerciseDays)||0))/7,emin=Math.max(0,Number(q.exerciseMinutes)||0);
+  tdee+=kcalFromMET(met(q.exerciseType||"other",q.exerciseIntensity||"moderate"),kg,emin)*ed;
+  tdee+=Math.max(0,Number(q.householdMinutes)||0)*2.4*(Math.max(0,Number(q.householdDays)||0)/7);
+  tdee+=stairsMid(q.stairsBand||"1-2")*3;
+  tdee*=q.weekendActivity==="less"?.985:q.weekendActivity==="more"?1.02:1;
+  const deficit=Number(p.deficit)||.15,raw=tdee*(1-deficit),floor=p.gender==="female"?1200:p.gender==="male"?1500:1300;
+  return {bmr,tdee,target:Math.max(raw,floor),raw,floor,deficit,cm,kg,steps};
+};
+
+function progress(){return ["Account","Body","Activity","Finish"].map((x,i)=>{const n=i+1,cl=n===setupStep?"active":n<setupStep?"done":"";return `<div class="setup-step ${cl}"><div class="bar"></div>${n}. ${x}</div>`}).join("")}
+function applyDraft(){
+  const b=setupDraft.body||{},a=setupDraft.activity||{},ac=setupDraft.account||{},s=(id,val)=>{const e=document.getElementById(id);if(e&&val!==undefined)e.value=val};
+  s("wFirst",ac.firstName);s("wLast",ac.lastName);s("wUsername",ac.username);s("wSex",b.sex||"male");s("wAge",b.age);s("wUnit",b.unit||"lb");s("wWeight",b.weight);s("wHeightFt",b.ft);s("wHeightIn",b.inch);s("wDeficit",b.deficit||"0.15");
+  s("wSteps",a.steps||"4-8k");s("wOffSteps",a.offSteps||"4-8k");s("wStepsWork",a.stepsWork||"yes");s("wPace",a.pace||"normal");s("wWork",a.work||"light");s("wWorkDays",a.workDays??5);s("wWorkHours",a.workHours??8);s("wStanding",a.standing??2);s("wLifting",a.lifting??0);
+  s("wCommute",a.commute||"car");s("wCommuteMin",a.commuteMin??20);s("wCommuteDays",a.commuteDays??5);s("wSchoolDays",a.schoolDays??5);s("wSchoolHours",a.schoolHours??4);s("wSchoolWalk",a.schoolWalk??0);s("wSchoolStand",a.schoolStand??0);
+  s("wExDays",a.exDays??0);s("wExMin",a.exMin??30);s("wExType",a.exType||"walking");s("wExIntensity",a.exIntensity||"moderate");s("wHouseMin",a.houseMin??30);s("wHouseDays",a.houseDays??3);s("wStairs",a.stairs||"1-2");s("wSitting",a.sitting??8);s("wWeekend",a.weekend||"same");s("wSleep",a.sleep||"7");
+  wizardWeightUnit();
+}
+
+function renderWizard(){
+  let el=document.getElementById("cloudSetupModal");if(!el){el=document.createElement("div");el.id="cloudSetupModal";el.className="modal show";document.body.appendChild(el)}
+  let body="";
+  if(setupStep===1){
+    body=`<div class="setup-shell"><h2>Create account</h2><p class="muted">Create the account that will sync your data across devices.</p>
+    <div class="question-grid">
+      <div class="field"><label>First name</label><input id="wFirst" autocomplete="given-name"></div>
+      <div class="field"><label>Last name</label><input id="wLast" autocomplete="family-name"></div>
+      <div class="field"><label>Username</label><input id="wUsername" autocomplete="username" autocapitalize="none" placeholder="3–24 characters"></div>
+      <div class="field"><label>Password</label><input id="wPassword" type="password" autocomplete="new-password" placeholder="At least 8 characters"></div>
+      <div class="field"><label>Confirm password</label><input id="wPassword2" type="password" autocomplete="new-password"></div>
+    </div><div id="wizardError" class="auth-error"></div><div class="setup-nav"><span></span><button class="btn primary" onclick="wizardAccountNext()">Continue →</button></div></div>`;
+  }else if(setupStep===2){
+    body=`<div class="setup-shell"><h2>Body & goal</h2><p class="muted">These measurements provide the base metabolic estimate.</p>
+    <div class="question-grid">
+      <div class="field"><label>Sex used for calorie equation</label><select id="wSex"><option value="male">Male</option><option value="female">Female</option><option value="other">Other / neutral equation</option></select></div>
+      <div class="field"><label>Age</label><input id="wAge" type="number" min="13" max="100"></div>
+      <div class="field"><label>Weight unit</label><select id="wUnit" onchange="wizardWeightUnit()"><option value="lb">Pounds (lb)</option><option value="kg">Kilograms (kg)</option></select></div>
+      <div class="field"><label id="wWeightLabel">Current weight (lb)</label><input id="wWeight" type="number" min="20" max="800" step="0.1"></div>
+      <div class="field"><label>Height (feet)</label><input id="wHeightFt" type="number" min="3" max="8"></div>
+      <div class="field"><label>Height (inches)</label><input id="wHeightIn" type="number" min="0" max="11"></div>
+      <div class="field span-2"><label>Weight-loss deficit</label><select id="wDeficit"><option value="0.10">Slow — 10%</option><option value="0.15" selected>Moderate — 15%</option><option value="0.20">Fast — 20%</option></select></div>
+    </div><div id="wizardError" class="auth-error"></div><div class="setup-nav"><button class="btn" onclick="wizardBack()">← Back</button><button class="btn primary" onclick="wizardBodyNext()">Continue →</button></div></div>`;
+  }else if(setupStep===3){
+    body=`<div class="setup-shell"><h2>Your normal activity</h2><p class="muted">These are deliberately more specific than a single “sedentary/moderate/active” setting.</p>
+    <div class="question-grid">
+      <div class="field"><label>Average weekday steps</label><select id="wSteps">${stepOptions()}</select></div>
+      <div class="field"><label>Typical non-work/non-school day steps</label><select id="wOffSteps">${stepOptions()}</select></div>
+      <div class="field"><label>Do weekday steps include work walking?</label><select id="wStepsWork"><option value="yes">Yes / mostly</option><option value="no">No / separate</option></select></div>
+      <div class="field"><label>Typical walking pace</label><select id="wPace"><option value="slow">Slow / casual</option><option value="normal">Normal</option><option value="brisk">Brisk</option></select></div>
+      <div class="field"><label>Work setting</label><select id="wWork"><option value="sedentary">Mostly sitting / desk / driving</option><option value="light">Light movement / some standing</option><option value="moderate">On my feet most of the day</option><option value="high">Heavy physical work</option></select></div>
+      <div class="field"><label>Work days per week</label><input id="wWorkDays" type="number" min="0" max="7" step="1"></div>
+      <div class="field"><label>Work hours per workday</label><input id="wWorkHours" type="number" min="0" max="16" step="0.25"></div>
+      <div class="field"><label>Standing hours during a workday</label><input id="wStanding" type="number" min="0" max="16" step="0.25"></div>
+      <div class="field"><label>Lifting/carrying minutes per workday</label><input id="wLifting" type="number" min="0" max="600" step="5"></div>
+      <div class="field"><label>Commute type</label><select id="wCommute"><option value="none">None / remote</option><option value="car">Car / rideshare</option><option value="transit">Bus / train</option><option value="walk">Walk</option><option value="bike">Bike</option></select></div>
+      <div class="field"><label>One-way commute time (minutes)</label><input id="wCommuteMin" type="number" min="0" max="180" step="5"></div>
+      <div class="field"><label>Commute days per week</label><input id="wCommuteDays" type="number" min="0" max="7" step="1"></div>
+      <div class="field"><label>School/class days per week</label><input id="wSchoolDays" type="number" min="0" max="7" step="1"></div>
+      <div class="field"><label>Class hours per day</label><input id="wSchoolHours" type="number" min="0" max="16" step="0.25"></div>
+      <div class="field"><label>Campus/class walking (minutes/day)</label><input id="wSchoolWalk" type="number" min="0" max="300" step="5"></div>
+      <div class="field"><label>Standing during school/class (hours/day)</label><input id="wSchoolStand" type="number" min="0" max="12" step="0.25"></div>
+      <div class="field"><label>Exercise days per week</label><input id="wExDays" type="number" min="0" max="7" step="1"></div>
+      <div class="field"><label>Exercise minutes per session</label><input id="wExMin" type="number" min="0" max="300" step="5"></div>
+      <div class="field"><label>Exercise type</label><select id="wExType"><option value="walking">Walking</option><option value="brisk">Brisk walking</option><option value="cycling">Cycling</option><option value="weights">Weight training</option><option value="hiit">HIIT/cardio</option><option value="sports">Sports</option><option value="swimming">Swimming</option><option value="other">Other</option></select></div>
+      <div class="field"><label>Exercise intensity</label><select id="wExIntensity"><option value="low">Low</option><option value="moderate">Moderate</option><option value="high">High</option></select></div>
+      <div class="field"><label>Household/errand minutes per active day</label><input id="wHouseMin" type="number" min="0" max="300" step="5"></div>
+      <div class="field"><label>Household/errand days per week</label><input id="wHouseDays" type="number" min="0" max="7" step="1"></div>
+      <div class="field"><label>Stairs / flights climbed per day</label><select id="wStairs"><option value="none">None / almost none</option><option value="1-2">1–2</option><option value="3-5">3–5</option><option value="6-10">6–10</option><option value="10-20">10–20</option><option value="20+">20+</option></select></div>
+      <div class="field"><label>Sitting hours per day outside sleep</label><input id="wSitting" type="number" min="0" max="18" step="0.5"></div>
+      <div class="field"><label>Weekend activity vs weekdays</label><select id="wWeekend"><option value="same">About the same</option><option value="less">Less active</option><option value="more">More active</option></select></div>
+      <div class="field"><label>Average sleep per night</label><select id="wSleep"><option value="5">5 or less</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9+</option></select></div>
+    </div><div id="wizardError" class="auth-error"></div><div class="setup-nav"><button class="btn" onclick="wizardBack()">← Back</button><button class="btn primary" onclick="wizardActivityNext()">Continue →</button></div></div>`;
+  }else{
+    const c=setupPreview(),legacy=oldBrowserData();
+    body=`<div class="setup-shell"><h2>Review & import</h2><p class="muted">These are starting estimates. Consistent intake and weight logging over several weeks can be used to fine-tune your maintenance number.</p>
+    <div class="calorie-review">
+      <div class="review-card"><div class="kpi-label">BMR</div><div class="kpi">${fmt(c.bmr)}</div><div class="muted mini">resting estimate</div></div>
+      <div class="review-card"><div class="kpi-label">Maintenance</div><div class="kpi">${fmt(c.tdee)}</div><div class="muted mini">estimated TDEE</div></div>
+      <div class="review-card"><div class="kpi-label">Calorie target</div><div class="kpi">${fmt(c.target)}</div><div class="muted mini">${Math.round(c.deficit*100)}% deficit</div></div>
+      <div class="review-card"><div class="kpi-label">Protein target</div><div class="kpi">${fmt(c.proteinGoal)} g</div><div class="muted mini">starting daily target</div></div>
+    </div>
+    <div class="card" style="margin-top:14px;box-shadow:none;border:1px solid #e5e7eb"><h3>Import data from the old app</h3><p class="muted mini">This keeps your old weight, food, exercise and calendar history, then saves it under your new account.</p>
+      ${legacy?'<div class="small-actions"><button class="btn" onclick="useBrowserDataForSetup()">Import from this browser</button><span id="browserImportStatus" class="muted mini"></span></div>':'<div class="muted mini">No old browser data was detected.</div>'}
+      <div class="small-actions" style="margin-top:10px"><input id="setupImportFile" type="file" accept="application/json"></div>
+    </div>
+    <div id="wizardError" class="auth-error"></div><div class="setup-nav"><button class="btn" onclick="wizardBack()">← Back</button><button class="btn primary" onclick="finishAccountSetup()">Finish setup & sync</button></div></div>`;
   }
+  el.innerHTML=`<div class="modal-box" style="max-width:1000px;max-height:92vh;overflow:auto"><div class="modal-head"><div><h2>Calorie Compass setup</h2><div class="muted mini">Version 1.8.1</div></div><button class="close" onclick="closeCloudWizard()">×</button></div><div class="setup-progress">${progress()}</div>${body}</div>`;
+  applyDraft();
+}
+function stepOptions(){return '<option value="under-1k">Under 1,000</option><option value="1-2k">1,000–2,000</option><option value="2-4k">2,000–4,000</option><option value="4-6k">4,000–6,000</option><option value="6-8k">6,000–8,000</option><option value="8-10k">8,000–10,000</option><option value="10-12k">10,000–12,000</option><option value="12-15k">12,000–15,000</option><option value="15-18k">15,000–18,000</option><option value="18k+">18,000+</option>'}
 
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
-  else init();
+async function wizardAccountNext(){
+  const first=v("wFirst").trim(),last=v("wLast").trim(),username=v("wUsername").trim(),password=v("wPassword"),confirm=v("wPassword2");
+  if(!first||!last)return err("Enter your first and last name.");
+  if(!/^[A-Za-z0-9._-]{3,24}$/.test(username))return err("Username must be 3–24 characters using letters, numbers, dot, underscore, or hyphen.");
+  if(password.length<8)return err("Password must be at least 8 characters.");
+  if(password!==confirm)return err("Passwords do not match.");
+  if(!apiConfigured())return err("Cloud server is not configured. Set CALORIE_API_URL in config.js after deploying the backend.");
+  setupDraft.account={firstName:first,lastName:last,username};setupAccount={firstName:first,lastName:last,username,password};
+  try{const r=await api("/api/auth/register",{method:"POST",body:JSON.stringify(setupAccount)});setAuth(r);setupStep=2;renderWizard()}catch(e){err(e.message)}
+}
+function wizardWeightUnit(){const e=document.getElementById("wWeightLabel");if(e)e.textContent="Current weight ("+(v("wUnit")||"lb")+")"}
+function wizardBodyNext(){
+  const sex=v("wSex")||"male",age=Number(v("wAge")),unit=v("wUnit")||"lb",weight=Number(v("wWeight")),ft=Number(v("wHeightFt")),inch=Number(v("wHeightIn"))||0,def=Number(v("wDeficit"))||.15;
+  if(!(age>=13&&age<=100)||!(weight>0)||!(ft>=3&&ft<=8)||!(inch>=0&&inch<=11))return err("Complete your age, weight, and height.");
+  setupDraft.body={sex,age,unit,weight,ft,inch,deficit:String(def)};setupStep=3;renderWizard();
+}
+function wizardActivityNext(){
+  setupDraft.activity={
+    steps:v("wSteps")||"4-8k",offSteps:v("wOffSteps")||"4-8k",stepsWork:v("wStepsWork")||"yes",pace:v("wPace")||"normal",
+    work:v("wWork")||"light",workDays:Number(v("wWorkDays"))||0,workHours:Number(v("wWorkHours"))||0,standing:Number(v("wStanding"))||0,lifting:Number(v("wLifting"))||0,
+    commute:v("wCommute")||"car",commuteMin:Number(v("wCommuteMin"))||0,commuteDays:Number(v("wCommuteDays"))||0,
+    schoolDays:Number(v("wSchoolDays"))||0,schoolHours:Number(v("wSchoolHours"))||0,schoolWalk:Number(v("wSchoolWalk"))||0,schoolStand:Number(v("wSchoolStand"))||0,
+    exDays:Number(v("wExDays"))||0,exMin:Number(v("wExMin"))||0,exType:v("wExType")||"walking",exIntensity:v("wExIntensity")||"moderate",
+    houseMin:Number(v("wHouseMin"))||0,houseDays:Number(v("wHouseDays"))||0,stairs:v("wStairs")||"1-2",sitting:Number(v("wSitting"))||0,weekend:v("wWeekend")||"same",sleep:v("wSleep")||"7"
+  };setupStep=4;renderWizard();
+}
+function wizardBack(){if(setupMode!=="account"&&setupStep===2)return closeCloudWizard();if(setupStep>1){setupStep--;renderWizard()}else closeCloudWizard()}
+function useBrowserDataForSetup(){setupImportedState=oldBrowserData();const e=document.getElementById("browserImportStatus");if(e)e.textContent=setupImportedState?"Browser data selected.":"No browser data found."}
 
-  window.addEventListener("resize",build);
-  window.setInterval(build,1000);
+function profileFromWizard(){
+  const b=setupDraft.body,a=setupDraft.activity,u=b.unit||"lb",w=Number(b.weight)||180,p=profileTemplate(setupAccount?.firstName||"Profile 1");
+  p.name=setupAccount?.firstName?`${setupAccount.firstName} ${setupAccount.lastName||""}`.trim():p.name;
+  p.gender=b.sex||"male";p.weightUnit=u;p.weightLb=u==="kg"?w/0.45359237:w;p.age=Number(b.age)||25;p.heightFt=Number(b.ft)||5;p.heightIn=Number(b.inch)||10;p.deficit=Number(b.deficit)||.15;
+  p.questionnaire={stepsBand:a.steps||"4-8k",offDayStepsBand:a.offSteps||"4-8k",stepsIncludeWork:a.stepsWork!=="no",walkPace:a.pace||"normal",work:a.work||"light",workDays:a.workDays||0,workHours:a.workHours||0,standingHours:a.standing||0,liftingMinutes:a.lifting||0,commute:a.commute||"car",commuteMinutes:a.commuteMin||0,commuteDays:a.commuteDays||0,schoolDays:a.schoolDays||0,schoolHours:a.schoolHours||0,schoolWalkingMinutes:a.schoolWalk||0,schoolStandingHours:a.schoolStand||0,exerciseDays:a.exDays||0,exerciseMinutes:a.exMin||0,exerciseType:a.exType||"walking",exerciseIntensity:a.exIntensity||"moderate",householdMinutes:a.houseMin||0,householdDays:a.houseDays||0,stairsBand:a.stairs||"1-2",sittingHours:a.sitting||0,weekendActivity:a.weekend||"same",sleepHours:a.sleep||"7"};
+  p.proteinGoal=proteinGoalFor(p);p.weights=[{date:todayISO(),lb:p.weightLb}];return p;
+}
+function setupPreview(){const p=profileFromWizard(),c=calculate(p);return Object.assign(c,{proteinGoal:proteinGoalFor(p)})}
+async function finishAccountSetup(){
+  try{
+    if(!authSession)throw new Error("Your account session expired.");
+    const file=document.getElementById("setupImportFile")?.files?.[0];if(file)setupImportedState=migrate(JSON.parse(await file.text()));
+    if(setupMode==="profile"){
+      state=migrate(state);if(state.profiles.length>=3)throw new Error("You can have up to 3 profiles.");
+      const p=profileFromWizard();state.profiles.push(p);state.activeId=p.id;
+    }else if(setupImportedState?.profiles?.length){
+      state=migrate(setupImportedState);ensureActiveId();const p=state.profiles.find(x=>x.id===state.activeId)||state.profiles[0],fresh=profileFromWizard();
+      p.name=fresh.name;p.gender=fresh.gender;p.weightUnit=fresh.weightUnit;p.weightLb=fresh.weightLb;p.age=fresh.age;p.heightFt=fresh.heightFt;p.heightIn=fresh.heightIn;p.deficit=fresh.deficit;p.questionnaire=fresh.questionnaire;p.proteinGoal=fresh.proteinGoal;p.weights=Array.isArray(p.weights)?p.weights:[];p.weights.push({date:todayISO(),lb:p.weightLb});state.activeId=p.id;
+    }else{const p=profileFromWizard();state=seed();state.version=5;state.profiles=[p];state.activeId=p.id}
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(state));await api("/api/data",{method:"PUT",body:JSON.stringify({state})});closeCloudWizard();showApp();status("Synced","ok");
+  }catch(e){err(e.message||"Setup could not be completed.")}
+}
+function closeCloudWizard(){document.getElementById("cloudSetupModal")?.remove()}
+function openWizard(mode){if(mode)setupMode=mode;renderWizard()}
+window.startCreateAccount=()=>{setupMode="account";setupStep=1;setupImportedState=null;setupAccount=null;setupDraft={account:{},body:{},activity:{}};openWizard()};
+window.wizardAccountNext=wizardAccountNext;window.wizardBodyNext=wizardBodyNext;window.wizardActivityNext=wizardActivityNext;window.wizardBack=wizardBack;window.wizardWeightUnit=wizardWeightUnit;window.useBrowserDataForSetup=useBrowserDataForSetup;window.finishAccountSetup=finishAccountSetup;window.closeCloudWizard=closeCloudWizard;
+
+function showSignIn(){
+  const screen=document.getElementById("startupScreen"),app=document.querySelector(".app"),legacy=oldBrowserData();screen.style.display="flex";app?.classList.add("locked");
+  document.getElementById("startupContent").innerHTML=`<div class="auth-card"><h1 class="startup-title">Sign in</h1><p class="startup-sub">Sign in to sync Calorie Compass across iPhone, computers, and browsers.</p><div class="auth-form"><div class="field"><label>Username</label><input id="loginUsername" autocomplete="username" autocapitalize="none"></div><div class="field"><label>Password</label><input id="loginPassword" type="password" autocomplete="current-password"></div><button class="btn primary" onclick="signInCloud()">Sign in</button><div id="loginError" class="auth-error"></div></div><div class="auth-divider"><span>or</span></div><div class="small-actions" style="justify-content:center"><button class="btn" onclick="startCreateAccount()">Create account</button></div>${legacy?'<div class="notice" style="margin-top:16px"><strong>Old app data detected.</strong><br>You can import it during account setup.</div>':''}<div class="app-version" style="margin-top:18px">Version 1.8.1</div></div>`;
+}
+window.showStartup=showSignIn;
+
+async function signInCloud(){
+  const username=document.getElementById("loginUsername")?.value.trim(),password=document.getElementById("loginPassword")?.value,e=document.getElementById("loginError");
+  if(!username||!password){e.textContent="Enter your username and password.";e.classList.add("show");return}
+  try{const r=await api("/api/auth/login",{method:"POST",body:JSON.stringify({username,password})});setAuth(r);const has=await cloudLoad();if(has)showApp();else{setupMode="profile";setupStep=2;setupAccount=r.user;setupDraft={account:{firstName:r.user.firstName,lastName:r.user.lastName,username:r.user.username},body:{},activity:{}};openWizard("profile")}}catch(x){e.textContent=x.message;e.classList.add("show")}
+}
+window.signInCloud=signInCloud;
+async function cloudLoad(){const r=await api("/api/data",{method:"GET"});if(r?.state){state=migrate(r.state);ensureActiveId();localStorage.setItem(STORAGE_KEY,JSON.stringify(state));return true}return false}
+function showApp(){document.getElementById("startupScreen").style.display="none";document.querySelector(".app")?.classList.remove("locked");renderAll();showPage("dashboard");updateAuthUI()}
+async function trySession(){const s=getAuth();if(!s?.token)return false;authSession=s;window.__calorieAuth=s;updateAuthUI();try{const me=await api("/api/auth/me");authSession.user=me.user;setAuth(authSession);const has=await cloudLoad();if(has){showApp();return true}setupMode="profile";setupStep=2;setupAccount=me.user;setupDraft={account:{firstName:me.user.firstName,lastName:me.user.lastName,username:me.user.username},body:{},activity:{}};openWizard("profile");return true}catch(e){setAuth(null);return false}}
+window.logout=function(){setAuth(null);location.reload()};
+
+let cloudSaveTimer=null;
+save=function(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));try{renderAll()}catch(e){}if(authSession&&apiConfigured()){clearTimeout(cloudSaveTimer);status("Saving…","");cloudSaveTimer=setTimeout(async()=>{try{await api("/api/data",{method:"PUT",body:JSON.stringify({state:migrate(state)})});status("Synced","ok")}catch(e){status("Sync pending","warn")}},450)}};
+
+window.createProfile=function(){if(!authSession)return alert("Sign in first.");if(state.profiles.length>=3)return alert("You can have up to 3 profiles.");setupMode="profile";setupStep=2;setupAccount=authSession.user;setupDraft={account:{firstName:authSession.user.firstName,lastName:authSession.user.lastName,username:authSession.user.username},body:{},activity:{}};openWizard("profile")};
+
+const oldTotals=dayTotals;
+dayTotals=function(date){const d=oldTotals(date),p=active();d.protein=p?p.foods.filter(x=>x.date===date).reduce((s,x)=>s+(Number(x.protein)||proteinEstimate(x)),0):0;return d};
+
+const oldDash=renderDashboard;
+renderDashboard=function(){oldDash();const p=active(),el=document.getElementById("todaySummary");if(!p||!el)return;const d=dayTotals(dashboardDate),goal=Number(p.proteinGoal)||proteinGoalFor(p),pct=Math.min(100,d.protein/Math.max(1,goal)*100);if(!el.querySelector(".protein-meter"))el.insertAdjacentHTML("beforeend",`<div class="protein-meter"><div class="metric-line"><span>Protein</span><strong>${fmt(d.protein)} g / ${fmt(goal)} g</strong></div><div class="progress"><div style="width:${pct}%"></div></div></div>`)};
+
+const oldFoodDay=renderFoodDay;
+renderFoodDay=function(){
+  const p=active();if(!p)return oldFoodDay();const date=document.getElementById("foodDate")?.value||selectedDate;selectedDate=date;
+  const arr=p.foods.filter(x=>x.date===date),tot=arr.reduce((s,x)=>s+x.cal,0),protein=arr.reduce((s,x)=>s+(Number(x.protein)||proteinEstimate(x)),0),target=document.getElementById("foodDay");
+  target.innerHTML=arr.length?`<div class="between"><span class="muted mini">${arr.length} entries</span><strong>${fmt(tot)} kcal • ${fmt(protein)} g protein</strong></div><div class="stack" style="margin-top:10px">${arr.map(x=>`<div class="food-item"><div><strong>${esc(x.name)}</strong><div class="muted mini">${x.servings||1} serving(s)${x.source?" • "+esc(x.source):""} • ${fmt(Number(x.protein)||proteinEstimate(x))} g protein</div></div><div class="row"><strong>${fmt(x.cal)}</strong><button class="btn danger" onclick='deleteLog("food","${x.id}")'>×</button></div></div>`).join("")}</div>`:'<div class="empty">No food logged for this day.</div>';
+};
+
+const oldUseSuggestion=useFoodSuggestion;
+useFoodSuggestion=function(f){oldUseSuggestion(f);const e=document.getElementById("cfProtein");if(e)e.value=proteinEstimate(f)};
+const oldOpenFood=openFoodPickerModal;
+openFoodPickerModal=function(date=selectedDate,presetSearch=""){oldOpenFood(date,presetSearch);const e=document.getElementById("cfProtein");if(e)e.value=""};
+
+window.saveCustomFoodLog=function(){
+  const p=active(),name=document.getElementById("cfName").value.trim(),cal=Number(document.getElementById("cfCal").value),protein=Number(document.getElementById("cfProtein")?.value||0),serv=Number(document.getElementById("cfServings").value)||1,date=document.getElementById("cfDate").value||todayISO(),notes=document.getElementById("cfNotes").value.trim();
+  if(!p||!name||!(cal>=0)||!(serv>0))return alert("Enter a food name, calories, and amount.");p.foods.push({id:uid(),name,cal:cal*serv,protein:Math.max(0,protein*serv),servings:serv,date,source:notes||"Manual entry",created:new Date().toISOString()});closeModal("foodModal");selectedDate=date;save();
+};
+window.addFoodDB=function(f){const servings=Number(prompt(`Servings/amount for ${f.name}:`,`1`)||0);if(!(servings>0))return;let cal=f.cal*servings;const over=prompt(`Calories per serving (${f.cal}). Enter a different number to override, or press OK to keep it.`,String(f.cal));if(over!==null&&over.trim()!=="")cal=Number(over)*servings;if(!isFinite(cal))return;const protein=proteinEstimate(f)*servings;active().foods.push({id:uid(),name:f.name,cal,protein,servings,date:selectedDate,source:f.source,created:new Date().toISOString()});save()};
+
+const oldImport=importData;
+importData=function(e){oldImport(e);setTimeout(()=>{state=migrate(state);save()},300)};
+
+const oldFill=fillProfileForm;
+fillProfileForm=function(){
+  oldFill();const p=active(),parent=document.querySelector("#page-profile .card");if(!p||!parent)return;
+  let box=document.getElementById("cloudExtraProfileSettings");
+  if(!box){box=document.createElement("div");box.id="cloudExtraProfileSettings";box.className="notice";box.style.marginTop="12px";box.innerHTML='<div class="small-actions"><strong>Protein goal</strong><input id="pProteinGoal" type="number" min="1" step="1" style="max-width:110px"><span>g/day</span><button class="btn" onclick="saveProteinGoal()">Save</button><button class="btn" onclick="rerunCalorieSetup()">Re-run detailed calorie setup</button></div>';parent.appendChild(box)}
+  document.getElementById("pProteinGoal").value=Number(p.proteinGoal)||proteinGoalFor(p);
+};
+window.saveProteinGoal=function(){const p=active(),g=Number(document.getElementById("pProteinGoal")?.value);if(!(g>0))return alert("Enter a protein goal.");p.proteinGoal=Math.round(g);save()};
+window.rerunCalorieSetup=function(){
+  const p=active();if(!p)return;setupMode="edit";setupStep=2;setupAccount=authSession?.user||{firstName:p.name,lastName:""};const q=p.questionnaire||{};
+  setupDraft={account:{firstName:authSession?.user?.firstName||p.name,lastName:authSession?.user?.lastName||"",username:authSession?.user?.username||""},body:{sex:p.gender,age:p.age,unit:p.weightUnit||"lb",weight:(p.weightUnit==="kg"?lbsToKg(p.weightLb):p.weightLb),ft:p.heightFt,inch:p.heightIn,deficit:String(p.deficit||.15)},activity:{steps:q.stepsBand||"4-8k",offSteps:q.offDayStepsBand||q.stepsBand||"4-8k",stepsWork:q.stepsIncludeWork===false?"no":"yes",pace:q.walkPace||"normal",work:q.work||"light",workDays:q.workDays??5,workHours:q.workHours??8,standing:q.standingHours??2,lifting:q.liftingMinutes??0,commute:q.commute||"car",commuteMin:q.commuteMinutes??20,commuteDays:q.commuteDays??5,schoolDays:q.schoolDays??5,schoolHours:q.schoolHours??4,schoolWalk:q.schoolWalkingMinutes??0,schoolStand:q.schoolStandingHours??0,exDays:q.exerciseDays??0,exMin:q.exerciseMinutes??30,exType:q.exerciseType||"walking",exIntensity:q.exerciseIntensity||"moderate",houseMin:q.householdMinutes??30,houseDays:q.householdDays??3,stairs:q.stairsBand||"1-2",sitting:q.sittingHours??8,weekend:q.weekendActivity||"same",sleep:q.sleepHours||"7"}};openWizard("edit");
+};
+
+const oldSaveQ=saveQuestionnaire;
+saveQuestionnaire=function(){const p=active();p.questionnaire=Object.assign({},p.questionnaire||{},{work:document.getElementById("qWork").value,intensity:document.getElementById("qIntensity").value,commute:document.getElementById("qCommute").value,walk:document.getElementById("qWalk").value});save();alert("Activity profile saved.")};
+
+function isAdmin(){return authSession?.user?.role==="admin"}
+window.openAdminPanel=async function(){
+  if(!isAdmin())return alert("Administrator access required.");
+  let el=document.getElementById("adminModal");if(!el){el=document.createElement("div");el.id="adminModal";el.className="modal show";document.body.appendChild(el)}
+  el.innerHTML=`<div class="modal-box" style="max-width:1050px;max-height:92vh;overflow:auto"><div class="modal-head"><div><h2>Administration</h2><div class="muted mini">Administrator-only controls</div></div><button class="close" onclick="document.getElementById('adminModal').remove()">×</button></div><div id="adminBody">Loading…</div></div>`;
+  try{
+    const r=await api("/api/admin/users"),rows=(r.users||[]).map(u=>`<tr><td><strong>${safe(u.username)}</strong></td><td>${safe(u.firstName)} ${safe(u.lastName)}</td><td>${safe(u.role)}</td><td>${u.suspended?"Suspended":"Active"}</td><td class="admin-extra">${new Date(u.createdAt).toLocaleDateString()}</td><td><div class="small-actions"><button class="btn" onclick="adminOpenData('${u.id}','${safe(u.username)}')">Data</button>${u.id!==authSession.user.id?`<button class="btn" onclick="adminRole('${u.id}','${u.role==="admin"?"user":"admin"}')">${u.role==="admin"?"Make user":"Make admin"}</button><button class="btn" onclick="adminSuspend('${u.id}',${!u.suspended})">${u.suspended?"Activate":"Suspend"}</button><button class="btn danger" onclick="adminDelete('${u.id}','${safe(u.username)}')">Delete</button>`:""}</div></td></tr>`).join("");
+    document.getElementById("adminBody").innerHTML=`<div class="notice">Admins can manage accounts and edit cloud app data. These controls are not available to normal users.</div><div style="overflow:auto;margin-top:12px"><table class="admin-table"><thead><tr><th>Username</th><th>Name</th><th>Role</th><th>Status</th><th class="admin-extra">Created</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }catch(e){document.getElementById("adminBody").innerHTML=`<div class="auth-error show">${safe(e.message)}</div>`}
+};
+window.adminRole=async(id,role)=>{try{await api(`/api/admin/users/${id}/role`,{method:"PUT",body:JSON.stringify({role})});openAdminPanel()}catch(e){alert(e.message)}};
+window.adminSuspend=async(id,suspended)=>{try{await api(`/api/admin/users/${id}/status`,{method:"PUT",body:JSON.stringify({suspended})});openAdminPanel()}catch(e){alert(e.message)}};
+window.adminDelete=async(id,username)=>{if(!confirm(`Delete ${username}'s account and all cloud data?`))return;try{await api(`/api/admin/users/${id}`,{method:"DELETE"});openAdminPanel()}catch(e){alert(e.message)}};
+window.adminOpenData=async(id,username)=>{
+  try{const r=await api(`/api/admin/users/${id}/data`);const modal=document.getElementById("adminModal");modal.innerHTML=`<div class="modal-box" style="max-width:1000px;max-height:92vh;overflow:auto"><div class="modal-head"><div><h2>Edit ${safe(username)} data</h2><div class="muted mini">Advanced administrator editor</div></div><button class="close" onclick="document.getElementById('adminModal').remove()">×</button></div><textarea id="adminDataEditor" class="admin-editor">${safe(JSON.stringify(r.state||{},null,2))}</textarea><div class="small-actions" style="margin-top:12px"><button class="btn primary" onclick="adminSaveData('${id}')">Save JSON</button><button class="btn danger" onclick="adminClearData('${id}')">Clear app data</button><button class="btn" onclick="openAdminPanel()">Back</button></div></div>`}catch(e){alert(e.message)}
+};
+window.adminSaveData=async id=>{try{const state=JSON.parse(document.getElementById("adminDataEditor").value);await api(`/api/admin/users/${id}/data`,{method:"PUT",body:JSON.stringify({state})});alert("Cloud data updated.")}catch(e){alert(e.message)}};
+window.adminClearData=async id=>{if(!confirm("Clear this user's cloud app data?"))return;try{await api(`/api/admin/users/${id}/data`,{method:"DELETE"});alert("Cloud data cleared.");openAdminPanel()}catch(e){alert(e.message)}};
+
+setTimeout(async()=>{if(!(await trySession()))showSignIn()},60);
 })();
 </script>
 
