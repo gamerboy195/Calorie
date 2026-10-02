@@ -218,6 +218,11 @@ input, select, textarea { min-height: 44px; font-size: 16px !important; }
 </style>
 
 <style id="v192-polish">.activity-details{margin-top:14px;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fafbff}.activity-details summary{cursor:pointer;font-weight:800;color:#475467}.editable-log{cursor:pointer}.editable-log:focus{outline:2px solid #818cf8;outline-offset:2px}.admin-settings-card{padding:14px;border:1px solid #dfe3ea;border-radius:14px;background:#fff}.recipient-note{font-size:11px;color:#667085;margin-top:6px}</style>
+
+<style id="admin-hard-gate-v197">
+#adminNavButton[hidden],#adminTopButton[hidden]{display:none!important}
+body:not(.admin-authorized) #adminNavButton,body:not(.admin-authorized) #adminTopButton{display:none!important}
+</style>
 </head>
 <body>
 <div id="startupScreen" class="startup-screen">
@@ -257,7 +262,7 @@ input, select, textarea { min-height: 44px; font-size: 16px !important; }
     <button data-page="data">Data <span class="info-btn" title="What does Data track?" onclick="event.stopPropagation();showInfo('Data','Backup and recovery tools for this account and its logs. Export your data to JSON, import a previous backup, or reset the app data stored for this account.')">i</span></button>
     <button id="adminNavButton" type="button" style="display:none" onclick="openAdminPanel()">Admin Controls</button>
   </nav>
-  <div class="sidebar-foot">Cloud account sync • browser storage is kept as a local cache.<div class="app-version">Version 1.9.6</div></div>
+  <div class="sidebar-foot">Cloud account sync • browser storage is kept as a local cache.<div class="app-version">Version 1.9.7</div></div>
 </aside>
 <main class="main">
   <header class="topbar"><h1 id="pageTitle">Dashboard</h1><div class="topbar-right"><div class="top-actions"><span id="cloudSyncStatus" class="sync-pill">Not signed in</span><button id="adminTopButton" class="btn" style="display:none" onclick="openAdminPanel()">Admin</button></div><button id="accountMenuButton" class="account-icon-btn" type="button" aria-label="Account menu" aria-expanded="false" onclick="toggleAccountMenu()"><span aria-hidden="true">👤</span></button></div></header><div id="accountMenuPopover" class="account-popover" aria-hidden="true"></div>
@@ -275,7 +280,7 @@ input, select, textarea { min-height: 44px; font-size: 16px !important; }
         </div>
       </div>
       <div class="hero card" id="dashboardHero"></div>
-      <div id="dashboardVersionHome" class="muted mini" style="margin:10px 2px 0;font-weight:700;">Calorie Compass • Version 1.9.6</div>
+      <div id="dashboardVersionHome" class="muted mini" style="margin:10px 2px 0;font-weight:700;">Calorie Compass • Version 1.9.7</div>
       <div class="grid grid-4" style="margin-top:16px" id="kpis"></div>
       <div class="two-col" style="margin-top:16px">
         <div class="card"><div class="between"><h3 class="heading-with-info"><span id="dashboardTodayHeading">Today <span class="info-btn" title="What does Today track?" onclick="showInfo('Dashboard day','This card compares your logged food intake with your daily calorie target and shows exercise and quick-add controls for the date selected above. You can move backward and forward by day and edit historical days.')">i</span></h3><span id="todayStatus"></span></div><div id="todaySummary"></div></div>
@@ -498,7 +503,7 @@ function updateProfileWeightUnit(){const unit=document.getElementById('pWeightUn
 function updateOnboardingWeightPlaceholder(){const unit=document.getElementById('oWeightUnit').value;document.getElementById('oWeightLabel').textContent=`Weight (${unit})`;document.getElementById('oWeight').placeholder=unit==='kg'?'81.6':'180'}
 function saveProfile(){const p=active();if(!p)return;p.name=document.getElementById('pName').value.trim()||'Profile';p.gender=document.getElementById('pGender').value;const unit=document.getElementById('pWeightUnit').value;const w=parseFloat(document.getElementById('pWeight').value);p.weightUnit=unit;p.weightLb=unit==='kg'?w/0.45359237:w;p.age=parseInt(document.getElementById('pAge').value)||25;p.heightFt=parseInt(document.getElementById('pHeightFt').value)||5;p.heightIn=parseInt(document.getElementById('pHeightIn').value)||0;p.deficit=parseFloat(document.getElementById('pDeficit').value)||.15;save();alert('Profile saved and calories recalculated.')}
 function saveQuestionnaire(){const p=active();p.questionnaire={work:document.getElementById('qWork').value,intensity:document.getElementById('qIntensity').value,commute:document.getElementById('qCommute').value,walk:document.getElementById('qWalk').value};save();alert('Activity profile saved.')}
-function showStartup(){const screen=document.getElementById('startupScreen'),app=document.querySelector('.app');if(!screen)return;document.getElementById('startupContent').innerHTML=`<div class="auth-card"><h1 class="startup-title">Loading Calorie Compass…</h1><p class="startup-sub">Preparing your account.</p><div class="app-version">Version 1.9.6</div></div>`;screen.style.display='flex';app?.classList.add('locked')}
+function showStartup(){const screen=document.getElementById('startupScreen'),app=document.querySelector('.app');if(!screen)return;document.getElementById('startupContent').innerHTML=`<div class="auth-card"><h1 class="startup-title">Loading Calorie Compass…</h1><p class="startup-sub">Preparing your account.</p><div class="app-version">Version 1.9.7</div></div>`;screen.style.display='flex';app?.classList.add('locked')}
 function activateStartupProfile(id){}
 function finishOnboarding(){}
 function openProfileModal(){showPage('profile')}
@@ -571,7 +576,7 @@ initUI();
 (function(){
   const baseItems=[["dashboard","Dashboard"],["calendar","Calendar"],["food","Food"],["exercise","Exercise"],["profile","Profile & Goal"],["data","Data & Backup"]];
   function loggedIn(){try{return !!(window.__calorieAuth?.user&&state?.activeId)}catch(e){return false}}
-  function admin(){return window.__calorieAuth?.user?.role==="admin"}
+  function admin(){return window.__calorieAdminVerified===true&&window.__calorieAuth?.user?.role==="admin"}
   function closeMenu(){const p=document.getElementById("mobileMenuPanel"),b=document.getElementById("mobileMenuBackdrop"),x=document.getElementById("mobileMenuButton");p?.classList.remove("open");b?.classList.remove("open");x?.setAttribute("aria-expanded","false");document.body.style.overflow=""}
   function openMenu(){refresh();const p=document.getElementById("mobileMenuPanel"),b=document.getElementById("mobileMenuBackdrop"),x=document.getElementById("mobileMenuButton");p?.classList.add("open");b?.classList.add("open");x?.setAttribute("aria-expanded","true");document.body.style.overflow="hidden"}
   function button(label,fn,klass="mobile-nav-item"){const el=document.createElement("button");el.type="button";el.className=klass;el.textContent=label;el.addEventListener("click",e=>{e.preventDefault();fn();closeMenu()});return el}
@@ -600,8 +605,8 @@ initUI();
 (function(){
 "use strict";
 
-const APP_VERSION="1.9.6";
-const UPDATE_KEY="1.9.6";
+const APP_VERSION="1.9.7";
+const UPDATE_KEY="1.9.7";
 const API_BASE=(window.CALORIE_API_URL||(!location.hostname.endsWith("github.io")?location.origin:"")).replace(/\/+$/,"");
 const AUTH_KEY="calorieCompass_auth_v4";
 const CLIENT_RESET_KEY="calorieCompass_client_reset_1_9_6";
@@ -615,7 +620,7 @@ try{
 const LEGACY_KEYS=[STORAGE_KEY,"calorieCompass_v1"];
 const TARGET_DIFF_KCAL=300;
 const TARGET_DIFF_RATIO=.12;
-let authSession=null;
+let authSession=null,serverAdminVerified=false;
 let setupStep=1,setupMode="account",setupImportedState=null,setupAccount=null;
 let setupDraft={account:{},body:{},target:{mode:"generated",custom:"",deficit:"0.15"},activity:{}};
 let cloudSaveTimer=null,cloudSaving=false,cloudDirty=false,noticeTimer=null,noticeChecking=false,minAccountAge=16,maxAccountAge=100,registrationsEnabled=true,adminRefreshTimer=null,adminUsersCache=[],adminCodeRedeeming=false,authFlowGeneration=0;
@@ -627,12 +632,12 @@ function authFlowIsCurrent(flow){return flow===authFlowGeneration}
 function getAuth(){try{return JSON.parse(localStorage.getItem(AUTH_KEY)||"null")}catch{return null}}
 function accountStateKey(userId=authSession?.user?.id){return userId?`calorieCompass_account_state_${String(userId)}_v1`:null}
 function cacheStateForAccount(userId=authSession?.user?.id){const key=accountStateKey(userId);if(key)try{localStorage.setItem(key,JSON.stringify(state))}catch{}}
-function setAuth(x){const previousId=authSession?.user?.id||null,nextId=x?.user?.id||null;if(previousId!==nextId){stopAdminRefresh();adminUsersCache=[];document.getElementById("adminModal")?.remove();closeAccountMenu?.();state=seed()}authSession=x||null;window.__calorieAuth=authSession;if(x)localStorage.setItem(AUTH_KEY,JSON.stringify(x));else localStorage.removeItem(AUTH_KEY);updateAuthUI()}
+function setAuth(x,{adminVerified=false}={}){const previousId=authSession?.user?.id||null,nextId=x?.user?.id||null;if(previousId!==nextId){stopAdminRefresh();adminUsersCache=[];document.getElementById("adminModal")?.remove();closeAccountMenu?.();state=seed()}authSession=x||null;serverAdminVerified=!!(x&&adminVerified&&x.user?.role==="admin");window.__calorieAuth=authSession;if(x)localStorage.setItem(AUTH_KEY,JSON.stringify(x));else localStorage.removeItem(AUTH_KEY);updateAuthUI()}
 function status(t,k=""){const e=document.getElementById("cloudSyncStatus");if(e){e.textContent=t;e.className="sync-pill"+(k?" "+k:"")}}
 function updateAuthUI(){
-  const adminVisible=authSession?.user?.role==="admin";
-  const a=document.getElementById("adminTopButton");if(a)a.style.display=adminVisible?"":"none";
-  const n=document.getElementById("adminNavButton");if(n)n.style.display=adminVisible?"":"none";
+  const adminVisible=serverAdminVerified&&authSession?.user?.role==="admin";window.__calorieAdminVerified=adminVisible;document.body.classList.toggle("admin-authorized",adminVisible);
+  const a=document.getElementById("adminTopButton");if(a){a.hidden=!adminVisible;a.style.setProperty("display",adminVisible?"":"none",adminVisible?"":"important")}
+  const n=document.getElementById("adminNavButton");if(n){n.hidden=!adminVisible;n.style.setProperty("display",adminVisible?"":"none",adminVisible?"":"important")}
   if(!authSession)status("Not signed in","");else status(apiConfigured()?("Signed in as "+authSession.user.username):"Cloud not configured",apiConfigured()?"":"warn");
   renderAccountMenu();window.refreshMobileMenu?.();
 }
@@ -640,7 +645,7 @@ function closeAccountMenu(){const p=document.getElementById("accountMenuPopover"
 function renderAccountMenu(){
   const pop=document.getElementById("accountMenuPopover");if(!pop)return;
   if(!authSession){pop.innerHTML="";closeAccountMenu();return}
-  pop.innerHTML=`<div class="account-popover-head"><strong>${safe(authSession.user.firstName||"")} ${safe(authSession.user.lastName||"")}</strong><div class="muted mini">@${safe(authSession.user.username||"")}</div></div><div class="account-menu-actions"><button class="btn" onclick="closeAccountMenu();showPage('profile')">Profile & Goal</button>${authSession.user.role==="admin"?'<button class="btn" onclick="closeAccountMenu();openAdminPanel()">Admin Controls</button>':''}<button class="btn logout-btn" onclick="logout()">Log out</button></div>`;
+  pop.innerHTML=`<div class="account-popover-head"><strong>${safe(authSession.user.firstName||"")} ${safe(authSession.user.lastName||"")}</strong><div class="muted mini">@${safe(authSession.user.username||"")}</div></div><div class="account-menu-actions"><button class="btn" onclick="closeAccountMenu();showPage('profile')">Profile & Goal</button>${serverAdminVerified&&authSession.user.role==="admin"?'<button class="btn" onclick="closeAccountMenu();openAdminPanel()">Admin Controls</button>':''}<button class="btn logout-btn" onclick="logout()">Log out</button></div>`;
 }
 window.closeAccountMenu=closeAccountMenu;
 window.toggleAccountMenu=function(){const pop=document.getElementById("accountMenuPopover");if(!pop||!authSession)return;renderAccountMenu();const open=!pop.classList.contains("open");closeAccountMenu();if(open){pop.classList.add("open");pop.setAttribute("aria-hidden","false");document.getElementById("accountMenuButton")?.setAttribute("aria-expanded","true")}};
@@ -852,11 +857,9 @@ async function completeAccountSetup(){
     clearTimeout(cloudSaveTimer);cloudDirty=false;cloudSaving=false;setAuth(null);state=seed();
     const r=await api("/api/auth/register",{method:"POST",skipAuth:true,body:JSON.stringify({...setupAccount,age:Number(setupDraft.body.age)})});
     if(!authFlowIsCurrent(flow))throw new Error("Account setup was cancelled by another sign-in action.");
-    const verified=await api("/api/auth/me",{authToken:r.token});
-    if(!authFlowIsCurrent(flow))throw new Error("Account setup was cancelled by another sign-in action.");
-    if(!verified?.user||String(verified.user.id)!==String(r.user?.id)||String(verified.user.username||"").toLowerCase()!==expected){setAuth(null);throw new Error("The new account session could not be verified. Please sign in again.")}
-    if(verified.user.role!=="user"){setAuth(null);throw new Error("New accounts must start as standard users. The server rejected this account session for safety.")}
-    setAuth({token:r.token,user:verified.user});
+    if(!r?.token||!r?.user||String(r.user.username||"").toLowerCase()!==expected){setAuth(null);throw new Error("The server returned the wrong new account. Setup was stopped for safety.")}
+    if(r.user.role!=="user"){setAuth(null);throw new Error("New accounts must start as standard users.")}
+    setAuth({token:r.token,user:r.user},{adminVerified:false});
   }
   const fresh=profileFromWizard();
   if(setupMode==="profile"){
@@ -897,12 +900,16 @@ async function signInCloud(){
     const r=await api("/api/auth/login",{method:"POST",skipAuth:true,body:JSON.stringify({username,password})});
     if(!authFlowIsCurrent(flow))return;
     if(!r?.token||!r?.user||String(r.user.username||"").toLowerCase()!==username.toLowerCase())throw new Error("The server returned the wrong account. Sign-in was cancelled for safety.");
-    const next={token:r.token,user:r.user};
-    if(r.state?.meta?.accountId&&String(r.state.meta.accountId)!==String(r.user.id))throw new Error("This account's cloud data did not match the signed-in account. Nothing was loaded.");
-    setAuth(next);
-    state=r.state?migrate(r.state):seed();
-    if(r.state){ensureActiveId();cacheStateForAccount(r.user.id);hideBusy();showApp();status("Synced","ok")}
-    else{hideBusy();setupMode="profile";setupStep=2;setupAccount=r.user;setupDraft={account:{firstName:r.user.firstName,lastName:r.user.lastName,username:r.user.username},body:{},target:{mode:"generated",custom:"",deficit:"0.15"},activity:{}};openWizard("profile")}
+    const verified=await api("/api/session",{authToken:r.token});
+    if(!authFlowIsCurrent(flow))return;
+    if(!verified?.user||String(verified.user.id)!==String(r.user.id)||String(verified.user.username||"").toLowerCase()!==username.toLowerCase())throw new Error("The server session did not match the account you signed into.");
+    const next={token:r.token,user:verified.user};
+    const cloudState=verified.state??r.state;
+    if(cloudState?.meta?.accountId&&String(cloudState.meta.accountId)!==String(verified.user.id))throw new Error("This account's cloud data did not match the signed-in account. Nothing was loaded.");
+    setAuth(next,{adminVerified:verified.user.role==="admin"});
+    state=cloudState?migrate(cloudState):seed();
+    if(cloudState){ensureActiveId();cacheStateForAccount(verified.user.id);hideBusy();showApp();status("Synced","ok")}
+    else{hideBusy();setupMode="profile";setupStep=2;setupAccount=verified.user;setupDraft={account:{firstName:verified.user.firstName,lastName:verified.user.lastName,username:verified.user.username},body:{},target:{mode:"generated",custom:"",deficit:"0.15"},activity:{}};openWizard("profile")}
   }catch(x){if(authFlowIsCurrent(flow)){hideBusy();setAuth(null);state=seed();e.textContent=x.message;e.classList.add("show")}}
   finally{clearTimeout(wake);if(btn&&authFlowIsCurrent(flow)){btn.disabled=false;btn.textContent="Sign in"}}
 }
@@ -916,9 +923,9 @@ async function trySession(flow){
     const r=await api("/api/session",{authToken:saved.token});
     if(!authFlowIsCurrent(flow))return false;
     if(!r?.user)throw new Error("Session verification failed.");
-    setAuth({token:saved.token,user:r.user});
+    setAuth({token:saved.token,user:r.user},{adminVerified:r.user.role==="admin"});
     if(r.state){if(r.state?.meta?.accountId&&String(r.state.meta.accountId)!==String(r.user.id))throw new Error("Cloud data belongs to a different account.");state=migrate(r.state);ensureActiveId();cacheStateForAccount(r.user.id);hideBusy();showApp();status("Synced","ok");return true}
-    state=seed();hideBusy();setupMode="profile";setupStep=2;setupAccount=r.user;setupDraft={account:{firstName:r.user.firstName,lastName:r.user.lastName,username:r.user.username},body:{},target:{mode:"generated",custom:"",deficit:"0.15"},activity:{}};openWizard("profile");return true
+    state=seed();hideBusy();setupMode="profile";setupStep=2;setupAccount=verified.user;setupDraft={account:{firstName:verified.user.firstName,lastName:verified.user.lastName,username:verified.user.username},body:{},target:{mode:"generated",custom:"",deficit:"0.15"},activity:{}};openWizard("profile");return true
   }catch(e){if(authFlowIsCurrent(flow)){hideBusy();localStorage.removeItem(AUTH_KEY);setAuth(null);state=seed()}return false}
 }
 async function bootstrapAuth(){const flow=beginAuthFlow();const ok=await trySession(flow);if(!ok&&authFlowIsCurrent(flow))showSignIn()}
@@ -980,7 +987,7 @@ function showUpdateLog(forceToken=""){
 function runBroadcastEffect(effect){if(effect==="confetti"){for(let i=0;i<34;i++){const s=document.createElement("span");s.className="mini-confetti";s.textContent=["●","◆","★"][i%3];s.style.left=(Math.random()*100)+"vw";s.style.animationDelay=(Math.random()*.5)+"s";document.body.appendChild(s);setTimeout(()=>s.remove(),2600)}}}
 function showBroadcast(b){if(document.getElementById("broadcastModal"))return;const el=document.createElement("div");el.id="broadcastModal";el.className="modal show";el.innerHTML=`<div class="modal-box ${b.effect==="pulse"?"broadcast-pulse":""}" style="max-width:560px"><div class="modal-head"><h2>${safe(b.title||"Calorie Compass")}</h2><button class="close" id="broadcastClose">×</button></div><p style="white-space:pre-wrap;line-height:1.6">${safe(b.message||"")}</p>${b.action&&b.action!=="none"?`<div class="small-actions" style="margin-top:16px"><button class="btn primary" id="broadcastAction">${safe(b.actionLabel||({dashboard:"Open dashboard",profile:"Open Profile & Goal",goalSetup:"Review calorie goal",refresh:"Refresh app",logout:"Log out"}[b.action]||"Continue"))}</button></div>`:""}</div>`;document.body.appendChild(el);runBroadcastEffect(b.effect);const seen=()=>{state.meta.seenBroadcastIds.push(b.id);state.meta.seenBroadcastIds=[...new Set(state.meta.seenBroadcastIds)].slice(-100);save({render:false});el.remove()};el.querySelector("#broadcastClose").onclick=seen;const ab=el.querySelector("#broadcastAction");if(ab)ab.onclick=()=>{seen();if(b.action==="dashboard")showPage("dashboard");if(b.action==="profile")showPage("profile");if(b.action==="goalSetup"){showPage("profile");setTimeout(()=>document.getElementById("targetSettingsCard")?.scrollIntoView({behavior:"smooth"}),50)}if(b.action==="refresh")location.reload();if(b.action==="logout")flushCloudSaveNow().finally(()=>window.logout())}}
 async function applyPendingTargetOverride(o){if(!o?.token)return;const p=active();if(!p)return;const existing=document.getElementById("targetOverrideModal");if(existing)return;snapshotPastRange(p,currentTarget(p));p.targetMode=o.mode==="generated"?"generated":"custom";if(p.targetMode==="custom"&&Number(o.target)>0)p.customCalorieTarget=Math.round(Number(o.target));p.dismissedTargetWarningKey="";p.lastResolvedTarget=Math.round(currentTarget(p));save();const target=Math.round(currentTarget(p)),el=document.createElement("div");el.id="targetOverrideModal";el.className="modal show";el.innerHTML=`<div class="modal-box" style="max-width:540px"><div class="modal-head"><div><h2>Your calorie target was updated</h2><div class="muted mini">Administrator change</div></div><button class="close" id="targetOverrideClose">×</button></div><p>Your daily calorie target is now <strong>${fmt(target)} kcal</strong> using the <strong>${p.targetMode==="custom"?"custom":"app-generated"}</strong> target method.</p><div class="small-actions" style="margin-top:14px"><button class="btn primary" id="targetOverrideOk">OK</button><button class="btn" id="targetOverrideProfile">View Profile & Goal</button></div></div>`;document.body.appendChild(el);const done=async()=>{el.remove();try{await api("/api/notices/ack-target",{method:"POST",body:JSON.stringify({token:o.token})})}catch{}};el.querySelector("#targetOverrideClose").onclick=done;el.querySelector("#targetOverrideOk").onclick=done;el.querySelector("#targetOverrideProfile").onclick=()=>{done();showPage("profile")}}
-async function checkServerNotices(){if(noticeChecking||!authSession||!apiConfigured())return;const noticeToken=authSession.token,noticeUserId=authSession.user?.id;noticeChecking=true;try{const r=await api("/api/notices");if(authSession?.token!==noticeToken||authSession?.user?.id!==noticeUserId)return;if(r.user){setAuth({token:noticeToken,user:r.user})}if(r.pendingTargetOverride?.token)await applyPendingTargetOverride(r.pendingTargetOverride);const forcedToken=r.pendingUpdate?.token||r.forceUpdateToken||"";const forced=forcedToken&&forcedToken!==(state.meta.lastForceUpdateToken||"");if(forced){closeAdminPanel();showUpdateLog(forcedToken);return}if(!state.meta.updateSeen?.[UPDATE_KEY]){closeAdminPanel();showUpdateLog("");return}const unseen=(r.broadcasts||[]).filter(b=>!state.meta.seenBroadcastIds.includes(b.id));if(unseen.length){closeAdminPanel();showBroadcast(unseen[0])}}catch{}finally{noticeChecking=false}}
+async function checkServerNotices(){if(noticeChecking||!authSession||!apiConfigured())return;const noticeToken=authSession.token,noticeUserId=authSession.user?.id;noticeChecking=true;try{const r=await api("/api/notices");if(authSession?.token!==noticeToken||authSession?.user?.id!==noticeUserId)return;if(r.user){setAuth({token:noticeToken,user:r.user},{adminVerified:r.user.role==="admin"})}if(r.pendingTargetOverride?.token)await applyPendingTargetOverride(r.pendingTargetOverride);const forcedToken=r.pendingUpdate?.token||r.forceUpdateToken||"";const forced=forcedToken&&forcedToken!==(state.meta.lastForceUpdateToken||"");if(forced){closeAdminPanel();showUpdateLog(forcedToken);return}if(!state.meta.updateSeen?.[UPDATE_KEY]){closeAdminPanel();showUpdateLog("");return}const unseen=(r.broadcasts||[]).filter(b=>!state.meta.seenBroadcastIds.includes(b.id));if(unseen.length){closeAdminPanel();showBroadcast(unseen[0])}}catch{}finally{noticeChecking=false}}
 
 function adminCodePattern(x){return /^CC-ADMIN-[A-Z2-9]{4}-[A-Z2-9]{4}-[A-Z2-9]{4}-[A-Z2-9]{4}$/i.test(String(x||"").trim())}
 window.maybeRedeemAdminCodeFromInput=async function(input){
@@ -991,14 +998,14 @@ window.maybeRedeemAdminCodeFromInput=async function(input){
   try{
     const r=await api("/api/admin/redeem-code",{method:"POST",body:JSON.stringify({code})});
     if(!r?.user||r.user.role!=="admin")throw new Error("The server did not grant administrator access.");
-    const token=authSession.token;setAuth({token,user:r.user});updateAuthUI();if(input)input.value="";renderFoodBrowser?.();renderFoodPickerResults?.();hideBusy();
+    const token=authSession.token;setAuth({token,user:r.user},{adminVerified:true});updateAuthUI();if(input)input.value="";renderFoodBrowser?.();renderFoodPickerResults?.();hideBusy();
     const old=document.getElementById("adminCodeSuccessModal");old?.remove();
     closeAccountMenu();setTimeout(()=>{updateAuthUI();openAdminPanel()},80);
     return true;
   }catch(e){hideBusy();alert(e.message);return false}finally{adminCodeRedeeming=false}
 };
 
-function isAdmin(){return authSession?.user?.role==="admin"}
+function isAdmin(){return serverAdminVerified&&authSession?.user?.role==="admin"}
 function stopAdminRefresh(){if(adminRefreshTimer){clearInterval(adminRefreshTimer);adminRefreshTimer=null}}
 function closeAdminPanel(){stopAdminRefresh();document.getElementById("adminModal")?.remove()}
 window.closeAdminPanel=closeAdminPanel;
