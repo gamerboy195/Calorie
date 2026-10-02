@@ -192,6 +192,23 @@ input, select, textarea { min-height: 44px; font-size: 16px !important; }
 @media(min-width:701px){#mobileMenuButton,#mobileMenuPanel,#mobileMenuBackdrop{display:none!important}}
 </style>
 
+
+<style id="v190-ui-fixes">
+.setup-progress{grid-template-columns:repeat(5,1fr)}
+.target-warning{position:relative;margin-top:14px;padding:12px 38px 12px 13px;border:1px solid #f7c56b;background:#fff8e8;color:#8a4b08;border-radius:12px;font-size:12px;line-height:1.5}.target-warning strong{display:block;margin-bottom:3px}.target-warning-close{position:absolute;right:8px;top:7px;border:0;background:transparent;color:inherit;font-size:20px;line-height:1;cursor:pointer}
+.goal-preview{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}.goal-preview>div{padding:12px;border:1px solid var(--line);border-radius:12px;background:#f8fafc;display:grid;gap:4px}.goal-preview span{font-size:11px;color:var(--muted);font-weight:700}.goal-preview strong{font-size:20px}
+.target-choice-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.target-choice-actions .btn{flex:1;min-width:180px}.update-list{display:grid;gap:8px;margin:14px 0}.update-list>div{padding:10px 12px;border-radius:11px;background:#f8fafc;border:1px solid var(--line);font-size:13px}.goal-choice-panel{margin-top:16px;padding:14px;border:1px solid #dfe3ea;border-radius:14px;background:#fff}.goal-choice-panel h3{margin:0 0 8px}.profile-question-grid{margin-top:14px}.admin-broadcast{padding:14px;border:1px solid #dfe3ea;border-radius:14px;background:#f8fafc}.admin-broadcast h3{margin:0 0 10px}
+.app-busy-overlay{position:fixed;inset:0;z-index:2147483647;background:rgba(245,247,251,.92);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:24px}.app-busy-overlay.show{display:flex}.app-busy-card{width:min(430px,100%);padding:28px;text-align:center;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 70px rgba(15,23,42,.18)}.app-busy-card h3{margin:14px 0 7px}.app-busy-card p{margin:0;color:var(--muted);line-height:1.5}.spinner{width:42px;height:42px;margin:auto;border:4px solid #e5e7eb;border-top-color:var(--primary);border-radius:50%;animation:ccspin .8s linear infinite}@keyframes ccspin{to{transform:rotate(360deg)}}
+.broadcast-pulse{animation:broadcastPulse .8s ease-in-out 2}@keyframes broadcastPulse{50%{transform:scale(1.025);box-shadow:0 30px 90px rgba(79,70,229,.28)}}.mini-confetti{position:fixed;top:-25px;z-index:2147483647;font-size:18px;pointer-events:none;animation:confettiFall 2.4s ease-in forwards}@keyframes confettiFall{to{transform:translateY(110vh) rotate(720deg);opacity:.2}}
+.protein-progress>div{background:linear-gradient(90deg,#0f9d58,#22c55e)}
+.mobile-menu-user{margin:-8px 6px 16px;color:#667085;font-size:12px}.mobile-logout{margin-top:16px!important;border-color:#fecaca!important;background:#fff5f5!important;color:#b91c1c!important}
+@media(max-width:700px){
+  .topbar{height:68px!important;padding:0 12px 0 72px!important;justify-content:flex-start!important}.topbar h1{font-size:20px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.top-actions{display:none!important}.content{padding:16px!important}.hero{padding:18px!important}.hero h2{font-size:22px!important}.grid-4{grid-template-columns:1fr!important}.grid-3{grid-template-columns:1fr!important}.goal-preview{grid-template-columns:1fr}.target-choice-actions .btn{min-width:0;width:100%;flex-basis:100%}
+  #mobileMenuButton{top:max(10px,env(safe-area-inset-top))!important;left:12px!important;right:auto!important;width:48px!important;height:48px!important}
+  #mobileMenuPanel{left:0!important;right:auto!important;box-shadow:10px 0 32px rgba(0,0,0,.22)!important;padding:78px 12px 20px!important}
+  .dashboard-daybar{margin-top:2px}.sync-pill{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+}
+</style>
 </head>
 <body>
 <div id="startupScreen" class="startup-screen">
@@ -225,13 +242,13 @@ input, select, textarea { min-height: 44px; font-size: 16px !important; }
   <div class="profile-switch"><small>Active profile</small><select id="profileSelect" class="profile-select" onchange="switchProfile(this.value)"></select></div>
   <nav class="nav">
     <button class="active" data-page="dashboard">Dashboard <span class="info-btn" title="What does Dashboard track?" onclick="event.stopPropagation();showInfo('Dashboard','Your daily overview: calories eaten, remaining calories, exercise logged, current weight, your estimated calorie target, and your recent activity.')">i</span></button>
-    <button data-page="calendar">Calendar <span class="info-btn" title="What does Calendar track?" onclick="event.stopPropagation();showInfo('Calendar','A day-by-day view of your food and exercise logs. Each day can show whether your recorded food intake was under, near, or over your calorie target.')">i</span></button>
+    <button data-page="calendar">Calendar <span class="info-btn" title="What does Calendar track?" onclick="event.stopPropagation();showInfo('Calendar','A day-by-day view of your food and exercise logs. Each day uses the calorie target saved for that date, so later goal changes do not rewrite your history.')">i</span></button>
     <button data-page="food">Food <span class="info-btn" title="What does Food track?" onclick="event.stopPropagation();showInfo('Food','Use this section to search restaurant foods and common foods, add portions, manually enter calories, and review what you ate on a specific date.')">i</span></button>
     <button data-page="exercise">Exercise <span class="info-btn" title="What does Exercise track?" onclick="event.stopPropagation();showInfo('Exercise','Log workouts by exercise, duration, and intensity. The app estimates calories burned using your body weight and an activity MET value unless you enter your own calorie number.')">i</span></button>
     <button data-page="profile">Profile & Goal <span class="info-btn" title="What does Profile & Goal track?" onclick="event.stopPropagation();showInfo('Profile & Goal','Your saved weight, height, age, gender, selected calorie deficit, and daily-activity questionnaire. These are used to estimate BMR, maintenance calories, and your calorie target.')">i</span></button>
     <button data-page="data">Data <span class="info-btn" title="What does Data track?" onclick="event.stopPropagation();showInfo('Data','Backup and recovery tools for your profiles and logs. Export your data to JSON, import a previous backup, or reset all app data stored in this browser.')">i</span></button>
   </nav>
-  <div class="sidebar-foot">Cloud account sync • browser storage is kept as a local cache.<div class="app-version">Version 1.8.1</div></div>
+  <div class="sidebar-foot">Cloud account sync • browser storage is kept as a local cache.<div class="app-version">Version 1.9.0</div></div>
 </aside>
 <main class="main">
   <header class="topbar"><h1 id="pageTitle">Dashboard</h1><div class="top-actions"><span id="cloudSyncStatus" class="sync-pill">Not signed in</span><button id="adminTopButton" class="btn" style="display:none" onclick="openAdminPanel()">Admin</button><button class="btn" onclick="quickLog()">+ Quick Log</button><button class="btn primary" onclick="openProfileModal()">Profiles</button><button class="btn" onclick="logout()">Log out</button></div></header>
@@ -249,7 +266,7 @@ input, select, textarea { min-height: 44px; font-size: 16px !important; }
         </div>
       </div>
       <div class="hero card" id="dashboardHero"></div>
-      <div id="dashboardVersionHome" class="muted mini" style="margin:10px 2px 0;font-weight:700;">Calorie Compass • Version 1.8.1</div>
+      <div id="dashboardVersionHome" class="muted mini" style="margin:10px 2px 0;font-weight:700;">Calorie Compass • Version 1.9.0</div>
       <div class="grid grid-4" style="margin-top:16px" id="kpis"></div>
       <div class="two-col" style="margin-top:16px">
         <div class="card"><div class="between"><h3 class="heading-with-info"><span id="dashboardTodayHeading">Today <span class="info-btn" title="What does Today track?" onclick="showInfo('Dashboard day','This card compares your logged food intake with your daily calorie target and shows exercise and quick-add controls for the date selected above. You can move backward and forward by day and edit historical days.')">i</span></h3><span id="todayStatus"></span></div><div id="todaySummary"></div></div>
@@ -259,7 +276,7 @@ input, select, textarea { min-height: 44px; font-size: 16px !important; }
     </section>
 
     <section id="page-calendar" class="page">
-      <div class="card"><div class="monthbar"><button class="btn" onclick="moveMonth(-1)">←</button><div class="title" id="monthTitle"></div><button class="btn" onclick="moveMonth(1)">→</button></div><div class="calendar" id="calendarGrid"></div><div class="legend" style="margin-top:10px"><span><i style="background:#22c55e"></i>under goal</span><span><i style="background:#f59e0b"></i>near goal</span><span><i style="background:#ef4444"></i>over goal</span></div></div>
+      <div class="card"><div class="monthbar"><button class="btn" onclick="moveMonth(-1)">←</button><div class="title" id="monthTitle"></div><button class="btn" onclick="moveMonth(1)">→</button></div><div class="calendar" id="calendarGrid"></div><div class="legend" style="margin-top:10px"><span><i style="background:#22c55e"></i>within target</span><span><i style="background:#ef4444"></i>above target</span></div></div>
       <div class="card" style="margin-top:16px"><h3 id="selectedDateTitle">Day details</h3><div id="selectedDateDetails"></div></div>
     </section>
 
@@ -474,7 +491,7 @@ function updateProfileWeightUnit(){const unit=document.getElementById('pWeightUn
 function updateOnboardingWeightPlaceholder(){const unit=document.getElementById('oWeightUnit').value;document.getElementById('oWeightLabel').textContent=`Weight (${unit})`;document.getElementById('oWeight').placeholder=unit==='kg'?'81.6':'180'}
 function saveProfile(){const p=active();if(!p)return;p.name=document.getElementById('pName').value.trim()||'Profile';p.gender=document.getElementById('pGender').value;const unit=document.getElementById('pWeightUnit').value;const w=parseFloat(document.getElementById('pWeight').value);p.weightUnit=unit;p.weightLb=unit==='kg'?w/0.45359237:w;p.age=parseInt(document.getElementById('pAge').value)||25;p.heightFt=parseInt(document.getElementById('pHeightFt').value)||5;p.heightIn=parseInt(document.getElementById('pHeightIn').value)||0;p.deficit=parseFloat(document.getElementById('pDeficit').value)||.15;save();alert('Profile saved and calories recalculated.')}
 function saveQuestionnaire(){const p=active();p.questionnaire={work:document.getElementById('qWork').value,intensity:document.getElementById('qIntensity').value,commute:document.getElementById('qCommute').value,walk:document.getElementById('qWalk').value};save();alert('Activity profile saved.')}
-function showStartup(){const screen=document.getElementById('startupScreen'),app=document.querySelector('.app');if(!screen)return;if(state.profiles.length){document.getElementById('startupContent').innerHTML=`<h1 class="startup-title">Welcome back</h1><p class="startup-sub">Select the profile you want to use for this session. Each profile keeps its own weight history, food logs, exercise logs, and calorie goal.</p><div class="startup-section stack">${state.profiles.map(p=>{const c=calculate(p);return `<div class="profile-choice"><div><strong>${esc(p.name)}</strong><div class="muted mini">${p.weightUnit==='kg'?lbsToKg(p.weightLb).toFixed(1)+' kg':p.weightLb.toFixed(1)+' lb'} • age ${p.age} • target ${fmt(c.target)} kcal/day</div></div><button class="btn primary" onclick="activateStartupProfile('${p.id}')">Select</button></div>`}).join('')}</div><div class="startup-actions">${state.profiles.length<3?'<button class="btn" onclick="createProfile()">+ Create another profile</button>':''}</div>`}else{document.getElementById('startupContent').innerHTML=`<h1 class="startup-title">Let’s set up your first profile</h1><p class="startup-sub">Start by answering your basic information and daily-activity questions. The app will use those answers to calculate your estimated maintenance calories and your selected deficit target.</p><div class="startup-actions"><button class="btn primary" onclick="createProfile()">Create my profile</button></div><div class="app-version">Version 1.8.1</div><div class="required-note">You can create up to 3 profiles later and switch between them from the Profiles button.</div>`}screen.style.display='flex';app?.classList.add('locked')}
+function showStartup(){const screen=document.getElementById('startupScreen'),app=document.querySelector('.app');if(!screen)return;if(state.profiles.length){document.getElementById('startupContent').innerHTML=`<h1 class="startup-title">Welcome back</h1><p class="startup-sub">Select the profile you want to use for this session. Each profile keeps its own weight history, food logs, exercise logs, and calorie goal.</p><div class="startup-section stack">${state.profiles.map(p=>{const c=calculate(p);return `<div class="profile-choice"><div><strong>${esc(p.name)}</strong><div class="muted mini">${p.weightUnit==='kg'?lbsToKg(p.weightLb).toFixed(1)+' kg':p.weightLb.toFixed(1)+' lb'} • age ${p.age} • target ${fmt(c.target)} kcal/day</div></div><button class="btn primary" onclick="activateStartupProfile('${p.id}')">Select</button></div>`}).join('')}</div><div class="startup-actions">${state.profiles.length<3?'<button class="btn" onclick="createProfile()">+ Create another profile</button>':''}</div>`}else{document.getElementById('startupContent').innerHTML=`<h1 class="startup-title">Let’s set up your first profile</h1><p class="startup-sub">Start by answering your basic information and daily-activity questions. The app will use those answers to calculate your estimated maintenance calories and your selected deficit target.</p><div class="startup-actions"><button class="btn primary" onclick="createProfile()">Create my profile</button></div><div class="app-version">Version 1.9.0</div><div class="required-note">You can create up to 3 profiles later and switch between them from the Profiles button.</div>`}screen.style.display='flex';app?.classList.add('locked')}
 function activateStartupProfile(id){state.activeId=id;save();selectedDate=todayISO();dashboardDate=todayISO();document.getElementById('startupScreen').style.display='none';document.querySelector('.app')?.classList.remove('locked');selectedDate=todayISO();document.getElementById('foodDate').value=selectedDate;document.getElementById('exerciseDate').value=selectedDate;renderAll()}
 function finishOnboarding(){if(state.profiles.length>=3)return alert('You can have up to 3 profiles.');const name=document.getElementById('oName').value.trim();const gender=document.getElementById('oGender').value;const unit=document.getElementById('oWeightUnit').value;const enteredWeight=parseFloat(document.getElementById('oWeight').value);const age=parseInt(document.getElementById('oAge').value);const ft=parseInt(document.getElementById('oHeightFt').value);const inch=parseInt(document.getElementById('oHeightIn').value)||0;if(!name||!(enteredWeight>0)||!(age>=13&&age<=100)||!(ft>=3&&ft<=8)||!(inch>=0&&inch<=11))return alert('Please complete every required field with valid values.');const p=profileTemplate(name);p.gender=gender;p.weightUnit=unit;p.weightLb=unit==='kg'?enteredWeight/0.45359237:enteredWeight;p.age=age;p.heightFt=ft;p.heightIn=inch;p.deficit=parseFloat(document.getElementById('oDeficit').value);p.questionnaire={work:document.getElementById('oWork').value,intensity:document.getElementById('oIntensity').value,commute:document.getElementById('oCommute').value,walk:document.getElementById('oWalk').value};p.weights.push({date:todayISO(),lb:p.weightLb});state.profiles.push(p);state.activeId=p.id;selectedDate=todayISO();dashboardDate=todayISO();closeModal('onboardingModal');save();document.getElementById('startupScreen').style.display='none';document.querySelector('.app')?.classList.remove('locked');renderAll();showPage('dashboard')}
 function openProfileModal(){renderProfileCards();document.getElementById('profileModal').classList.add('show')}
@@ -544,63 +561,77 @@ initUI();
 
 
 
-<script id="mobile-menu-v181">
+<script id="mobile-menu-v190">
 (function(){
   const baseItems=[["dashboard","Dashboard"],["calendar","Calendar"],["food","Food"],["exercise","Exercise"],["profile","Profile & Goal"],["data","Data & Backup"]];
-  function loggedIn(){try{return !!(window.__calorieAuth?.user && state?.activeId)}catch(e){return false}}
+  function loggedIn(){try{return !!(window.__calorieAuth?.user&&state?.activeId)}catch(e){return false}}
   function admin(){return window.__calorieAuth?.user?.role==="admin"}
   function closeMenu(){const p=document.getElementById("mobileMenuPanel"),b=document.getElementById("mobileMenuBackdrop"),x=document.getElementById("mobileMenuButton");p?.classList.remove("open");b?.classList.remove("open");x?.setAttribute("aria-expanded","false");document.body.style.overflow=""}
-  function openMenu(){const p=document.getElementById("mobileMenuPanel"),b=document.getElementById("mobileMenuBackdrop"),x=document.getElementById("mobileMenuButton");p?.classList.add("open");b?.classList.add("open");x?.setAttribute("aria-expanded","true");document.body.style.overflow="hidden"}
-  function build(){
-    if(innerWidth>700)return;
+  function openMenu(){refresh();const p=document.getElementById("mobileMenuPanel"),b=document.getElementById("mobileMenuBackdrop"),x=document.getElementById("mobileMenuButton");p?.classList.add("open");b?.classList.add("open");x?.setAttribute("aria-expanded","true");document.body.style.overflow="hidden"}
+  function button(label,fn,klass="mobile-nav-item"){const el=document.createElement("button");el.type="button";el.className=klass;el.textContent=label;el.addEventListener("click",e=>{e.preventDefault();fn();closeMenu()});return el}
+  function refresh(){
+    if(innerWidth>700){closeMenu();return}
     let x=document.getElementById("mobileMenuButton");
-    if(!x){x=document.createElement("button");x.id="mobileMenuButton";x.type="button";x.textContent="☰";x.setAttribute("aria-label","Open menu");document.body.appendChild(x);x.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();document.getElementById("mobileMenuPanel")?.classList.contains("open")?closeMenu():openMenu()})}
+    if(!x){x=document.createElement("button");x.id="mobileMenuButton";x.type="button";x.textContent="☰";x.setAttribute("aria-label","Open menu");x.setAttribute("aria-expanded","false");document.body.appendChild(x);x.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();document.getElementById("mobileMenuPanel")?.classList.contains("open")?closeMenu():openMenu()})}
     let p=document.getElementById("mobileMenuPanel");if(!p){p=document.createElement("aside");p.id="mobileMenuPanel";document.body.appendChild(p)}
     let b=document.getElementById("mobileMenuBackdrop");if(!b){b=document.createElement("div");b.id="mobileMenuBackdrop";document.body.appendChild(b);b.addEventListener("click",closeMenu)}
     if(!loggedIn()){x.classList.remove("visible");closeMenu();return}
     x.classList.add("visible");
-    p.innerHTML='<div class="mobile-menu-title">Menu</div>';
-    const items=baseItems.slice();if(admin())items.push(["__admin__","Admin"]);
-    items.forEach(([page,label])=>{const item=document.createElement("button");item.type="button";item.className="mobile-nav-item";item.textContent=label;item.addEventListener("click",e=>{e.preventDefault();if(page==="__admin__")window.openAdminPanel?.();else showPage(page);closeMenu()});p.appendChild(item)});
+    const u=window.__calorieAuth?.user;
+    p.innerHTML=`<div class="mobile-menu-title">Calorie Compass</div><div class="mobile-menu-user">Signed in as <strong>${String(u?.username||"").replace(/[&<>"']/g,"")}</strong></div>`;
+    baseItems.forEach(([page,label])=>p.appendChild(button(label,()=>showPage(page))));
+    p.appendChild(button("+ Quick Log",()=>window.quickLog?.()));
+    p.appendChild(button("Profiles",()=>window.openProfileModal?.()));
+    if(admin())p.appendChild(button("Admin controls",()=>window.openAdminPanel?.()));
+    p.appendChild(button("Log out",()=>window.logout?.(),"mobile-nav-item mobile-logout"));
   }
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>{build();setTimeout(build,400)});
-  else {build();setTimeout(build,400)}
-  setInterval(build,1000);addEventListener("resize",build);
+  window.refreshMobileMenu=refresh;
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",refresh);else refresh();
+  addEventListener("resize",refresh);
 })();
 </script>
 
 
-<script id="cloud-account-v181">
+
+<script id="cloud-account-v190">
 (function(){
 "use strict";
 
-const API_BASE=(window.CALORIE_API_URL || (!location.hostname.endsWith("github.io") ? location.origin : "")).replace(/\/+$/,"");
+const APP_VERSION="1.9.0";
+const UPDATE_KEY="1.9.0";
+const API_BASE=(window.CALORIE_API_URL||(!location.hostname.endsWith("github.io")?location.origin:"")).replace(/\/+$/,"");
 const AUTH_KEY="calorieCompass_auth_v1";
 const LEGACY_KEYS=[STORAGE_KEY,"calorieCompass_v1"];
+const TARGET_DIFF_KCAL=300;
+const TARGET_DIFF_RATIO=.12;
 let authSession=null;
 let setupStep=1,setupMode="account",setupImportedState=null,setupAccount=null;
-let setupDraft={account:{},body:{},activity:{}};
+let setupDraft={account:{},body:{},target:{mode:"generated",custom:"",deficit:"0.15"},activity:{}};
+let cloudSaveTimer=null,cloudSaving=false,cloudDirty=false,noticeTimer=null;
 window.__calorieAuth=null;
 
 function apiConfigured(){return !!API_BASE}
-function getAuth(){try{return JSON.parse(localStorage.getItem(AUTH_KEY)||"null")}catch(e){return null}}
-function setAuth(v){authSession=v||null;window.__calorieAuth=authSession;if(v)localStorage.setItem(AUTH_KEY,JSON.stringify(v));else localStorage.removeItem(AUTH_KEY);updateAuthUI()}
-async function api(path,opts){
-  if(!apiConfigured())throw new Error("Cloud server is not configured yet.");
-  const o=Object.assign({headers:{}},opts||{});o.headers=Object.assign({"Content-Type":"application/json"},o.headers||{});
-  if(authSession?.token)o.headers.Authorization="Bearer "+authSession.token;
-  const r=await fetch(API_BASE+path,o);let b=null;try{b=await r.json()}catch(e){}
-  if(!r.ok)throw new Error(b?.error||("Request failed ("+r.status+")"));return b;
-}
-function status(t,k){const e=document.getElementById("cloudSyncStatus");if(e){e.textContent=t;e.className="sync-pill"+(k?" "+k:"")}}
+function getAuth(){try{return JSON.parse(localStorage.getItem(AUTH_KEY)||"null")}catch{return null}}
+function setAuth(x){authSession=x||null;window.__calorieAuth=authSession;if(x)localStorage.setItem(AUTH_KEY,JSON.stringify(x));else localStorage.removeItem(AUTH_KEY);updateAuthUI()}
+function status(t,k=""){const e=document.getElementById("cloudSyncStatus");if(e){e.textContent=t;e.className="sync-pill"+(k?" "+k:"")}}
 function updateAuthUI(){
   const a=document.getElementById("adminTopButton");if(a)a.style.display=authSession?.user?.role==="admin"?"":"none";
-  if(!authSession)status("Not signed in","");
-  else status(apiConfigured()?("Signed in as "+authSession.user.username):"Cloud not configured",apiConfigured()?"":"warn");
+  if(!authSession)status("Not signed in","");else status(apiConfigured()?("Signed in as "+authSession.user.username):"Cloud not configured",apiConfigured()?"":"warn");
+  window.refreshMobileMenu?.();
 }
 function v(id){return document.getElementById(id)?.value??""}
 function err(m){const e=document.getElementById("wizardError");if(e){e.textContent=m;e.classList.add("show")}else alert(m)}
 function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function val(id,x){const e=document.getElementById(id);if(e&&x!==undefined&&x!==null)e.value=x}
+function checked(id,x){const e=document.getElementById(id);if(e)e.checked=!!x}
+function boolVal(id,def=true){const x=v(id);return x?x!=="no":def}
+function clamp(n,a,b){return Math.min(b,Math.max(a,Number(n)||0))}
+function api(path,opts={}){
+  if(!apiConfigured())return Promise.reject(new Error("Cloud server is not configured. Set CALORIE_API_URL in config.js."));
+  const headers=Object.assign({"Content-Type":"application/json"},opts.headers||{});if(authSession?.token)headers.Authorization="Bearer "+authSession.token;
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),35000);
+  return fetch(API_BASE+path,Object.assign({},opts,{headers,signal:controller.signal})).then(async r=>{clearTimeout(timer);let data={};try{data=await r.json()}catch{}if(!r.ok)throw new Error(data.error||`Server error (${r.status})`);return data}).catch(e=>{clearTimeout(timer);if(e?.name==="AbortError")throw new Error("The cloud server took too long to respond. Try again in a moment.");throw e});
+}
 
 function proteinEstimate(f){
   if(Number.isFinite(Number(f?.protein)))return Number(f.protein);
@@ -612,282 +643,324 @@ function proteinEstimate(f){
   return Math.max(0,Math.round(cal/30));
 }
 function proteinGoalFor(p){return Math.round(Math.max(90,Math.min(220,lbsToKg(Number(p.weightLb)||180)*1.6)))}
-function migrate(s){
-  let x;try{x=JSON.parse(JSON.stringify(s))}catch(e){return seed()}
-  if(!x?.profiles)return seed();x.version=5;
-  x.profiles=x.profiles.slice(0,3).map(p=>{
-    p.questionnaire=Object.assign({
-      stepsBand:"4-8k",offDayStepsBand:"4-8k",stepsIncludeWork:true,walkPace:"normal",
-      work:"light",workDays:5,workHours:8,standingHours:2,liftingMinutes:0,
-      commute:"car",commuteMinutes:20,commuteDays:5,schoolDays:5,schoolHours:4,
-      schoolWalkingMinutes:0,schoolStandingHours:0,exerciseDays:0,exerciseMinutes:30,
-      exerciseIntensity:"moderate",exerciseType:"walking",householdMinutes:30,householdDays:3,
-      stairsBand:"1-2",sittingHours:8,weekendActivity:"same",sleepHours:"7"
-    },p.questionnaire||{});
-    p.weightLb=Number(p.weightLb)||180;p.weightUnit=p.weightUnit||"lb";p.age=Number(p.age)||25;p.heightFt=Number(p.heightFt)||5;p.heightIn=Number(p.heightIn)||10;p.deficit=Number(p.deficit)||.15;
-    p.weights=Array.isArray(p.weights)?p.weights:[];p.foods=Array.isArray(p.foods)?p.foods:[];p.exercises=Array.isArray(p.exercises)?p.exercises:[];
-    p.proteinGoal=Number(p.proteinGoal)||proteinGoalFor(p);p.foods=p.foods.map(f=>{f.protein=Number.isFinite(Number(f.protein))?Number(f.protein):proteinEstimate(f);return f});return p;
-  });return x;
-}
-function oldBrowserData(){for(const k of LEGACY_KEYS)try{const raw=localStorage.getItem(k);if(raw){const x=JSON.parse(raw);if(x?.profiles?.length)return migrate(x)}}catch(e){}return null}
-
 function stepMid(b){return {"under-1k":700,"1-2k":1500,"2-4k":3000,"4-6k":5000,"6-8k":7000,"8-10k":9000,"10-12k":11000,"12-15k":13500,"15-18k":16500,"18k+":19000}[b]||5000}
 function stairsMid(b){return {"none":0,"1-2":2,"3-5":4,"6-10":8,"10-20":15,"20+":25}[b]||0}
 function met(t,i){const b={walking:3.2,brisk:4.3,cycling:7,weights:5,hiit:9,sports:7.5,swimming:6.5,other:5}[t]||5;return i==="low"?b*.82:i==="high"?b*1.15:b}
-function pace(v){return v==="slow"?.9:v==="brisk"?1.12:1}
+function pace(x){return x==="slow"?.9:x==="brisk"?1.12:1}
+function yn(v,def=true){return v===undefined?def:!!v}
 
-/* Detailed starting TDEE estimate. Real weight trend should be used later to calibrate it. */
-calculate=function(p){
+function generatedCalculation(p){
   const q=p.questionnaire||{},kg=lbsToKg(Number(p.weightLb)||180),cm=inToCm((Number(p.heightFt)||5)*12+(Number(p.heightIn)||10)),age=Number(p.age)||25;
   const sex=p.gender==="male"?5:p.gender==="female"?-161:-78,bmr=10*kg+6.25*cm-5*age+sex;
   let tdee=bmr*1.20;
-  const workDays=Math.min(7,Math.max(0,Number(q.workDays)||0))/7,schoolDays=Math.min(7,Math.max(0,Number(q.schoolDays)||0))/7,busy=Math.min(1,workDays+schoolDays);
+  const workDays=clamp(q.workDays,0,7)/7,schoolDays=clamp(q.schoolDays,0,7)/7,busy=Math.min(1,workDays+schoolDays);
   const steps=stepMid(q.stepsBand||"4-8k")*busy+stepMid(q.offDayStepsBand||q.stepsBand||"4-8k")*(1-busy);
   tdee+=Math.max(0,steps-3000)*0.00050*kg*pace(q.walkPace||"normal");
-  const wh=Math.max(0,Number(q.workHours)||0),wadd={sedentary:0,light:22,moderate:55,high:95}[q.work]??22;
-  tdee+=wh*wadd*workDays;
-  tdee+=Math.max(0,Number(q.standingHours)||0)*18*workDays;
-  tdee+=Math.max(0,Number(q.liftingMinutes)||0)*2.2*workDays;
-  const cd=Math.min(7,Math.max(0,Number(q.commuteDays)||0))/7,cmn=Math.max(0,Number(q.commuteMinutes)||0);
-  if(q.commute==="walk")tdee+=kcalFromMET(3.2,kg,cmn*2)*cd;
+  const workIncluded=yn(q.stepsIncludeWork,true),wh=Math.max(0,Number(q.workHours)||0),workBase={sedentary:0,light:22,moderate:55,high:95}[q.work]??22;
+  tdee+=wh*workBase*workDays*(workIncluded?.62:1);
+  tdee+=Math.max(0,Number(q.standingHours)||0)*18*workDays*(workIncluded?.75:1);
+  const liftIntensity={light:.8,moderate:1,heavy:1.25}[q.liftingIntensity||"moderate"]||1;
+  tdee+=Math.max(0,Number(q.liftingMinutes)||0)*2.2*liftIntensity*workDays;
+  tdee+=Math.max(0,Number(q.workBreakWalkingMinutes)||0)*2.4*workDays*(workIncluded?.4:1);
+  const cd=clamp(q.commuteDays,0,7)/7,cmn=Math.max(0,Number(q.commuteMinutes)||0),commuteIncluded=yn(q.stepsIncludeCommute,true);
+  if(q.commute==="walk")tdee+=kcalFromMET(3.2,kg,cmn*2)*cd*(commuteIncluded?.35:1);
   if(q.commute==="bike")tdee+=kcalFromMET(5.5,kg,cmn*2)*cd;
   if(q.commute==="transit")tdee+=cmn*2*.25*cd;
-  tdee+=kcalFromMET(3.2,kg,Math.max(0,Number(q.schoolWalkingMinutes)||0))*schoolDays;
+  const schoolIncluded=yn(q.stepsIncludeSchool,true);
+  tdee+=kcalFromMET(3.2,kg,Math.max(0,Number(q.schoolWalkingMinutes)||0))*schoolDays*(schoolIncluded?.3:1);
   tdee+=Math.max(0,Number(q.schoolStandingHours)||0)*15*schoolDays;
-  const ed=Math.min(7,Math.max(0,Number(q.exerciseDays)||0))/7,emin=Math.max(0,Number(q.exerciseMinutes)||0);
-  tdee+=kcalFromMET(met(q.exerciseType||"other",q.exerciseIntensity||"moderate"),kg,emin)*ed;
-  tdee+=Math.max(0,Number(q.householdMinutes)||0)*2.4*(Math.max(0,Number(q.householdDays)||0)/7);
+  const ed=clamp(q.exerciseDays,0,7)/7,emin=Math.max(0,Number(q.exerciseMinutes)||0),exerciseIncluded=yn(q.stepsIncludeExercise,false);
+  let exerciseScale=1;if(exerciseIncluded)exerciseScale=/walking|brisk/.test(q.exerciseType||"")?.35:.82;
+  tdee+=kcalFromMET(met(q.exerciseType||"other",q.exerciseIntensity||"moderate"),kg,emin)*ed*exerciseScale;
+  const householdScale=yn(q.stepsIncludeErrands,true)?.5:1;
+  tdee+=Math.max(0,Number(q.householdMinutes)||0)*2.4*(clamp(q.householdDays,0,7)/7)*householdScale;
+  tdee+=Math.max(0,Number(q.manualActivityMinutes)||0)*3.1*(clamp(q.manualActivityDays,0,7)/7);
+  tdee+=Math.max(0,Number(q.standingOutsideHours)||0)*12;
   tdee+=stairsMid(q.stairsBand||"1-2")*3;
   tdee*=q.weekendActivity==="less"?.985:q.weekendActivity==="more"?1.02:1;
-  const deficit=Number(p.deficit)||.15,raw=tdee*(1-deficit),floor=p.gender==="female"?1200:p.gender==="male"?1500:1300;
-  return {bmr,tdee,target:Math.max(raw,floor),raw,floor,deficit,cm,kg,steps};
+  const deficit=Number(p.deficit)||.15,raw=tdee*(1-deficit),floor=p.gender==="female"?1200:p.gender==="male"?1500:1300,generatedTarget=Math.max(raw,floor);
+  return {bmr,tdee,target:generatedTarget,generatedTarget,raw,floor,deficit,cm,kg,steps};
+}
+function currentTarget(p){const g=generatedCalculation(p).target;return p.targetMode==="custom"&&Number(p.customCalorieTarget)>0?Number(p.customCalorieTarget):g}
+calculate=function(p){const c=generatedCalculation(p);c.target=currentTarget(p);c.generatedTarget=c.generatedTarget||c.raw;return c};
+
+function targetDiffInfo(p){
+  const g=Math.round(generatedCalculation(p).target),custom=Math.round(Number(p.customCalorieTarget)||0),diff=Math.abs(custom-g),ratio=g?diff/g:0,key=`${g}:${custom}`;
+  return {generated:g,custom,diff,ratio,key,significant:p.targetMode==="custom"&&custom>0&&(diff>=TARGET_DIFF_KCAL||ratio>=TARGET_DIFF_RATIO)};
+}
+function targetHistoryDates(p){
+  const dates=[...(p.foods||[]).map(x=>x.date),...(p.exercises||[]).map(x=>x.date),...(p.weights||[]).map(x=>x.date),...Object.keys(p.targetHistory||{})].filter(Boolean).sort();
+  return dates;
+}
+function snapshotPastRange(p,target){
+  target=Math.round(Number(target)||0);if(!(target>0))return;
+  p.targetHistory=p.targetHistory||{};
+  const dates=targetHistoryDates(p),end=todayISO();if(!dates.length)return;
+  let d=new Date(dates[0]+"T12:00:00"),last=new Date(end+"T12:00:00");
+  while(d<last){const key=localDateISO(d);if(!p.targetHistory[key])p.targetHistory[key]=target;d.setDate(d.getDate()+1)}
+}
+function prepareTargetHistory(p){
+  const now=Math.round(currentTarget(p)),old=Math.round(Number(p.lastResolvedTarget)||now);
+  snapshotPastRange(p,old);p.lastResolvedTarget=now;
+}
+function targetForDate(p,date){
+  p.targetHistory=p.targetHistory||{};
+  if(date<todayISO()){
+    if(!p.targetHistory[date])p.targetHistory[date]=Math.round(Number(p.lastResolvedTarget)||currentTarget(p));
+    return Number(p.targetHistory[date]);
+  }
+  return currentTarget(p);
+}
+function migrate(s){
+  let x;try{x=JSON.parse(JSON.stringify(s))}catch{return seed()}
+  if(!x?.profiles)return seed();
+  const priorVersion=Number(x.version)||0;x.version=6;x.meta=Object.assign({revision:0,updateSeen:{},seenBroadcastIds:[],lastForceUpdateToken:""},x.meta||{});x.meta.updateSeen=x.meta.updateSeen||{};x.meta.seenBroadcastIds=Array.isArray(x.meta.seenBroadcastIds)?x.meta.seenBroadcastIds:[];
+  x.profiles=x.profiles.slice(0,3).map(p=>{
+    p.questionnaire=Object.assign({
+      stepsBand:"4-8k",offDayStepsBand:"4-8k",stepsIncludeWork:true,stepsIncludeSchool:true,stepsIncludeCommute:true,stepsIncludeExercise:false,stepsIncludeErrands:true,walkPace:"normal",
+      work:"light",workDays:5,workHours:8,standingHours:2,liftingMinutes:0,liftingIntensity:"moderate",workBreakWalkingMinutes:0,
+      commute:"car",commuteMinutes:20,commuteDays:5,schoolDays:5,schoolHours:4,schoolWalkingMinutes:0,schoolStandingHours:0,
+      exerciseDays:0,exerciseMinutes:30,exerciseIntensity:"moderate",exerciseType:"walking",householdMinutes:30,householdDays:3,
+      manualActivityMinutes:0,manualActivityDays:0,standingOutsideHours:1,stairsBand:"1-2",sittingHours:8,weekendActivity:"same",sleepHours:"7"
+    },p.questionnaire||{});
+    p.weightLb=Number(p.weightLb)||180;p.weightUnit=p.weightUnit||"lb";p.age=Number(p.age)||25;p.heightFt=Number(p.heightFt)||5;p.heightIn=Number(p.heightIn)||10;p.deficit=Number(p.deficit)||.15;
+    p.weights=Array.isArray(p.weights)?p.weights:[];p.foods=Array.isArray(p.foods)?p.foods:[];p.exercises=Array.isArray(p.exercises)?p.exercises:[];
+    p.proteinGoal=Number(p.proteinGoal)||proteinGoalFor(p);p.foods=p.foods.map(f=>{f.protein=Number.isFinite(Number(f.protein))?Number(f.protein):proteinEstimate(f);return f});
+    p.targetMode=p.targetMode==="custom"?"custom":"generated";p.customCalorieTarget=Number(p.customCalorieTarget)||0;p.targetHistory=p.targetHistory&&typeof p.targetHistory==="object"?p.targetHistory:{};
+    p.targetComparisonSeen=Array.isArray(p.targetComparisonSeen)?p.targetComparisonSeen:[];p.dismissedTargetWarningKey=p.dismissedTargetWarningKey||"";
+    if(!p.lastResolvedTarget)p.lastResolvedTarget=Math.round(currentTarget(p));snapshotPastRange(p,p.lastResolvedTarget);return p;
+  });
+  return x;
+}
+function oldBrowserData(){for(const k of LEGACY_KEYS)try{const raw=localStorage.getItem(k);if(raw){const x=JSON.parse(raw);if(x?.profiles?.length)return migrate(x)}}catch{}return null}
+
+function scheduleCloudSave(){if(!authSession||!apiConfigured())return;cloudDirty=true;clearTimeout(cloudSaveTimer);cloudSaveTimer=setTimeout(flushCloudSave,500)}
+async function flushCloudSave(){
+  if(cloudSaving||!cloudDirty||!authSession||!apiConfigured())return;
+  cloudSaving=true;cloudDirty=false;status("Saving…","");
+  const snapshot=migrate(state);
+  try{await api("/api/data",{method:"PUT",body:JSON.stringify({state:snapshot})});status("Synced","ok")}
+  catch(e){cloudDirty=true;status("Sync pending","warn")}
+  finally{cloudSaving=false;if(cloudDirty){clearTimeout(cloudSaveTimer);cloudSaveTimer=setTimeout(flushCloudSave,700)}}
+}
+async function flushCloudSaveNow(){clearTimeout(cloudSaveTimer);if(cloudDirty)await flushCloudSave();while(cloudSaving)await new Promise(r=>setTimeout(r,80))}
+save=function(options={}){
+  state=migrate(state);state.profiles.forEach(prepareTargetHistory);state.meta.revision=(Number(state.meta.revision)||0)+1;localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+  if(options.render!==false){try{renderAll()}catch{}}
+  scheduleCloudSave();
 };
 
-function progress(){return ["Account","Body","Activity","Finish"].map((x,i)=>{const n=i+1,cl=n===setupStep?"active":n<setupStep?"done":"";return `<div class="setup-step ${cl}"><div class="bar"></div>${n}. ${x}</div>`}).join("")}
-function applyDraft(){
-  const b=setupDraft.body||{},a=setupDraft.activity||{},ac=setupDraft.account||{},s=(id,val)=>{const e=document.getElementById(id);if(e&&val!==undefined)e.value=val};
-  s("wFirst",ac.firstName);s("wLast",ac.lastName);s("wUsername",ac.username);s("wSex",b.sex||"male");s("wAge",b.age);s("wUnit",b.unit||"lb");s("wWeight",b.weight);s("wHeightFt",b.ft);s("wHeightIn",b.inch);s("wDeficit",b.deficit||"0.15");
-  s("wSteps",a.steps||"4-8k");s("wOffSteps",a.offSteps||"4-8k");s("wStepsWork",a.stepsWork||"yes");s("wPace",a.pace||"normal");s("wWork",a.work||"light");s("wWorkDays",a.workDays??5);s("wWorkHours",a.workHours??8);s("wStanding",a.standing??2);s("wLifting",a.lifting??0);
-  s("wCommute",a.commute||"car");s("wCommuteMin",a.commuteMin??20);s("wCommuteDays",a.commuteDays??5);s("wSchoolDays",a.schoolDays??5);s("wSchoolHours",a.schoolHours??4);s("wSchoolWalk",a.schoolWalk??0);s("wSchoolStand",a.schoolStand??0);
-  s("wExDays",a.exDays??0);s("wExMin",a.exMin??30);s("wExType",a.exType||"walking");s("wExIntensity",a.exIntensity||"moderate");s("wHouseMin",a.houseMin??30);s("wHouseDays",a.houseDays??3);s("wStairs",a.stairs||"1-2");s("wSitting",a.sitting??8);s("wWeekend",a.weekend||"same");s("wSleep",a.sleep||"7");
-  wizardWeightUnit();
+function activityFields(prefix){
+  const id=n=>prefix+n;
+  return `
+  <div class="field"><label>Average weekday steps</label><select id="${id("Steps")}">${stepOptions()}</select></div>
+  <div class="field"><label>Typical non-work/non-school day steps</label><select id="${id("OffSteps")}">${stepOptions()}</select></div>
+  <div class="field"><label>Do those steps already include work walking?</label><select id="${id("StepsWork")}"><option value="yes">Yes / mostly</option><option value="no">No / separate</option></select></div>
+  <div class="field"><label>Do those steps already include school/campus walking?</label><select id="${id("StepsSchool")}"><option value="yes">Yes / mostly</option><option value="no">No / separate</option></select></div>
+  <div class="field"><label>Do those steps include walking during your commute?</label><select id="${id("StepsCommute")}"><option value="yes">Yes / mostly</option><option value="no">No / separate</option></select></div>
+  <div class="field"><label>Do those steps include your exercise sessions?</label><select id="${id("StepsExercise")}"><option value="no">No / mostly separate</option><option value="yes">Yes / mostly</option></select></div>
+  <div class="field"><label>Do those steps include errands/household movement?</label><select id="${id("StepsErrands")}"><option value="yes">Yes / mostly</option><option value="no">No / separate</option></select></div>
+  <div class="field"><label>Typical walking pace</label><select id="${id("Pace")}"><option value="slow">Slow / casual</option><option value="normal">Normal</option><option value="brisk">Brisk</option></select></div>
+  <div class="field"><label>Work setting</label><select id="${id("Work")}"><option value="sedentary">Mostly sitting / desk / driving</option><option value="light">Light movement / some standing</option><option value="moderate">On my feet most of the day</option><option value="high">Heavy physical work</option></select></div>
+  <div class="field"><label>Work days per week</label><input id="${id("WorkDays")}" type="number" min="0" max="7" step="1"></div>
+  <div class="field"><label>Work hours per workday</label><input id="${id("WorkHours")}" type="number" min="0" max="16" step="0.25"></div>
+  <div class="field"><label>Standing hours during a workday</label><input id="${id("Standing")}" type="number" min="0" max="16" step="0.25"></div>
+  <div class="field"><label>Lifting/carrying minutes per workday</label><input id="${id("Lifting")}" type="number" min="0" max="600" step="5"></div>
+  <div class="field"><label>Lifting intensity</label><select id="${id("LiftingIntensity")}"><option value="light">Light</option><option value="moderate">Moderate</option><option value="heavy">Heavy / frequent</option></select></div>
+  <div class="field"><label>Walking during work breaks (minutes/day)</label><input id="${id("WorkBreakWalk")}" type="number" min="0" max="180" step="5"></div>
+  <div class="field"><label>Commute type</label><select id="${id("Commute")}"><option value="none">None / remote</option><option value="car">Car / rideshare</option><option value="transit">Bus / train</option><option value="walk">Walk</option><option value="bike">Bike</option></select></div>
+  <div class="field"><label>One-way commute time (minutes)</label><input id="${id("CommuteMin")}" type="number" min="0" max="180" step="5"></div>
+  <div class="field"><label>Commute days per week</label><input id="${id("CommuteDays")}" type="number" min="0" max="7" step="1"></div>
+  <div class="field"><label>School/class days per week</label><input id="${id("SchoolDays")}" type="number" min="0" max="7" step="1"></div>
+  <div class="field"><label>Class hours per day</label><input id="${id("SchoolHours")}" type="number" min="0" max="16" step="0.25"></div>
+  <div class="field"><label>Campus/class walking (minutes/day)</label><input id="${id("SchoolWalk")}" type="number" min="0" max="300" step="5"></div>
+  <div class="field"><label>Standing during school/class (hours/day)</label><input id="${id("SchoolStand")}" type="number" min="0" max="12" step="0.25"></div>
+  <div class="field"><label>Exercise days per week</label><input id="${id("ExDays")}" type="number" min="0" max="7" step="1"></div>
+  <div class="field"><label>Exercise minutes per session</label><input id="${id("ExMin")}" type="number" min="0" max="300" step="5"></div>
+  <div class="field"><label>Exercise type</label><select id="${id("ExType")}"><option value="walking">Walking</option><option value="brisk">Brisk walking</option><option value="cycling">Cycling</option><option value="weights">Weight training</option><option value="hiit">HIIT/cardio</option><option value="sports">Sports</option><option value="swimming">Swimming</option><option value="other">Other</option></select></div>
+  <div class="field"><label>Exercise intensity</label><select id="${id("ExIntensity")}"><option value="low">Low</option><option value="moderate">Moderate</option><option value="high">High</option></select></div>
+  <div class="field"><label>Household/errand minutes per active day</label><input id="${id("HouseMin")}" type="number" min="0" max="300" step="5"></div>
+  <div class="field"><label>Household/errand days per week</label><input id="${id("HouseDays")}" type="number" min="0" max="7" step="1"></div>
+  <div class="field"><label>Other manual activity minutes per active day</label><input id="${id("ManualMin")}" type="number" min="0" max="300" step="5"></div>
+  <div class="field"><label>Other manual activity days per week</label><input id="${id("ManualDays")}" type="number" min="0" max="7" step="1"></div>
+  <div class="field"><label>Standing outside work/school (hours/day)</label><input id="${id("StandingOutside")}" type="number" min="0" max="12" step="0.25"></div>
+  <div class="field"><label>Stairs / flights climbed per day</label><select id="${id("Stairs")}"><option value="none">None / almost none</option><option value="1-2">1–2</option><option value="3-5">3–5</option><option value="6-10">6–10</option><option value="10-20">10–20</option><option value="20+">20+</option></select></div>
+  <div class="field"><label>Sitting hours per day outside sleep</label><input id="${id("Sitting")}" type="number" min="0" max="18" step="0.5"></div>
+  <div class="field"><label>Weekend activity vs weekdays</label><select id="${id("Weekend")}"><option value="same">About the same</option><option value="less">Less active</option><option value="more">More active</option></select></div>
+  <div class="field"><label>Average sleep per night</label><select id="${id("Sleep")}"><option value="5">5 or less</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9+</option></select></div>`;
 }
+function stepOptions(){return '<option value="under-1k">Under 1,000</option><option value="1-2k">1,000–2,000</option><option value="2-4k">2,000–4,000</option><option value="4-6k">4,000–6,000</option><option value="6-8k">6,000–8,000</option><option value="8-10k">8,000–10,000</option><option value="10-12k">10,000–12,000</option><option value="12-15k">12,000–15,000</option><option value="15-18k">15,000–18,000</option><option value="18k+">18,000+</option>'}
+function readActivity(prefix){
+  return {steps:v(prefix+"Steps")||"4-8k",offSteps:v(prefix+"OffSteps")||"4-8k",stepsWork:v(prefix+"StepsWork")||"yes",stepsSchool:v(prefix+"StepsSchool")||"yes",stepsCommute:v(prefix+"StepsCommute")||"yes",stepsExercise:v(prefix+"StepsExercise")||"no",stepsErrands:v(prefix+"StepsErrands")||"yes",pace:v(prefix+"Pace")||"normal",
+    work:v(prefix+"Work")||"light",workDays:Number(v(prefix+"WorkDays"))||0,workHours:Number(v(prefix+"WorkHours"))||0,standing:Number(v(prefix+"Standing"))||0,lifting:Number(v(prefix+"Lifting"))||0,liftingIntensity:v(prefix+"LiftingIntensity")||"moderate",workBreakWalk:Number(v(prefix+"WorkBreakWalk"))||0,
+    commute:v(prefix+"Commute")||"car",commuteMin:Number(v(prefix+"CommuteMin"))||0,commuteDays:Number(v(prefix+"CommuteDays"))||0,schoolDays:Number(v(prefix+"SchoolDays"))||0,schoolHours:Number(v(prefix+"SchoolHours"))||0,schoolWalk:Number(v(prefix+"SchoolWalk"))||0,schoolStand:Number(v(prefix+"SchoolStand"))||0,
+    exDays:Number(v(prefix+"ExDays"))||0,exMin:Number(v(prefix+"ExMin"))||0,exType:v(prefix+"ExType")||"walking",exIntensity:v(prefix+"ExIntensity")||"moderate",houseMin:Number(v(prefix+"HouseMin"))||0,houseDays:Number(v(prefix+"HouseDays"))||0,
+    manualMin:Number(v(prefix+"ManualMin"))||0,manualDays:Number(v(prefix+"ManualDays"))||0,standingOutside:Number(v(prefix+"StandingOutside"))||0,stairs:v(prefix+"Stairs")||"1-2",sitting:Number(v(prefix+"Sitting"))||0,weekend:v(prefix+"Weekend")||"same",sleep:v(prefix+"Sleep")||"7"};
+}
+function activityToQuestionnaire(a){return {stepsBand:a.steps,offDayStepsBand:a.offSteps,stepsIncludeWork:a.stepsWork!=="no",stepsIncludeSchool:a.stepsSchool!=="no",stepsIncludeCommute:a.stepsCommute!=="no",stepsIncludeExercise:a.stepsExercise!=="no",stepsIncludeErrands:a.stepsErrands!=="no",walkPace:a.pace,work:a.work,workDays:a.workDays,workHours:a.workHours,standingHours:a.standing,liftingMinutes:a.lifting,liftingIntensity:a.liftingIntensity,workBreakWalkingMinutes:a.workBreakWalk,commute:a.commute,commuteMinutes:a.commuteMin,commuteDays:a.commuteDays,schoolDays:a.schoolDays,schoolHours:a.schoolHours,schoolWalkingMinutes:a.schoolWalk,schoolStandingHours:a.schoolStand,exerciseDays:a.exDays,exerciseMinutes:a.exMin,exerciseType:a.exType,exerciseIntensity:a.exIntensity,householdMinutes:a.houseMin,householdDays:a.houseDays,manualActivityMinutes:a.manualMin,manualActivityDays:a.manualDays,standingOutsideHours:a.standingOutside,stairsBand:a.stairs,sittingHours:a.sitting,weekendActivity:a.weekend,sleepHours:a.sleep}}
+function questionnaireToDraft(q={}){return {steps:q.stepsBand||"4-8k",offSteps:q.offDayStepsBand||q.stepsBand||"4-8k",stepsWork:q.stepsIncludeWork===false?"no":"yes",stepsSchool:q.stepsIncludeSchool===false?"no":"yes",stepsCommute:q.stepsIncludeCommute===false?"no":"yes",stepsExercise:q.stepsIncludeExercise?"yes":"no",stepsErrands:q.stepsIncludeErrands===false?"no":"yes",pace:q.walkPace||"normal",work:q.work||"light",workDays:q.workDays??5,workHours:q.workHours??8,standing:q.standingHours??2,lifting:q.liftingMinutes??0,liftingIntensity:q.liftingIntensity||"moderate",workBreakWalk:q.workBreakWalkingMinutes??0,commute:q.commute||"car",commuteMin:q.commuteMinutes??20,commuteDays:q.commuteDays??5,schoolDays:q.schoolDays??5,schoolHours:q.schoolHours??4,schoolWalk:q.schoolWalkingMinutes??0,schoolStand:q.schoolStandingHours??0,exDays:q.exerciseDays??0,exMin:q.exerciseMinutes??30,exType:q.exerciseType||"walking",exIntensity:q.exerciseIntensity||"moderate",houseMin:q.householdMinutes??30,houseDays:q.householdDays??3,manualMin:q.manualActivityMinutes??0,manualDays:q.manualActivityDays??0,standingOutside:q.standingOutsideHours??1,stairs:q.stairsBand||"1-2",sitting:q.sittingHours??8,weekend:q.weekendActivity||"same",sleep:q.sleepHours||"7"}}
 
+function progress(){return ["Account","Body","Target","Activity","Finish"].map((x,i)=>{const n=i+1,cl=n===setupStep?"active":n<setupStep?"done":"";return `<div class="setup-step ${cl}"><div class="bar"></div>${n}. ${x}</div>`}).join("")}
+function applyDraft(){
+  const b=setupDraft.body||{},a=setupDraft.activity||{},ac=setupDraft.account||{},t=setupDraft.target||{};
+  val("wFirst",ac.firstName);val("wLast",ac.lastName);val("wUsername",ac.username);val("wSex",b.sex||"male");val("wAge",b.age);val("wUnit",b.unit||"lb");val("wWeight",b.weight);val("wHeightFt",b.ft);val("wHeightIn",b.inch);
+  val("wTargetMode",t.mode||"generated");val("wCustomTarget",t.custom||"");val("wDeficit",t.deficit||b.deficit||"0.15");
+  const map={Steps:a.steps||"4-8k",OffSteps:a.offSteps||"4-8k",StepsWork:a.stepsWork||"yes",StepsSchool:a.stepsSchool||"yes",StepsCommute:a.stepsCommute||"yes",StepsExercise:a.stepsExercise||"no",StepsErrands:a.stepsErrands||"yes",Pace:a.pace||"normal",Work:a.work||"light",WorkDays:a.workDays??5,WorkHours:a.workHours??8,Standing:a.standing??2,Lifting:a.lifting??0,LiftingIntensity:a.liftingIntensity||"moderate",WorkBreakWalk:a.workBreakWalk??0,Commute:a.commute||"car",CommuteMin:a.commuteMin??20,CommuteDays:a.commuteDays??5,SchoolDays:a.schoolDays??5,SchoolHours:a.schoolHours??4,SchoolWalk:a.schoolWalk??0,SchoolStand:a.schoolStand??0,ExDays:a.exDays??0,ExMin:a.exMin??30,ExType:a.exType||"walking",ExIntensity:a.exIntensity||"moderate",HouseMin:a.houseMin??30,HouseDays:a.houseDays??3,ManualMin:a.manualMin??0,ManualDays:a.manualDays??0,StandingOutside:a.standingOutside??1,Stairs:a.stairs||"1-2",Sitting:a.sitting??8,Weekend:a.weekend||"same",Sleep:a.sleep||"7"};
+  Object.entries(map).forEach(([k,x])=>val("w"+k,x));wizardWeightUnit();toggleWizardTargetMode();
+}
 function renderWizard(){
   let el=document.getElementById("cloudSetupModal");if(!el){el=document.createElement("div");el.id="cloudSetupModal";el.className="modal show";document.body.appendChild(el)}
   let body="";
-  if(setupStep===1){
-    body=`<div class="setup-shell"><h2>Create account</h2><p class="muted">Create the account that will sync your data across devices.</p>
-    <div class="question-grid">
-      <div class="field"><label>First name</label><input id="wFirst" autocomplete="given-name"></div>
-      <div class="field"><label>Last name</label><input id="wLast" autocomplete="family-name"></div>
-      <div class="field"><label>Username</label><input id="wUsername" autocomplete="username" autocapitalize="none" placeholder="3–24 characters"></div>
-      <div class="field"><label>Password</label><input id="wPassword" type="password" autocomplete="new-password" placeholder="At least 8 characters"></div>
-      <div class="field"><label>Confirm password</label><input id="wPassword2" type="password" autocomplete="new-password"></div>
-    </div><div id="wizardError" class="auth-error"></div><div class="setup-nav"><span></span><button class="btn primary" onclick="wizardAccountNext()">Continue →</button></div></div>`;
-  }else if(setupStep===2){
-    body=`<div class="setup-shell"><h2>Body & goal</h2><p class="muted">These measurements provide the base metabolic estimate.</p>
-    <div class="question-grid">
-      <div class="field"><label>Sex used for calorie equation</label><select id="wSex"><option value="male">Male</option><option value="female">Female</option><option value="other">Other / neutral equation</option></select></div>
-      <div class="field"><label>Age</label><input id="wAge" type="number" min="13" max="100"></div>
-      <div class="field"><label>Weight unit</label><select id="wUnit" onchange="wizardWeightUnit()"><option value="lb">Pounds (lb)</option><option value="kg">Kilograms (kg)</option></select></div>
-      <div class="field"><label id="wWeightLabel">Current weight (lb)</label><input id="wWeight" type="number" min="20" max="800" step="0.1"></div>
-      <div class="field"><label>Height (feet)</label><input id="wHeightFt" type="number" min="3" max="8"></div>
-      <div class="field"><label>Height (inches)</label><input id="wHeightIn" type="number" min="0" max="11"></div>
-      <div class="field span-2"><label>Weight-loss deficit</label><select id="wDeficit"><option value="0.10">Slow — 10%</option><option value="0.15" selected>Moderate — 15%</option><option value="0.20">Fast — 20%</option></select></div>
-    </div><div id="wizardError" class="auth-error"></div><div class="setup-nav"><button class="btn" onclick="wizardBack()">← Back</button><button class="btn primary" onclick="wizardBodyNext()">Continue →</button></div></div>`;
-  }else if(setupStep===3){
-    body=`<div class="setup-shell"><h2>Your normal activity</h2><p class="muted">These are deliberately more specific than a single “sedentary/moderate/active” setting.</p>
-    <div class="question-grid">
-      <div class="field"><label>Average weekday steps</label><select id="wSteps">${stepOptions()}</select></div>
-      <div class="field"><label>Typical non-work/non-school day steps</label><select id="wOffSteps">${stepOptions()}</select></div>
-      <div class="field"><label>Do weekday steps include work walking?</label><select id="wStepsWork"><option value="yes">Yes / mostly</option><option value="no">No / separate</option></select></div>
-      <div class="field"><label>Typical walking pace</label><select id="wPace"><option value="slow">Slow / casual</option><option value="normal">Normal</option><option value="brisk">Brisk</option></select></div>
-      <div class="field"><label>Work setting</label><select id="wWork"><option value="sedentary">Mostly sitting / desk / driving</option><option value="light">Light movement / some standing</option><option value="moderate">On my feet most of the day</option><option value="high">Heavy physical work</option></select></div>
-      <div class="field"><label>Work days per week</label><input id="wWorkDays" type="number" min="0" max="7" step="1"></div>
-      <div class="field"><label>Work hours per workday</label><input id="wWorkHours" type="number" min="0" max="16" step="0.25"></div>
-      <div class="field"><label>Standing hours during a workday</label><input id="wStanding" type="number" min="0" max="16" step="0.25"></div>
-      <div class="field"><label>Lifting/carrying minutes per workday</label><input id="wLifting" type="number" min="0" max="600" step="5"></div>
-      <div class="field"><label>Commute type</label><select id="wCommute"><option value="none">None / remote</option><option value="car">Car / rideshare</option><option value="transit">Bus / train</option><option value="walk">Walk</option><option value="bike">Bike</option></select></div>
-      <div class="field"><label>One-way commute time (minutes)</label><input id="wCommuteMin" type="number" min="0" max="180" step="5"></div>
-      <div class="field"><label>Commute days per week</label><input id="wCommuteDays" type="number" min="0" max="7" step="1"></div>
-      <div class="field"><label>School/class days per week</label><input id="wSchoolDays" type="number" min="0" max="7" step="1"></div>
-      <div class="field"><label>Class hours per day</label><input id="wSchoolHours" type="number" min="0" max="16" step="0.25"></div>
-      <div class="field"><label>Campus/class walking (minutes/day)</label><input id="wSchoolWalk" type="number" min="0" max="300" step="5"></div>
-      <div class="field"><label>Standing during school/class (hours/day)</label><input id="wSchoolStand" type="number" min="0" max="12" step="0.25"></div>
-      <div class="field"><label>Exercise days per week</label><input id="wExDays" type="number" min="0" max="7" step="1"></div>
-      <div class="field"><label>Exercise minutes per session</label><input id="wExMin" type="number" min="0" max="300" step="5"></div>
-      <div class="field"><label>Exercise type</label><select id="wExType"><option value="walking">Walking</option><option value="brisk">Brisk walking</option><option value="cycling">Cycling</option><option value="weights">Weight training</option><option value="hiit">HIIT/cardio</option><option value="sports">Sports</option><option value="swimming">Swimming</option><option value="other">Other</option></select></div>
-      <div class="field"><label>Exercise intensity</label><select id="wExIntensity"><option value="low">Low</option><option value="moderate">Moderate</option><option value="high">High</option></select></div>
-      <div class="field"><label>Household/errand minutes per active day</label><input id="wHouseMin" type="number" min="0" max="300" step="5"></div>
-      <div class="field"><label>Household/errand days per week</label><input id="wHouseDays" type="number" min="0" max="7" step="1"></div>
-      <div class="field"><label>Stairs / flights climbed per day</label><select id="wStairs"><option value="none">None / almost none</option><option value="1-2">1–2</option><option value="3-5">3–5</option><option value="6-10">6–10</option><option value="10-20">10–20</option><option value="20+">20+</option></select></div>
-      <div class="field"><label>Sitting hours per day outside sleep</label><input id="wSitting" type="number" min="0" max="18" step="0.5"></div>
-      <div class="field"><label>Weekend activity vs weekdays</label><select id="wWeekend"><option value="same">About the same</option><option value="less">Less active</option><option value="more">More active</option></select></div>
-      <div class="field"><label>Average sleep per night</label><select id="wSleep"><option value="5">5 or less</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9+</option></select></div>
-    </div><div id="wizardError" class="auth-error"></div><div class="setup-nav"><button class="btn" onclick="wizardBack()">← Back</button><button class="btn primary" onclick="wizardActivityNext()">Continue →</button></div></div>`;
-  }else{
-    const c=setupPreview(),legacy=oldBrowserData();
-    body=`<div class="setup-shell"><h2>Review & import</h2><p class="muted">These are starting estimates. Consistent intake and weight logging over several weeks can be used to fine-tune your maintenance number.</p>
-    <div class="calorie-review">
-      <div class="review-card"><div class="kpi-label">BMR</div><div class="kpi">${fmt(c.bmr)}</div><div class="muted mini">resting estimate</div></div>
-      <div class="review-card"><div class="kpi-label">Maintenance</div><div class="kpi">${fmt(c.tdee)}</div><div class="muted mini">estimated TDEE</div></div>
-      <div class="review-card"><div class="kpi-label">Calorie target</div><div class="kpi">${fmt(c.target)}</div><div class="muted mini">${Math.round(c.deficit*100)}% deficit</div></div>
-      <div class="review-card"><div class="kpi-label">Protein target</div><div class="kpi">${fmt(c.proteinGoal)} g</div><div class="muted mini">starting daily target</div></div>
-    </div>
-    <div class="card" style="margin-top:14px;box-shadow:none;border:1px solid #e5e7eb"><h3>Import data from the old app</h3><p class="muted mini">This keeps your old weight, food, exercise and calendar history, then saves it under your new account.</p>
-      ${legacy?'<div class="small-actions"><button class="btn" onclick="useBrowserDataForSetup()">Import from this browser</button><span id="browserImportStatus" class="muted mini"></span></div>':'<div class="muted mini">No old browser data was detected.</div>'}
-      <div class="small-actions" style="margin-top:10px"><input id="setupImportFile" type="file" accept="application/json"></div>
-    </div>
-    <div id="wizardError" class="auth-error"></div><div class="setup-nav"><button class="btn" onclick="wizardBack()">← Back</button><button class="btn primary" onclick="finishAccountSetup()">Finish setup & sync</button></div></div>`;
-  }
-  el.innerHTML=`<div class="modal-box" style="max-width:1000px;max-height:92vh;overflow:auto"><div class="modal-head"><div><h2>Calorie Compass setup</h2><div class="muted mini">Version 1.8.1</div></div><button class="close" onclick="closeCloudWizard()">×</button></div><div class="setup-progress">${progress()}</div>${body}</div>`;
-  applyDraft();
-}
-function stepOptions(){return '<option value="under-1k">Under 1,000</option><option value="1-2k">1,000–2,000</option><option value="2-4k">2,000–4,000</option><option value="4-6k">4,000–6,000</option><option value="6-8k">6,000–8,000</option><option value="8-10k">8,000–10,000</option><option value="10-12k">10,000–12,000</option><option value="12-15k">12,000–15,000</option><option value="15-18k">15,000–18,000</option><option value="18k+">18,000+</option>'}
-
-async function wizardAccountNext(){
-  const first=v("wFirst").trim(),last=v("wLast").trim(),username=v("wUsername").trim(),password=v("wPassword"),confirm=v("wPassword2");
-  if(!first||!last)return err("Enter your first and last name.");
-  if(!/^[A-Za-z0-9._-]{3,24}$/.test(username))return err("Username must be 3–24 characters using letters, numbers, dot, underscore, or hyphen.");
-  if(password.length<8)return err("Password must be at least 8 characters.");
-  if(password!==confirm)return err("Passwords do not match.");
-  if(!apiConfigured())return err("Cloud server is not configured. Set CALORIE_API_URL in config.js after deploying the backend.");
-  setupDraft.account={firstName:first,lastName:last,username};setupAccount={firstName:first,lastName:last,username,password};
-  try{const r=await api("/api/auth/register",{method:"POST",body:JSON.stringify(setupAccount)});setAuth(r);setupStep=2;renderWizard()}catch(e){err(e.message)}
+  if(setupStep===1){body=`<div class="setup-shell"><h2>Create account</h2><p class="muted">Create the account that will sync your data across devices.</p><div class="question-grid"><div class="field"><label>First name</label><input id="wFirst" autocomplete="given-name"></div><div class="field"><label>Last name</label><input id="wLast" autocomplete="family-name"></div><div class="field"><label>Username</label><input id="wUsername" autocomplete="username" autocapitalize="none" placeholder="3–24 characters"></div><div class="field"><label>Password</label><input id="wPassword" type="password" autocomplete="new-password" placeholder="At least 8 characters"></div><div class="field"><label>Confirm password</label><input id="wPassword2" type="password" autocomplete="new-password"></div></div><div id="wizardError" class="auth-error"></div><div class="setup-nav"><span></span><button class="btn primary" onclick="wizardAccountNext()">Continue →</button></div></div>`}
+  else if(setupStep===2){body=`<div class="setup-shell"><h2>Body</h2><p class="muted">These measurements provide the base metabolic estimate. Your calorie-target choice comes next.</p><div class="question-grid"><div class="field"><label>Sex used for calorie equation</label><select id="wSex"><option value="male">Male</option><option value="female">Female</option><option value="other">Other / neutral equation</option></select></div><div class="field"><label>Age</label><input id="wAge" type="number" min="13" max="100"></div><div class="field"><label>Weight unit</label><select id="wUnit" onchange="wizardWeightUnit()"><option value="lb">Pounds (lb)</option><option value="kg">Kilograms (kg)</option></select></div><div class="field"><label id="wWeightLabel">Current weight (lb)</label><input id="wWeight" type="number" min="20" max="800" step="0.1"></div><div class="field"><label>Height (feet)</label><input id="wHeightFt" type="number" min="3" max="8"></div><div class="field"><label>Height (inches)</label><input id="wHeightIn" type="number" min="0" max="11"></div></div><div id="wizardError" class="auth-error"></div><div class="setup-nav"><button class="btn" onclick="wizardBack()">← Back</button><button class="btn primary" onclick="wizardBodyNext()">Continue →</button></div></div>`}
+  else if(setupStep===3){body=`<div class="setup-shell"><h2>Choose how your calorie target is set</h2><p class="muted">You can use the app's estimate or enter your own daily calorie number. Either way, the activity questions on the next page are still used to calculate an app estimate for comparison.</p><div class="question-grid"><div class="field span-2"><label>Target method</label><select id="wTargetMode" onchange="toggleWizardTargetMode()"><option value="generated">Generate my calorie target for me</option><option value="custom">I already have my own calorie target</option></select></div><div class="field" id="wizardCustomTargetWrap"><label>My calorie target (kcal/day)</label><input id="wCustomTarget" type="number" min="800" max="10000" step="10" placeholder="e.g. 2500"></div><div class="field"><label id="wizardDeficitLabel">Weight-loss deficit used by the app</label><select id="wDeficit"><option value="0.10">Slow — 10%</option><option value="0.15">Moderate — 15%</option><option value="0.20">Fast — 20%</option></select></div></div><div class="notice" style="margin-top:12px">If your own number is significantly different from the app estimate, Calorie Compass will show a one-time comparison before saving it. You can still choose either number.</div><div id="wizardError" class="auth-error"></div><div class="setup-nav"><button class="btn" onclick="wizardBack()">← Back</button><button class="btn primary" onclick="wizardTargetNext()">Continue →</button></div></div>`}
+  else if(setupStep===4){body=`<div class="setup-shell"><h2>Your normal activity</h2><p class="muted">Answer as specifically as you can. The “already included in steps” questions help reduce double-counting.</p><div class="question-grid">${activityFields("w")}</div><div id="wizardError" class="auth-error"></div><div class="setup-nav"><button class="btn" onclick="wizardBack()">← Back</button><button class="btn primary" onclick="wizardActivityNext()">Continue →</button></div></div>`}
+  else{const p=profileFromWizard(),c=generatedCalculation(p),chosen=currentTarget(p),di=targetDiffInfo(p),legacy=oldBrowserData();body=`<div class="setup-shell"><h2>Review & import</h2><p class="muted">These are starting estimates. Your historical daily targets will be saved by date so future goal changes do not rewrite previous days.</p><div class="calorie-review"><div class="review-card"><div class="kpi-label">BMR</div><div class="kpi">${fmt(c.bmr)}</div><div class="muted mini">resting estimate</div></div><div class="review-card"><div class="kpi-label">Maintenance</div><div class="kpi">${fmt(c.tdee)}</div><div class="muted mini">estimated TDEE</div></div><div class="review-card"><div class="kpi-label">App-generated target</div><div class="kpi">${fmt(c.target)}</div><div class="muted mini">${Math.round(c.deficit*100)}% deficit</div></div><div class="review-card"><div class="kpi-label">Target you'll use</div><div class="kpi">${fmt(chosen)}</div><div class="muted mini">${p.targetMode==="custom"?"your own target":"app-generated"}</div></div><div class="review-card"><div class="kpi-label">Protein target</div><div class="kpi">${fmt(proteinGoalFor(p))} g</div><div class="muted mini">starting daily target</div></div></div>${di.significant?`<div class="notice dangerbox" style="margin-top:14px"><strong>Large difference:</strong> your target is ${fmt(di.diff)} kcal away from the app estimate. You'll get a one-time choice before this is saved.</div>`:""}<div class="card" style="margin-top:14px;box-shadow:none;border:1px solid #e5e7eb"><h3>Import data from the old app</h3><p class="muted mini">This keeps your old weight, food, exercise and calendar history, then saves it under your account.</p>${legacy?'<div class="small-actions"><button class="btn" onclick="useBrowserDataForSetup()">Import from this browser</button><span id="browserImportStatus" class="muted mini"></span></div>':'<div class="muted mini">No old browser data was detected.</div>'}<div class="small-actions" style="margin-top:10px"><input id="setupImportFile" type="file" accept="application/json"></div></div><div id="wizardError" class="auth-error"></div><div class="setup-nav"><button class="btn" onclick="wizardBack()">← Back</button><button class="btn primary" onclick="finishAccountSetup()">Finish setup & sync</button></div></div>`}
+  el.innerHTML=`<div class="modal-box" style="max-width:1040px;max-height:92vh;overflow:auto"><div class="modal-head"><div><h2>Calorie Compass setup</h2><div class="muted mini">Version ${APP_VERSION}</div></div><button class="close" onclick="closeCloudWizard()">×</button></div><div class="setup-progress">${progress()}</div>${body}</div>`;applyDraft();
 }
 function wizardWeightUnit(){const e=document.getElementById("wWeightLabel");if(e)e.textContent="Current weight ("+(v("wUnit")||"lb")+")"}
-function wizardBodyNext(){
-  const sex=v("wSex")||"male",age=Number(v("wAge")),unit=v("wUnit")||"lb",weight=Number(v("wWeight")),ft=Number(v("wHeightFt")),inch=Number(v("wHeightIn"))||0,def=Number(v("wDeficit"))||.15;
-  if(!(age>=13&&age<=100)||!(weight>0)||!(ft>=3&&ft<=8)||!(inch>=0&&inch<=11))return err("Complete your age, weight, and height.");
-  setupDraft.body={sex,age,unit,weight,ft,inch,deficit:String(def)};setupStep=3;renderWizard();
+function toggleWizardTargetMode(){const custom=v("wTargetMode")==="custom",wrap=document.getElementById("wizardCustomTargetWrap"),label=document.getElementById("wizardDeficitLabel");if(wrap)wrap.style.display=custom?"grid":"none";if(label)label.textContent=custom?"App deficit used only for comparison":"Weight-loss deficit used by the app"}
+async function wizardAccountNext(){
+  const first=v("wFirst").trim(),last=v("wLast").trim(),username=v("wUsername").trim(),password=v("wPassword"),confirm=v("wPassword2");if(!first||!last)return err("Enter your first and last name.");if(!/^[A-Za-z0-9._-]{3,24}$/.test(username))return err("Username must be 3–24 characters using letters, numbers, dot, underscore, or hyphen.");if(password.length<8)return err("Password must be at least 8 characters.");if(password!==confirm)return err("Passwords do not match.");if(!apiConfigured())return err("Cloud server is not configured. Set CALORIE_API_URL in config.js after deploying the backend.");
+  setupDraft.account={firstName:first,lastName:last,username};setupAccount={firstName:first,lastName:last,username,password};showBusy("Creating your account…","Connecting securely to Calorie Compass.");try{const r=await api("/api/auth/register",{method:"POST",body:JSON.stringify(setupAccount)});setAuth(r);setupStep=2;hideBusy();renderWizard()}catch(e){hideBusy();err(e.message)}
 }
-function wizardActivityNext(){
-  setupDraft.activity={
-    steps:v("wSteps")||"4-8k",offSteps:v("wOffSteps")||"4-8k",stepsWork:v("wStepsWork")||"yes",pace:v("wPace")||"normal",
-    work:v("wWork")||"light",workDays:Number(v("wWorkDays"))||0,workHours:Number(v("wWorkHours"))||0,standing:Number(v("wStanding"))||0,lifting:Number(v("wLifting"))||0,
-    commute:v("wCommute")||"car",commuteMin:Number(v("wCommuteMin"))||0,commuteDays:Number(v("wCommuteDays"))||0,
-    schoolDays:Number(v("wSchoolDays"))||0,schoolHours:Number(v("wSchoolHours"))||0,schoolWalk:Number(v("wSchoolWalk"))||0,schoolStand:Number(v("wSchoolStand"))||0,
-    exDays:Number(v("wExDays"))||0,exMin:Number(v("wExMin"))||0,exType:v("wExType")||"walking",exIntensity:v("wExIntensity")||"moderate",
-    houseMin:Number(v("wHouseMin"))||0,houseDays:Number(v("wHouseDays"))||0,stairs:v("wStairs")||"1-2",sitting:Number(v("wSitting"))||0,weekend:v("wWeekend")||"same",sleep:v("wSleep")||"7"
-  };setupStep=4;renderWizard();
-}
+function wizardBodyNext(){const sex=v("wSex")||"male",age=Number(v("wAge")),unit=v("wUnit")||"lb",weight=Number(v("wWeight")),ft=Number(v("wHeightFt")),inch=Number(v("wHeightIn"))||0;if(!(age>=13&&age<=100)||!(weight>0)||!(ft>=3&&ft<=8)||!(inch>=0&&inch<=11))return err("Complete your age, weight, and height.");setupDraft.body={sex,age,unit,weight,ft,inch};setupStep=3;renderWizard()}
+function wizardTargetNext(){const mode=v("wTargetMode")||"generated",custom=Number(v("wCustomTarget")),deficit=Number(v("wDeficit"))||.15;if(mode==="custom"&&!(custom>=800&&custom<=10000))return err("Enter your own calorie target between 800 and 10,000 kcal.");setupDraft.target={mode,custom:mode==="custom"?Math.round(custom):"",deficit:String(deficit)};setupStep=4;renderWizard()}
+function wizardActivityNext(){setupDraft.activity=readActivity("w");setupStep=5;renderWizard()}
 function wizardBack(){if(setupMode!=="account"&&setupStep===2)return closeCloudWizard();if(setupStep>1){setupStep--;renderWizard()}else closeCloudWizard()}
 function useBrowserDataForSetup(){setupImportedState=oldBrowserData();const e=document.getElementById("browserImportStatus");if(e)e.textContent=setupImportedState?"Browser data selected.":"No browser data found."}
-
 function profileFromWizard(){
-  const b=setupDraft.body,a=setupDraft.activity,u=b.unit||"lb",w=Number(b.weight)||180,p=profileTemplate(setupAccount?.firstName||"Profile 1");
-  p.name=setupAccount?.firstName?`${setupAccount.firstName} ${setupAccount.lastName||""}`.trim():p.name;
-  p.gender=b.sex||"male";p.weightUnit=u;p.weightLb=u==="kg"?w/0.45359237:w;p.age=Number(b.age)||25;p.heightFt=Number(b.ft)||5;p.heightIn=Number(b.inch)||10;p.deficit=Number(b.deficit)||.15;
-  p.questionnaire={stepsBand:a.steps||"4-8k",offDayStepsBand:a.offSteps||"4-8k",stepsIncludeWork:a.stepsWork!=="no",walkPace:a.pace||"normal",work:a.work||"light",workDays:a.workDays||0,workHours:a.workHours||0,standingHours:a.standing||0,liftingMinutes:a.lifting||0,commute:a.commute||"car",commuteMinutes:a.commuteMin||0,commuteDays:a.commuteDays||0,schoolDays:a.schoolDays||0,schoolHours:a.schoolHours||0,schoolWalkingMinutes:a.schoolWalk||0,schoolStandingHours:a.schoolStand||0,exerciseDays:a.exDays||0,exerciseMinutes:a.exMin||0,exerciseType:a.exType||"walking",exerciseIntensity:a.exIntensity||"moderate",householdMinutes:a.houseMin||0,householdDays:a.houseDays||0,stairsBand:a.stairs||"1-2",sittingHours:a.sitting||0,weekendActivity:a.weekend||"same",sleepHours:a.sleep||"7"};
-  p.proteinGoal=proteinGoalFor(p);p.weights=[{date:todayISO(),lb:p.weightLb}];return p;
-}
-function setupPreview(){const p=profileFromWizard(),c=calculate(p);return Object.assign(c,{proteinGoal:proteinGoalFor(p)})}
-async function finishAccountSetup(){
-  try{
-    if(!authSession)throw new Error("Your account session expired.");
-    const file=document.getElementById("setupImportFile")?.files?.[0];if(file)setupImportedState=migrate(JSON.parse(await file.text()));
-    if(setupMode==="profile"){
-      state=migrate(state);if(state.profiles.length>=3)throw new Error("You can have up to 3 profiles.");
-      const p=profileFromWizard();state.profiles.push(p);state.activeId=p.id;
-    }else if(setupImportedState?.profiles?.length){
-      state=migrate(setupImportedState);ensureActiveId();const p=state.profiles.find(x=>x.id===state.activeId)||state.profiles[0],fresh=profileFromWizard();
-      p.name=fresh.name;p.gender=fresh.gender;p.weightUnit=fresh.weightUnit;p.weightLb=fresh.weightLb;p.age=fresh.age;p.heightFt=fresh.heightFt;p.heightIn=fresh.heightIn;p.deficit=fresh.deficit;p.questionnaire=fresh.questionnaire;p.proteinGoal=fresh.proteinGoal;p.weights=Array.isArray(p.weights)?p.weights:[];p.weights.push({date:todayISO(),lb:p.weightLb});state.activeId=p.id;
-    }else{const p=profileFromWizard();state=seed();state.version=5;state.profiles=[p];state.activeId=p.id}
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(state));await api("/api/data",{method:"PUT",body:JSON.stringify({state})});closeCloudWizard();showApp();status("Synced","ok");
-  }catch(e){err(e.message||"Setup could not be completed.")}
+  const b=setupDraft.body,a=setupDraft.activity,t=setupDraft.target||{},u=b.unit||"lb",w=Number(b.weight)||180,p=profileTemplate(setupAccount?.firstName||"Profile 1");p.name=setupAccount?.firstName?`${setupAccount.firstName} ${setupAccount.lastName||""}`.trim():p.name;p.gender=b.sex||"male";p.weightUnit=u;p.weightLb=u==="kg"?w/0.45359237:w;p.age=Number(b.age)||25;p.heightFt=Number(b.ft)||5;p.heightIn=Number(b.inch)||10;p.deficit=Number(t.deficit)||.15;p.questionnaire=activityToQuestionnaire(a);p.targetMode=t.mode==="custom"?"custom":"generated";p.customCalorieTarget=p.targetMode==="custom"?Number(t.custom)||0:0;p.proteinGoal=proteinGoalFor(p);p.weights=[{date:todayISO(),lb:p.weightLb}];p.targetHistory={};p.targetComparisonSeen=t.comparisonSeenKey?[t.comparisonSeenKey]:[];p.dismissedTargetWarningKey="";p.lastResolvedTarget=Math.round(currentTarget(p));return p;
 }
 function closeCloudWizard(){document.getElementById("cloudSetupModal")?.remove()}
 function openWizard(mode){if(mode)setupMode=mode;renderWizard()}
-window.startCreateAccount=()=>{setupMode="account";setupStep=1;setupImportedState=null;setupAccount=null;setupDraft={account:{},body:{},activity:{}};openWizard()};
-window.wizardAccountNext=wizardAccountNext;window.wizardBodyNext=wizardBodyNext;window.wizardActivityNext=wizardActivityNext;window.wizardBack=wizardBack;window.wizardWeightUnit=wizardWeightUnit;window.useBrowserDataForSetup=useBrowserDataForSetup;window.finishAccountSetup=finishAccountSetup;window.closeCloudWizard=closeCloudWizard;
 
+function markComparisonSeen(p,key){p.targetComparisonSeen=Array.isArray(p.targetComparisonSeen)?p.targetComparisonSeen:[];if(!p.targetComparisonSeen.includes(key))p.targetComparisonSeen.push(key)}
+function showTargetDifferenceChoice(p,onKeepCustom,onUseGenerated){
+  const di=targetDiffInfo(p);if(!di.significant||p.targetComparisonSeen?.includes(di.key)){onKeepCustom();return}
+  const el=document.createElement("div");el.className="modal show target-compare-modal";el.innerHTML=`<div class="modal-box" style="max-width:560px"><div class="modal-head"><div><h2>Your targets are quite different</h2><div class="muted mini">One-time comparison</div></div></div><p>Your target is <strong>${fmt(di.custom)} kcal/day</strong>. Calorie Compass estimates <strong>${fmt(di.generated)} kcal/day</strong>, a difference of <strong>${fmt(di.diff)} kcal</strong>.</p><div class="notice">This is only an estimate comparison. A custom target can still be selected. If you have a clinician or dietitian's target, follow their guidance.</div><div class="target-choice-actions"><button class="btn primary" id="keepCustomBtn">Use my ${fmt(di.custom)} kcal target</button><button class="btn" id="useGeneratedBtn">Use app estimate (${fmt(di.generated)} kcal)</button></div></div>`;document.body.appendChild(el);
+  el.querySelector("#keepCustomBtn").onclick=()=>{markComparisonSeen(p,di.key);el.remove();onKeepCustom()};el.querySelector("#useGeneratedBtn").onclick=()=>{markComparisonSeen(p,di.key);el.remove();onUseGenerated()};
+}
+async function completeAccountSetup(){
+  if(!authSession)throw new Error("Your account session expired.");
+  const file=document.getElementById("setupImportFile")?.files?.[0];if(file)setupImportedState=migrate(JSON.parse(await file.text()));
+  const fresh=profileFromWizard();
+  if(setupMode==="profile"){
+    state=migrate(state);if(state.profiles.length>=3)throw new Error("You can have up to 3 profiles.");state.profiles.push(fresh);state.activeId=fresh.id;
+  }else if(setupMode==="edit"){
+    state=migrate(state);const p=active();if(!p)throw new Error("No active profile.");const oldTarget=currentTarget(p);snapshotPastRange(p,oldTarget);const oldSeen=Array.isArray(p.targetComparisonSeen)?p.targetComparisonSeen:[],keep={foods:p.foods,exercises:p.exercises,weights:p.weights,targetHistory:p.targetHistory};Object.assign(p,fresh,keep,{id:p.id});p.targetComparisonSeen=[...new Set([...oldSeen,...(fresh.targetComparisonSeen||[])])];p.weights=Array.isArray(p.weights)?p.weights:[];p.weights.push({date:todayISO(),lb:p.weightLb});p.lastResolvedTarget=Math.round(currentTarget(p));
+  }else if(setupImportedState?.profiles?.length){
+    state=migrate(setupImportedState);ensureActiveId();const p=state.profiles.find(x=>x.id===state.activeId)||state.profiles[0],oldSeen=Array.isArray(p.targetComparisonSeen)?p.targetComparisonSeen:[],keep={foods:p.foods||[],exercises:p.exercises||[],weights:p.weights||[],targetHistory:p.targetHistory||{}};Object.assign(p,fresh,keep,{id:p.id});p.targetComparisonSeen=[...new Set([...oldSeen,...(fresh.targetComparisonSeen||[])])];p.weights.push({date:todayISO(),lb:p.weightLb});state.activeId=p.id;
+  }else{state=seed();state.version=6;state.meta={revision:0,updateSeen:{},seenBroadcastIds:[],lastForceUpdateToken:""};state.profiles=[fresh];state.activeId=fresh.id}
+  state=migrate(state);state.meta.updateSeen[UPDATE_KEY]=true;localStorage.setItem(STORAGE_KEY,JSON.stringify(state));await api("/api/data",{method:"PUT",body:JSON.stringify({state})});closeCloudWizard();showApp();status("Synced","ok");
+}
+async function finishAccountSetup(){
+  try{const p=profileFromWizard(),di=targetDiffInfo(p);if(di.significant&&!p.targetComparisonSeen?.includes(di.key)){showTargetDifferenceChoice(p,async()=>{setupDraft.target.mode="custom";setupDraft.target.comparisonSeenKey=di.key;try{await completeAccountSetup()}catch(e){err(e.message)}},async()=>{setupDraft.target.mode="generated";setupDraft.target.comparisonSeenKey=di.key;try{await completeAccountSetup()}catch(e){err(e.message)}});return}await completeAccountSetup()}catch(e){err(e.message||"Setup could not be completed.")}
+}
+window.startCreateAccount=()=>{setupMode="account";setupStep=1;setupImportedState=null;setupAccount=null;setupDraft={account:{},body:{},target:{mode:"generated",custom:"",deficit:"0.15"},activity:{}};openWizard()};
+window.wizardAccountNext=wizardAccountNext;window.wizardBodyNext=wizardBodyNext;window.wizardTargetNext=wizardTargetNext;window.wizardActivityNext=wizardActivityNext;window.wizardBack=wizardBack;window.wizardWeightUnit=wizardWeightUnit;window.toggleWizardTargetMode=toggleWizardTargetMode;window.useBrowserDataForSetup=useBrowserDataForSetup;window.finishAccountSetup=finishAccountSetup;window.closeCloudWizard=closeCloudWizard;
+
+function showBusy(title="Loading…",sub="Please wait a moment."){
+  let el=document.getElementById("appBusyOverlay");if(!el){el=document.createElement("div");el.id="appBusyOverlay";el.className="app-busy-overlay";document.body.appendChild(el)}el.innerHTML=`<div class="app-busy-card"><div class="spinner"></div><h3>${safe(title)}</h3><p>${safe(sub)}</p></div>`;el.classList.add("show")
+}
+function hideBusy(){document.getElementById("appBusyOverlay")?.classList.remove("show")}
 function showSignIn(){
-  const screen=document.getElementById("startupScreen"),app=document.querySelector(".app"),legacy=oldBrowserData();screen.style.display="flex";app?.classList.add("locked");
-  document.getElementById("startupContent").innerHTML=`<div class="auth-card"><h1 class="startup-title">Sign in</h1><p class="startup-sub">Sign in to sync Calorie Compass across iPhone, computers, and browsers.</p><div class="auth-form"><div class="field"><label>Username</label><input id="loginUsername" autocomplete="username" autocapitalize="none"></div><div class="field"><label>Password</label><input id="loginPassword" type="password" autocomplete="current-password"></div><button class="btn primary" onclick="signInCloud()">Sign in</button><div id="loginError" class="auth-error"></div></div><div class="auth-divider"><span>or</span></div><div class="small-actions" style="justify-content:center"><button class="btn" onclick="startCreateAccount()">Create account</button></div>${legacy?'<div class="notice" style="margin-top:16px"><strong>Old app data detected.</strong><br>You can import it during account setup.</div>':''}<div class="app-version" style="margin-top:18px">Version 1.8.1</div></div>`;
+  const screen=document.getElementById("startupScreen"),app=document.querySelector(".app"),legacy=oldBrowserData();screen.style.display="flex";app?.classList.add("locked");document.getElementById("startupContent").innerHTML=`<div class="auth-card"><h1 class="startup-title">Sign in</h1><p class="startup-sub">Sign in to sync Calorie Compass across iPhone, computers, and browsers.</p><div class="auth-form"><div class="field"><label>Username</label><input id="loginUsername" autocomplete="username" autocapitalize="none"></div><div class="field"><label>Password</label><input id="loginPassword" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')signInCloud()"></div><button id="loginButton" class="btn primary" onclick="signInCloud()">Sign in</button><div id="loginError" class="auth-error"></div></div><div class="auth-divider"><span>or</span></div><div class="small-actions" style="justify-content:center"><button class="btn" onclick="startCreateAccount()">Create account</button></div>${legacy?'<div class="notice" style="margin-top:16px"><strong>Old app data detected.</strong><br>You can import it during account setup.</div>':''}<div class="app-version" style="margin-top:18px">Version ${APP_VERSION}</div></div>`;
 }
 window.showStartup=showSignIn;
-
 async function signInCloud(){
-  const username=document.getElementById("loginUsername")?.value.trim(),password=document.getElementById("loginPassword")?.value,e=document.getElementById("loginError");
-  if(!username||!password){e.textContent="Enter your username and password.";e.classList.add("show");return}
-  try{const r=await api("/api/auth/login",{method:"POST",body:JSON.stringify({username,password})});setAuth(r);const has=await cloudLoad();if(has)showApp();else{setupMode="profile";setupStep=2;setupAccount=r.user;setupDraft={account:{firstName:r.user.firstName,lastName:r.user.lastName,username:r.user.username},body:{},activity:{}};openWizard("profile")}}catch(x){e.textContent=x.message;e.classList.add("show")}
+  const username=document.getElementById("loginUsername")?.value.trim(),password=document.getElementById("loginPassword")?.value,e=document.getElementById("loginError"),btn=document.getElementById("loginButton");if(!username||!password){e.textContent="Enter your username and password.";e.classList.add("show");return}
+  e.classList.remove("show");if(btn){btn.disabled=true;btn.textContent="Signing in…"}showBusy("Signing you in…","Loading your profile and cloud data.");const wake=setTimeout(()=>{const p=document.querySelector("#appBusyOverlay p");if(p)p.textContent="The server may be waking up. This can take a few seconds on the free hosting tier."},3000);
+  try{const r=await api("/api/auth/login",{method:"POST",body:JSON.stringify({username,password})});setAuth({token:r.token,user:r.user});if(r.state){state=migrate(r.state);ensureActiveId();localStorage.setItem(STORAGE_KEY,JSON.stringify(state));hideBusy();showApp()}else{hideBusy();setupMode="profile";setupStep=2;setupAccount=r.user;setupDraft={account:{firstName:r.user.firstName,lastName:r.user.lastName,username:r.user.username},body:{},target:{mode:"generated",custom:"",deficit:"0.15"},activity:{}};openWizard("profile")}}
+  catch(x){hideBusy();e.textContent=x.message;e.classList.add("show")}finally{clearTimeout(wake);if(btn){btn.disabled=false;btn.textContent="Sign in"}}
 }
 window.signInCloud=signInCloud;
-async function cloudLoad(){const r=await api("/api/data",{method:"GET"});if(r?.state){state=migrate(r.state);ensureActiveId();localStorage.setItem(STORAGE_KEY,JSON.stringify(state));return true}return false}
-function showApp(){document.getElementById("startupScreen").style.display="none";document.querySelector(".app")?.classList.remove("locked");renderAll();showPage("dashboard");updateAuthUI()}
-async function trySession(){const s=getAuth();if(!s?.token)return false;authSession=s;window.__calorieAuth=s;updateAuthUI();try{const me=await api("/api/auth/me");authSession.user=me.user;setAuth(authSession);const has=await cloudLoad();if(has){showApp();return true}setupMode="profile";setupStep=2;setupAccount=me.user;setupDraft={account:{firstName:me.user.firstName,lastName:me.user.lastName,username:me.user.username},body:{},activity:{}};openWizard("profile");return true}catch(e){setAuth(null);return false}}
-window.logout=function(){setAuth(null);location.reload()};
+async function cloudLoad({render=false}={}){const r=await api("/api/data",{method:"GET"});if(r?.state){state=migrate(r.state);ensureActiveId();localStorage.setItem(STORAGE_KEY,JSON.stringify(state));if(render)renderAll();return true}return false}
+function showApp(){document.getElementById("startupScreen").style.display="none";document.querySelector(".app")?.classList.remove("locked");installProfileUI();renderAll();showPage("dashboard");updateAuthUI();clearInterval(noticeTimer);setTimeout(checkServerNotices,250);noticeTimer=setInterval(checkServerNotices,15000)}
+async function trySession(){const s=getAuth();if(!s?.token)return false;authSession=s;window.__calorieAuth=s;updateAuthUI();showBusy("Opening Calorie Compass…","Restoring your signed-in session.");try{const r=await api("/api/session");authSession.user=r.user;setAuth(authSession);if(r.state){state=migrate(r.state);ensureActiveId();localStorage.setItem(STORAGE_KEY,JSON.stringify(state));hideBusy();showApp();return true}hideBusy();setupMode="profile";setupStep=2;setupAccount=r.user;setupDraft={account:{firstName:r.user.firstName,lastName:r.user.lastName,username:r.user.username},body:{},target:{mode:"generated",custom:"",deficit:"0.15"},activity:{}};openWizard("profile");return true}catch{hideBusy();setAuth(null);return false}}
+window.logout=function(){clearInterval(noticeTimer);setAuth(null);location.reload()};
 
-let cloudSaveTimer=null;
-save=function(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));try{renderAll()}catch(e){}if(authSession&&apiConfigured()){clearTimeout(cloudSaveTimer);status("Saving…","");cloudSaveTimer=setTimeout(async()=>{try{await api("/api/data",{method:"PUT",body:JSON.stringify({state:migrate(state)})});status("Synced","ok")}catch(e){status("Sync pending","warn")}},450)}};
+function warningHTML(p){const di=targetDiffInfo(p);if(!di.significant||p.dismissedTargetWarningKey===di.key)return"";return `<div class="target-warning"><button class="target-warning-close" onclick="dismissTargetWarning()" aria-label="Dismiss warning">×</button><strong>Your custom target differs from the app estimate.</strong><div>${fmt(di.custom)} kcal custom vs ${fmt(di.generated)} kcal app estimate (${fmt(di.diff)} kcal apart).</div></div>`}
+window.dismissTargetWarning=function(){const p=active();if(!p)return;const di=targetDiffInfo(p);p.dismissedTargetWarningKey=di.key;save()};
 
-window.createProfile=function(){if(!authSession)return alert("Sign in first.");if(state.profiles.length>=3)return alert("You can have up to 3 profiles.");setupMode="profile";setupStep=2;setupAccount=authSession.user;setupDraft={account:{firstName:authSession.user.firstName,lastName:authSession.user.lastName,username:authSession.user.username},body:{},activity:{}};openWizard("profile")};
-
-const oldTotals=dayTotals;
-dayTotals=function(date){const d=oldTotals(date),p=active();d.protein=p?p.foods.filter(x=>x.date===date).reduce((s,x)=>s+(Number(x.protein)||proteinEstimate(x)),0):0;return d};
-
-const oldDash=renderDashboard;
-renderDashboard=function(){oldDash();const p=active(),el=document.getElementById("todaySummary");if(!p||!el)return;const d=dayTotals(dashboardDate),goal=Number(p.proteinGoal)||proteinGoalFor(p),pct=Math.min(100,d.protein/Math.max(1,goal)*100);if(!el.querySelector(".protein-meter"))el.insertAdjacentHTML("beforeend",`<div class="protein-meter"><div class="metric-line"><span>Protein</span><strong>${fmt(d.protein)} g / ${fmt(goal)} g</strong></div><div class="progress"><div style="width:${pct}%"></div></div></div>`)};
-
-const oldFoodDay=renderFoodDay;
-renderFoodDay=function(){
-  const p=active();if(!p)return oldFoodDay();const date=document.getElementById("foodDate")?.value||selectedDate;selectedDate=date;
-  const arr=p.foods.filter(x=>x.date===date),tot=arr.reduce((s,x)=>s+x.cal,0),protein=arr.reduce((s,x)=>s+(Number(x.protein)||proteinEstimate(x)),0),target=document.getElementById("foodDay");
-  target.innerHTML=arr.length?`<div class="between"><span class="muted mini">${arr.length} entries</span><strong>${fmt(tot)} kcal • ${fmt(protein)} g protein</strong></div><div class="stack" style="margin-top:10px">${arr.map(x=>`<div class="food-item"><div><strong>${esc(x.name)}</strong><div class="muted mini">${x.servings||1} serving(s)${x.source?" • "+esc(x.source):""} • ${fmt(Number(x.protein)||proteinEstimate(x))} g protein</div></div><div class="row"><strong>${fmt(x.cal)}</strong><button class="btn danger" onclick='deleteLog("food","${x.id}")'>×</button></div></div>`).join("")}</div>`:'<div class="empty">No food logged for this day.</div>';
+function helpfulStatus(kcal,target){const diff=Math.round(target-kcal);if(diff>0)return {klass:"good",text:`${fmt(diff)} kcal left`,detail:`${fmt(diff)} calories remain before this day's target`};if(diff===0)return {klass:"good",text:"Target reached",detail:"You are exactly at this day's calorie target"};return {klass:"bad",text:`${fmt(Math.abs(diff))} kcal above`,detail:`${fmt(Math.abs(diff))} calories above this day's target`}}
+dayTotals=function(date){const p=active();return{kcal:p.foods.filter(x=>x.date===date).reduce((s,x)=>s+(Number(x.cal)||0),0),exercise:p.exercises.filter(x=>x.date===date).reduce((s,x)=>s+(Number(x.cal)||0),0),protein:p.foods.filter(x=>x.date===date).reduce((s,x)=>s+(Number(x.protein)||proteinEstimate(x)),0)}};
+renderDashboard=function(){
+  const p=active();if(!p)return;prepareTargetHistory(p);const c=generatedCalculation(p),target=targetForDate(p,dashboardDate),d=dayTotals(dashboardDate),st=helpfulStatus(d.kcal,target),isToday=dashboardDate===todayISO(),source=isToday?(p.targetMode==="custom"?"custom target":"app-generated target"):"saved target for this date";
+  document.getElementById("dashboardDateLabel").textContent=new Date(dashboardDate+"T12:00:00").toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric",year:"numeric"});document.getElementById("dashboardTodayHeading").textContent=isToday?"Today":new Date(dashboardDate+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"});
+  document.getElementById("dashboardHero").innerHTML=`<div class="between wrap"><div><div class="kpi-label">${safe(p.name)} • ${p.age} years</div><h2>${isToday?"Your daily target is":"Target for this date was"} <strong>${fmt(target)} kcal</strong></h2><div class="muted">${safe(source)} • estimated TDEE ${fmt(c.tdee)} kcal • BMR ${fmt(c.bmr)} kcal</div></div><div class="chips"><span class="chip">Weight ${p.weightUnit==="kg"?lbsToKg(p.weightLb).toFixed(1)+" kg":fmt(p.weightLb)+" lb"}</span><span class="chip">Height ${p.heightFt}' ${p.heightIn}\"</span></div></div>${isToday?warningHTML(p):""}`;
+  const remaining=target-d.kcal,pct=Math.min(100,Math.max(0,d.kcal/Math.max(1,target)*100));document.getElementById("kpis").innerHTML=`<div class="card"><div class="kpi-label">Calories eaten</div><div class="kpi">${fmt(d.kcal)}</div><div class="muted mini">of ${fmt(target)} target</div></div><div class="card"><div class="kpi-label">${remaining>=0?"Remaining":"Above target"}</div><div class="kpi">${fmt(Math.abs(remaining))}</div><div class="muted mini">${remaining>=0?"calories left":"calories over"}</div></div><div class="card"><div class="kpi-label">Exercise burned</div><div class="kpi">${fmt(d.exercise)}</div><div class="muted mini">logged on this day</div></div><div class="card"><div class="kpi-label">Weight</div><div class="kpi">${p.weightUnit==="kg"?lbsToKg(p.weightLb).toFixed(1)+" kg":fmt(p.weightLb)+" lb"}</div><div class="muted mini">${latestWeightTrend()}</div></div>`;
+  document.getElementById("todayStatus").innerHTML=`<span class="status ${st.klass}">${st.text}</span>`;const proteinGoal=Number(p.proteinGoal)||proteinGoalFor(p),proteinPct=Math.min(100,d.protein/Math.max(1,proteinGoal)*100);document.getElementById("todaySummary").innerHTML=`<div class="metric-line"><span>Food</span><strong>${fmt(d.kcal)} kcal</strong></div><div class="progress"><div style="width:${pct}%"></div></div><div class="muted mini" style="margin-top:7px">${st.detail}</div><div class="metric-line" style="margin-top:10px"><span>Protein</span><strong>${fmt(d.protein)} g / ${fmt(proteinGoal)} g</strong></div><div class="progress protein-progress"><div style="width:${proteinPct}%"></div></div><div class="metric-line"><span>Exercise</span><strong>${fmt(d.exercise)} kcal</strong></div><div class="divider"></div><div class="small-actions"><button class="btn" onclick="openFoodPickerModal(dashboardDate)">+ Food</button><button class="btn" onclick="openExerciseModal(dashboardDate)">+ Exercise</button><button class="btn" onclick="promptWeight(dashboardDate)">+ Weight</button></div>`;
+  document.getElementById("goalSummary").innerHTML=`<div class="metric-line"><span>Estimated BMR</span><strong>${fmt(c.bmr)} kcal</strong></div><div class="metric-line"><span>Estimated maintenance (TDEE)</span><strong>${fmt(c.tdee)} kcal</strong></div><div class="metric-line"><span>App-generated target</span><strong>${fmt(c.target)} kcal</strong></div><div class="metric-line"><span>Target method</span><strong>${p.targetMode==="custom"?"My own target":"App-generated"}</strong></div><div class="metric-line"><span>Current target</span><strong>${fmt(currentTarget(p))} kcal</strong></div>${c.raw<c.floor?`<div class="notice" style="margin-top:10px">The generated estimate reached the app's warning floor of ${fmt(c.floor)} kcal.</div>`:""}`;
+  document.getElementById("weightHistory").innerHTML=weightHistoryHTML();document.getElementById("recentActivity").innerHTML=activityHTML();
 };
+renderCalendar=function(){const p=active(),y=calendarDate.getFullYear(),m=calendarDate.getMonth();document.getElementById("monthTitle").textContent=new Intl.DateTimeFormat("en-US",{month:"long",year:"numeric"}).format(calendarDate);const first=new Date(y,m,1),days=new Date(y,m+1,0).getDate(),offset=first.getDay();let html=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(x=>`<div class="dow">${x}</div>`).join("");for(let i=0;i<offset;i++)html+="<div></div>";for(let day=1;day<=days;day++){const d=localDateISO(new Date(y,m,day)),tot=dayTotals(d),target=targetForDate(p,d);let cl="day "+(d===todayISO()?"today ":"")+(d===selectedDate?"selected ":"")+(tot.kcal?(tot.kcal<=target?"goalGood":"goalBad"):"");html+=`<button class="${cl}" onclick="selectCalendarDate('${d}')"><div class="date">${day}</div>${tot.kcal?`<div class="cal">${fmt(tot.kcal)} / ${fmt(target)}</div><div class="cal">↗ ${fmt(tot.exercise)} ex</div>`:'<div class="cal muted">No logs</div>'}<div class="dot"></div></button>`}document.getElementById("calendarGrid").innerHTML=html;const legend=document.querySelector("#page-calendar .legend");if(legend)legend.innerHTML='<span><i style="background:#22c55e"></i>within target</span><span><i style="background:#ef4444"></i>above target</span>';renderSelectedDate()};
+renderSelectedDate=function(){const p=active(),target=targetForDate(p,selectedDate),tot=dayTotals(selectedDate),st=helpfulStatus(tot.kcal,target);document.getElementById("selectedDateTitle").textContent=new Date(selectedDate+"T12:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"});const foods=p.foods.filter(x=>x.date===selectedDate),ex=p.exercises.filter(x=>x.date===selectedDate);document.getElementById("selectedDateDetails").innerHTML=`<div class="grid grid-3"><div><div class="kpi-label">Food</div><div class="kpi">${fmt(tot.kcal)}</div></div><div><div class="kpi-label">Saved target</div><div class="kpi">${fmt(target)}</div></div><div><div class="kpi-label">Exercise</div><div class="kpi">${fmt(tot.exercise)}</div></div></div><div class="divider"></div><div class="small-actions"><button class="btn" onclick="openFoodPickerModal('${selectedDate}')">+ Food</button><button class="btn" onclick="openExerciseModal('${selectedDate}')">+ Exercise</button><button class="btn" onclick="promptWeight('${selectedDate}')">+ Weight</button>${selectedDate<todayISO()?`<button class="btn" onclick="editHistoricalTarget('${selectedDate}')">Edit saved target</button>`:""}</div><div class="divider"></div><div class="muted mini">${foods.length} food entries • ${ex.length} exercise entries • ${safe(st.detail)}</div>`};
 
-const oldUseSuggestion=useFoodSuggestion;
-useFoodSuggestion=function(f){oldUseSuggestion(f);const e=document.getElementById("cfProtein");if(e)e.value=proteinEstimate(f)};
-const oldOpenFood=openFoodPickerModal;
-openFoodPickerModal=function(date=selectedDate,presetSearch=""){oldOpenFood(date,presetSearch);const e=document.getElementById("cfProtein");if(e)e.value=""};
+window.editHistoricalTarget=function(date){const p=active();if(!p||date>=todayISO())return;const current=targetForDate(p,date),raw=prompt(`Saved calorie target for ${date}:`,String(Math.round(current)));if(raw===null)return;const n=Math.round(Number(raw));if(!(n>=800&&n<=10000))return alert("Enter a target between 800 and 10,000 kcal.");p.targetHistory=p.targetHistory||{};p.targetHistory[date]=n;save();};
 
-window.saveCustomFoodLog=function(){
-  const p=active(),name=document.getElementById("cfName").value.trim(),cal=Number(document.getElementById("cfCal").value),protein=Number(document.getElementById("cfProtein")?.value||0),serv=Number(document.getElementById("cfServings").value)||1,date=document.getElementById("cfDate").value||todayISO(),notes=document.getElementById("cfNotes").value.trim();
-  if(!p||!name||!(cal>=0)||!(serv>0))return alert("Enter a food name, calories, and amount.");p.foods.push({id:uid(),name,cal:cal*serv,protein:Math.max(0,protein*serv),servings:serv,date,source:notes||"Manual entry",created:new Date().toISOString()});closeModal("foodModal");selectedDate=date;save();
-};
-window.addFoodDB=function(f){const servings=Number(prompt(`Servings/amount for ${f.name}:`,`1`)||0);if(!(servings>0))return;let cal=f.cal*servings;const over=prompt(`Calories per serving (${f.cal}). Enter a different number to override, or press OK to keep it.`,String(f.cal));if(over!==null&&over.trim()!=="")cal=Number(over)*servings;if(!isFinite(cal))return;const protein=proteinEstimate(f)*servings;active().foods.push({id:uid(),name:f.name,cal,protein,servings,date:selectedDate,source:f.source,created:new Date().toISOString()});save()};
-
-const oldImport=importData;
-importData=function(e){oldImport(e);setTimeout(()=>{state=migrate(state);save()},300)};
-
-const oldFill=fillProfileForm;
+function installProfileUI(){
+  const page=document.getElementById("page-profile");if(!page)return;const legacyDef=document.getElementById("pDeficit")?.closest(".field");if(legacyDef)legacyDef.style.display="none";const grid=page.querySelector(".grid.grid-2"),cards=grid?.querySelectorAll(":scope > .card");if(cards?.[1]&&!cards[1].dataset.v190){cards[1].dataset.v190="1";cards[1].innerHTML=`<div class="between wrap"><div><h2>Detailed activity questionnaire</h2><p class="muted">These are the same detailed inputs used during account setup. Changes auto-save when you leave a field.</p></div><button class="btn" onclick="rerunCalorieSetup()">Guided setup</button></div><div class="question-grid profile-question-grid">${activityFields("q")}</div><div class="small-actions" style="margin-top:14px"><button class="btn primary" onclick="saveQuestionnaire()">Save activity profile</button><span id="profileAutoSaveStatus" class="muted mini"></span></div><div class="footer-note">Estimate method: Mifflin–St Jeor BMR plus detailed lifestyle adjustments. The app reduces some activity additions when you say they are already represented in your step count.</div>`}
+  let targetCard=document.getElementById("targetSettingsCard");if(!targetCard){targetCard=document.createElement("div");targetCard.id="targetSettingsCard";targetCard.className="card";targetCard.style.marginTop="16px";grid?.insertAdjacentElement("afterend",targetCard)}
+  if(!page.dataset.autoSaveBound){page.dataset.autoSaveBound="1";page.addEventListener("change",e=>{if(e.target.closest("#targetSettingsCard"))return;if(e.target.matches("#pName,#pGender,#pWeight,#pWeightUnit,#pAge,#pHeightFt,#pHeightIn,#pDeficit")){saveProfile({quiet:true,render:false})}else if(e.target.closest(".profile-question-grid")){saveQuestionnaire({quiet:true,render:false})}})}
+}
+function fillActivity(prefix,q){const a=questionnaireToDraft(q),map={Steps:a.steps,OffSteps:a.offSteps,StepsWork:a.stepsWork,StepsSchool:a.stepsSchool,StepsCommute:a.stepsCommute,StepsExercise:a.stepsExercise,StepsErrands:a.stepsErrands,Pace:a.pace,Work:a.work,WorkDays:a.workDays,WorkHours:a.workHours,Standing:a.standing,Lifting:a.lifting,LiftingIntensity:a.liftingIntensity,WorkBreakWalk:a.workBreakWalk,Commute:a.commute,CommuteMin:a.commuteMin,CommuteDays:a.commuteDays,SchoolDays:a.schoolDays,SchoolHours:a.schoolHours,SchoolWalk:a.schoolWalk,SchoolStand:a.schoolStand,ExDays:a.exDays,ExMin:a.exMin,ExType:a.exType,ExIntensity:a.exIntensity,HouseMin:a.houseMin,HouseDays:a.houseDays,ManualMin:a.manualMin,ManualDays:a.manualDays,StandingOutside:a.standingOutside,Stairs:a.stairs,Sitting:a.sitting,Weekend:a.weekend,Sleep:a.sleep};Object.entries(map).forEach(([k,x])=>val(prefix+k,x))}
 fillProfileForm=function(){
-  oldFill();const p=active(),parent=document.querySelector("#page-profile .card");if(!p||!parent)return;
-  let box=document.getElementById("cloudExtraProfileSettings");
-  if(!box){box=document.createElement("div");box.id="cloudExtraProfileSettings";box.className="notice";box.style.marginTop="12px";box.innerHTML='<div class="small-actions"><strong>Protein goal</strong><input id="pProteinGoal" type="number" min="1" step="1" style="max-width:110px"><span>g/day</span><button class="btn" onclick="saveProteinGoal()">Save</button><button class="btn" onclick="rerunCalorieSetup()">Re-run detailed calorie setup</button></div>';parent.appendChild(box)}
-  document.getElementById("pProteinGoal").value=Number(p.proteinGoal)||proteinGoalFor(p);
+  installProfileUI();const p=active();if(!p)return;val("pName",p.name);val("pGender",p.gender);val("pWeightUnit",p.weightUnit||"lb");val("pWeight",p.weightUnit==="kg"?lbsToKg(p.weightLb).toFixed(1):Number(p.weightLb).toFixed(1));const wl=document.getElementById("pWeightLabel");if(wl)wl.textContent=`Weight (${p.weightUnit==="kg"?"kg":"lb"})`;val("pAge",p.age);val("pHeightFt",p.heightFt);val("pHeightIn",p.heightIn);val("pDeficit",p.deficit);fillActivity("q",p.questionnaire);
+  const c=generatedCalculation(p),di=targetDiffInfo(p),card=document.getElementById("targetSettingsCard");if(card)card.innerHTML=`<div class="between wrap"><div><h2>Calorie & protein goals</h2><p class="muted">Turn automatic calorie targets on or off at any time.</p></div><button class="btn" onclick="rerunCalorieSetup()">Re-run full setup</button></div><div class="question-grid"><div class="field"><label>Calorie target method</label><select id="pTargetMode" onchange="toggleProfileTargetMode()"><option value="generated" ${p.targetMode!=="custom"?"selected":""}>Use app-generated target</option><option value="custom" ${p.targetMode==="custom"?"selected":""}>Use my own target</option></select></div><div class="field" id="pCustomTargetWrap" style="display:${p.targetMode==="custom"?"grid":"none"}"><label>My calorie target (kcal/day)</label><input id="pCustomTarget" type="number" min="800" max="10000" step="10" value="${p.customCalorieTarget||Math.round(c.target)}"></div><div class="field"><label>Generated deficit</label><select id="pTargetDeficit"><option value="0.10" ${Number(p.deficit)===.1?"selected":""}>10%</option><option value="0.15" ${Number(p.deficit)===.15?"selected":""}>15%</option><option value="0.20" ${Number(p.deficit)===.2?"selected":""}>20%</option></select></div><div class="field"><label>Protein goal (g/day)</label><input id="pProteinGoal" type="number" min="1" step="1" value="${Number(p.proteinGoal)||proteinGoalFor(p)}"></div></div><div class="goal-preview"><div><span>App estimate</span><strong>${fmt(c.target)} kcal</strong></div><div><span>Current target</span><strong>${fmt(currentTarget(p))} kcal</strong></div></div>${warningHTML(p)}<div class="small-actions" style="margin-top:14px"><button class="btn primary" onclick="saveGoalSettings()">Save goals</button></div>`;
 };
-window.saveProteinGoal=function(){const p=active(),g=Number(document.getElementById("pProteinGoal")?.value);if(!(g>0))return alert("Enter a protein goal.");p.proteinGoal=Math.round(g);save()};
-window.rerunCalorieSetup=function(){
-  const p=active();if(!p)return;setupMode="edit";setupStep=2;setupAccount=authSession?.user||{firstName:p.name,lastName:""};const q=p.questionnaire||{};
-  setupDraft={account:{firstName:authSession?.user?.firstName||p.name,lastName:authSession?.user?.lastName||"",username:authSession?.user?.username||""},body:{sex:p.gender,age:p.age,unit:p.weightUnit||"lb",weight:(p.weightUnit==="kg"?lbsToKg(p.weightLb):p.weightLb),ft:p.heightFt,inch:p.heightIn,deficit:String(p.deficit||.15)},activity:{steps:q.stepsBand||"4-8k",offSteps:q.offDayStepsBand||q.stepsBand||"4-8k",stepsWork:q.stepsIncludeWork===false?"no":"yes",pace:q.walkPace||"normal",work:q.work||"light",workDays:q.workDays??5,workHours:q.workHours??8,standing:q.standingHours??2,lifting:q.liftingMinutes??0,commute:q.commute||"car",commuteMin:q.commuteMinutes??20,commuteDays:q.commuteDays??5,schoolDays:q.schoolDays??5,schoolHours:q.schoolHours??4,schoolWalk:q.schoolWalkingMinutes??0,schoolStand:q.schoolStandingHours??0,exDays:q.exerciseDays??0,exMin:q.exerciseMinutes??30,exType:q.exerciseType||"walking",exIntensity:q.exerciseIntensity||"moderate",houseMin:q.householdMinutes??30,houseDays:q.householdDays??3,stairs:q.stairsBand||"1-2",sitting:q.sittingHours??8,weekend:q.weekendActivity||"same",sleep:q.sleepHours||"7"}};openWizard("edit");
-};
+window.toggleProfileTargetMode=function(){const w=document.getElementById("pCustomTargetWrap");if(w)w.style.display=v("pTargetMode")==="custom"?"grid":"none"};
+saveProfile=function(options={}){const p=active();if(!p)return;const w=Number(v("pWeight")),age=Number(v("pAge")),ft=Number(v("pHeightFt")),inch=Number(v("pHeightIn"));if(!(w>0)||!(age>=13&&age<=100)||!(ft>=3&&ft<=8)||!(inch>=0&&inch<=11)){if(!options.quiet)alert("Enter valid profile values.");return}snapshotPastRange(p,currentTarget(p));p.name=v("pName").trim()||"Profile";p.gender=v("pGender")||"male";const unit=v("pWeightUnit")||"lb";p.weightUnit=unit;p.weightLb=unit==="kg"?w/0.45359237:w;p.age=age;p.heightFt=ft;p.heightIn=inch;p.deficit=Number(v("pDeficit"))||p.deficit||.15;p.lastResolvedTarget=Math.round(currentTarget(p));save({render:options.render!==false});if(!options.quiet)alert("Profile saved.")};
+saveQuestionnaire=function(options={}){const p=active();if(!p)return;snapshotPastRange(p,currentTarget(p));p.questionnaire=activityToQuestionnaire(readActivity("q"));p.lastResolvedTarget=Math.round(currentTarget(p));save({render:options.render!==false});const s=document.getElementById("profileAutoSaveStatus");if(s){s.textContent="Saved";setTimeout(()=>{if(s)s.textContent=""},1500)}if(!options.quiet)alert("Activity profile saved.")};
+window.saveGoalSettings=function(){const p=active();if(!p)return;const old=currentTarget(p),mode=v("pTargetMode")==="custom"?"custom":"generated",custom=Number(v("pCustomTarget")),def=Number(v("pTargetDeficit"))||.15,protein=Number(v("pProteinGoal"));if(mode==="custom"&&!(custom>=800&&custom<=10000))return alert("Enter a custom target between 800 and 10,000 kcal.");snapshotPastRange(p,old);p.deficit=def;p.targetMode=mode;if(mode==="custom")p.customCalorieTarget=Math.round(custom);if(protein>0)p.proteinGoal=Math.round(protein);p.dismissedTargetWarningKey="";const finish=()=>{p.lastResolvedTarget=Math.round(currentTarget(p));save();};if(mode==="custom"){const di=targetDiffInfo(p);if(di.significant&&!p.targetComparisonSeen.includes(di.key)){showTargetDifferenceChoice(p,finish,()=>{p.targetMode="generated";finish()});return}}finish()};
+renderCalc=function(){const p=active();if(!p)return;const c=generatedCalculation(p);document.getElementById("calcDetails").innerHTML=`<div class="grid grid-4"><div><div class="kpi-label">BMR</div><div class="kpi">${fmt(c.bmr)}</div></div><div><div class="kpi-label">TDEE</div><div class="kpi">${fmt(c.tdee)}</div></div><div><div class="kpi-label">Generated</div><div class="kpi">${fmt(c.target)}</div></div><div><div class="kpi-label">Current target</div><div class="kpi">${fmt(currentTarget(p))}</div></div></div><div class="divider"></div><div class="metric-line"><span>Target method</span><strong>${p.targetMode==="custom"?"Custom":"Generated"}</strong></div><div class="metric-line"><span>Average weekday steps</span><strong>${safe(p.questionnaire.stepsBand||"—")}</strong></div><div class="metric-line"><span>Work setting</span><strong>${safe(label(p.questionnaire.work||"—"))}</strong></div><div class="metric-line"><span>Exercise</span><strong>${fmt(p.questionnaire.exerciseDays||0)} days/week</strong></div>`};
+window.rerunCalorieSetup=function(){const p=active();if(!p)return;setupMode="edit";setupStep=2;setupAccount=authSession?.user||{firstName:p.name,lastName:""};setupDraft={account:{firstName:authSession?.user?.firstName||p.name,lastName:authSession?.user?.lastName||"",username:authSession?.user?.username||""},body:{sex:p.gender,age:p.age,unit:p.weightUnit||"lb",weight:(p.weightUnit==="kg"?lbsToKg(p.weightLb):p.weightLb),ft:p.heightFt,inch:p.heightIn},target:{mode:p.targetMode||"generated",custom:p.customCalorieTarget||"",deficit:String(p.deficit||.15)},activity:questionnaireToDraft(p.questionnaire)};openWizard("edit")};
+window.createProfile=function(){if(!authSession)return alert("Sign in first.");if(state.profiles.length>=3)return alert("You can have up to 3 profiles.");setupMode="profile";setupStep=2;setupAccount=authSession.user;setupDraft={account:{firstName:authSession.user.firstName,lastName:authSession.user.lastName,username:authSession.user.username},body:{},target:{mode:"generated",custom:"",deficit:"0.15"},activity:{}};openWizard("profile")};
 
-const oldSaveQ=saveQuestionnaire;
-saveQuestionnaire=function(){const p=active();p.questionnaire=Object.assign({},p.questionnaire||{},{work:document.getElementById("qWork").value,intensity:document.getElementById("qIntensity").value,commute:document.getElementById("qCommute").value,walk:document.getElementById("qWalk").value});save();alert("Activity profile saved.")};
+const originalShowPage=showPage;showPage=function(page){originalShowPage(page);if(page==="profile"){installProfileUI();fillProfileForm();renderCalc()}};
+renderAll=function(){const p=active();if(!p)return;prepareTargetHistory(p);updateProfileSelect();fillProfileForm();renderDashboard();renderCalendar();renderFoodBrowser();renderFoodDay();renderExerciseBrowser();renderExerciseDay();renderCalc()};
+
+renderFoodDay=function(){const p=active();if(!p)return;const date=document.getElementById("foodDate")?.value||selectedDate;selectedDate=date;const arr=p.foods.filter(x=>x.date===date),tot=arr.reduce((s,x)=>s+(Number(x.cal)||0),0),protein=arr.reduce((s,x)=>s+(Number(x.protein)||proteinEstimate(x)),0),target=document.getElementById("foodDay");target.innerHTML=arr.length?`<div class="between"><span class="muted mini">${arr.length} entries</span><strong>${fmt(tot)} kcal • ${fmt(protein)} g protein</strong></div><div class="stack" style="margin-top:10px">${arr.map(x=>`<div class="food-item"><div><strong>${safe(x.name)}</strong><div class="muted mini">${x.servings||1} serving(s)${x.source?" • "+safe(x.source):""} • ${fmt(Number(x.protein)||proteinEstimate(x))} g protein</div></div><div class="row"><strong>${fmt(x.cal)}</strong><button class="btn danger" onclick='deleteLog("food","${x.id}")'>×</button></div></div>`).join("")}</div>`:'<div class="empty">No food logged for this day.</div>'};
+const baseUseFoodSuggestion=useFoodSuggestion;useFoodSuggestion=function(f){baseUseFoodSuggestion(f);const e=document.getElementById("cfProtein");if(e)e.value=proteinEstimate(f)};
+const baseOpenFood=openFoodPickerModal;openFoodPickerModal=function(date=selectedDate,presetSearch=""){baseOpenFood(date,presetSearch);const e=document.getElementById("cfProtein");if(e)e.value=""};
+window.saveCustomFoodLog=function(){const p=active(),name=v("cfName").trim(),cal=Number(v("cfCal")),protein=Number(v("cfProtein")||0),serv=Number(v("cfServings"))||1,date=v("cfDate")||todayISO(),notes=v("cfNotes").trim();if(!p||!name||!(cal>=0)||!(serv>0))return alert("Enter a food name, calories, and amount.");p.foods.push({id:uid(),name,cal:cal*serv,protein:Math.max(0,protein*serv),servings:serv,date,source:notes||"Manual entry",created:new Date().toISOString()});closeModal("foodModal");selectedDate=date;save()};
+window.addFoodDB=function(f){const servings=Number(prompt(`Servings/amount for ${f.name}:`,`1`)||0);if(!(servings>0))return;let cal=f.cal*servings;const over=prompt(`Calories per serving (${f.cal}). Enter a different number to override, or press OK to keep it.`,String(f.cal));if(over!==null&&over.trim()!=="")cal=Number(over)*servings;if(!isFinite(cal))return;const protein=proteinEstimate(f)*servings;active().foods.push({id:uid(),name:f.name,cal,protein,servings,date:selectedDate,source:f.source,created:new Date().toISOString()});save()};
+importData=function(e){const f=e.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const data=JSON.parse(r.result);if(!data?.profiles||!Array.isArray(data.profiles)||data.profiles.length>3)throw new Error();state=migrate(data);ensureActiveId();save();alert("Backup imported and synced.")}catch{alert("That file is not a valid Calorie Compass backup.")}};r.readAsText(f);e.target.value=""};
+
+function markUpdateSeen(forceToken=""){state.meta=state.meta||{};state.meta.updateSeen=state.meta.updateSeen||{};state.meta.updateSeen[UPDATE_KEY]=true;if(forceToken)state.meta.lastForceUpdateToken=forceToken;save({render:false})}
+function showUpdateLog(forceToken=""){
+  if(document.getElementById("updateLogModal"))return;const p=active();if(!p)return;const c=generatedCalculation(p),current=currentTarget(p),el=document.createElement("div");el.id="updateLogModal";el.className="modal show";el.innerHTML=`<div class="modal-box update-log-box" style="max-width:650px"><div class="modal-head"><div><h2>Calorie Compass ${APP_VERSION}</h2><div class="muted mini">What's new</div></div><button class="close" id="updateClose">×</button></div><div class="update-list"><div>Daily calorie targets are now saved by date, so changing today's goal will not rewrite previous days. Older pre-1.9 history can be corrected from Calendar → Edit saved target if needed.</div><div>Profile & Goal now uses the full detailed activity questionnaire and more reliable cloud saving.</div><div>Sign-in now shows a loading animation and loads account data in fewer requests.</div><div>You can choose an app-generated calorie target or your own number.</div><div>Mobile navigation has more room and now includes Log out.</div></div><div class="goal-choice-panel"><h3>How do you want your calorie target set?</h3><div class="goal-preview"><div><span>App estimate</span><strong>${fmt(c.target)} kcal</strong></div><div><span>Current target</span><strong>${fmt(current)} kcal</strong></div></div><div class="field"><label>Your own target (optional)</label><input id="updateCustomTarget" type="number" min="800" max="10000" step="10" value="${p.targetMode==="custom"?(p.customCalorieTarget||""):Math.round(current)}"></div><div class="target-choice-actions"><button class="btn primary" id="updateKeepGenerated">Keep/use generated target</button><button class="btn" id="updateUseCustom">Use my own target</button></div></div></div>`;document.body.appendChild(el);
+  const close=()=>{markUpdateSeen(forceToken);el.remove()};el.querySelector("#updateClose").onclick=close;el.querySelector("#updateKeepGenerated").onclick=()=>{snapshotPastRange(p,currentTarget(p));p.targetMode="generated";p.dismissedTargetWarningKey="";p.lastResolvedTarget=Math.round(currentTarget(p));markUpdateSeen(forceToken);el.remove();renderAll()};el.querySelector("#updateUseCustom").onclick=()=>{const n=Math.round(Number(v("updateCustomTarget")));if(!(n>=800&&n<=10000))return alert("Enter a target between 800 and 10,000 kcal.");snapshotPastRange(p,currentTarget(p));p.targetMode="custom";p.customCalorieTarget=n;p.dismissedTargetWarningKey="";const finish=()=>{p.lastResolvedTarget=Math.round(currentTarget(p));markUpdateSeen(forceToken);el.remove();renderAll()};const useGenerated=()=>{p.targetMode="generated";finish()};showTargetDifferenceChoice(p,finish,useGenerated)};
+}
+function runBroadcastEffect(effect){if(effect==="confetti"){for(let i=0;i<34;i++){const s=document.createElement("span");s.className="mini-confetti";s.textContent=["●","◆","★"][i%3];s.style.left=(Math.random()*100)+"vw";s.style.animationDelay=(Math.random()*.5)+"s";document.body.appendChild(s);setTimeout(()=>s.remove(),2600)}}}
+function showBroadcast(b){if(document.getElementById("broadcastModal"))return;const el=document.createElement("div");el.id="broadcastModal";el.className="modal show";el.innerHTML=`<div class="modal-box ${b.effect==="pulse"?"broadcast-pulse":""}" style="max-width:560px"><div class="modal-head"><h2>${safe(b.title||"Calorie Compass")}</h2><button class="close" id="broadcastClose">×</button></div><p style="white-space:pre-wrap;line-height:1.6">${safe(b.message||"")}</p>${b.action&&b.action!=="none"?`<div class="small-actions" style="margin-top:16px"><button class="btn primary" id="broadcastAction">${safe(b.actionLabel||({dashboard:"Open dashboard",profile:"Open Profile & Goal",goalSetup:"Review calorie goal",refresh:"Refresh app",logout:"Log out"}[b.action]||"Continue"))}</button></div>`:""}</div>`;document.body.appendChild(el);runBroadcastEffect(b.effect);const seen=()=>{state.meta.seenBroadcastIds.push(b.id);state.meta.seenBroadcastIds=[...new Set(state.meta.seenBroadcastIds)].slice(-100);save({render:false});el.remove()};el.querySelector("#broadcastClose").onclick=seen;const ab=el.querySelector("#broadcastAction");if(ab)ab.onclick=()=>{seen();if(b.action==="dashboard")showPage("dashboard");if(b.action==="profile")showPage("profile");if(b.action==="goalSetup"){showPage("profile");setTimeout(()=>document.getElementById("targetSettingsCard")?.scrollIntoView({behavior:"smooth"}),50)}if(b.action==="refresh")location.reload();if(b.action==="logout")flushCloudSaveNow().finally(()=>window.logout())}}
+async function applyPendingTargetOverride(o){if(!o?.token)return;const p=active();if(!p)return;snapshotPastRange(p,currentTarget(p));p.targetMode=o.mode==="generated"?"generated":"custom";if(p.targetMode==="custom"&&Number(o.target)>0)p.customCalorieTarget=Math.round(Number(o.target));p.dismissedTargetWarningKey="";p.lastResolvedTarget=Math.round(currentTarget(p));save();try{await api("/api/notices/ack-target",{method:"POST",body:JSON.stringify({token:o.token})})}catch{}}
+async function checkServerNotices(){if(!authSession||!apiConfigured())return;try{const r=await api("/api/notices");if(r.user){authSession.user=r.user;setAuth(authSession)}if(r.pendingTargetOverride?.token)await applyPendingTargetOverride(r.pendingTargetOverride);const forced=r.forceUpdateToken&&r.forceUpdateToken!==(state.meta.lastForceUpdateToken||"");if(forced){showUpdateLog(r.forceUpdateToken);return}if(!state.meta.updateSeen?.[UPDATE_KEY]){showUpdateLog("");return}const unseen=(r.broadcasts||[]).filter(b=>!state.meta.seenBroadcastIds.includes(b.id)).reverse();if(unseen.length)showBroadcast(unseen[0])}catch{}}
 
 function isAdmin(){return authSession?.user?.role==="admin"}
 window.openAdminPanel=async function(){
-  if(!isAdmin())return alert("Administrator access required.");
-  let el=document.getElementById("adminModal");if(!el){el=document.createElement("div");el.id="adminModal";el.className="modal show";document.body.appendChild(el)}
-  el.innerHTML=`<div class="modal-box" style="max-width:1050px;max-height:92vh;overflow:auto"><div class="modal-head"><div><h2>Administration</h2><div class="muted mini">Administrator-only controls</div></div><button class="close" onclick="document.getElementById('adminModal').remove()">×</button></div><div id="adminBody">Loading…</div></div>`;
-  try{
-    const r=await api("/api/admin/users"),rows=(r.users||[]).map(u=>`<tr><td><strong>${safe(u.username)}</strong></td><td>${safe(u.firstName)} ${safe(u.lastName)}</td><td>${safe(u.role)}</td><td>${u.suspended?"Suspended":"Active"}</td><td class="admin-extra">${new Date(u.createdAt).toLocaleDateString()}</td><td><div class="small-actions"><button class="btn" onclick="adminOpenData('${u.id}','${safe(u.username)}')">Data</button>${u.id!==authSession.user.id?`<button class="btn" onclick="adminRole('${u.id}','${u.role==="admin"?"user":"admin"}')">${u.role==="admin"?"Make user":"Make admin"}</button><button class="btn" onclick="adminSuspend('${u.id}',${!u.suspended})">${u.suspended?"Activate":"Suspend"}</button><button class="btn danger" onclick="adminDelete('${u.id}','${safe(u.username)}')">Delete</button>`:""}</div></td></tr>`).join("");
-    document.getElementById("adminBody").innerHTML=`<div class="notice">Admins can manage accounts and edit cloud app data. These controls are not available to normal users.</div><div style="overflow:auto;margin-top:12px"><table class="admin-table"><thead><tr><th>Username</th><th>Name</th><th>Role</th><th>Status</th><th class="admin-extra">Created</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table></div>`;
-  }catch(e){document.getElementById("adminBody").innerHTML=`<div class="auth-error show">${safe(e.message)}</div>`}
+  if(!isAdmin())return alert("Administrator access required.");let el=document.getElementById("adminModal");if(!el){el=document.createElement("div");el.id="adminModal";el.className="modal show";document.body.appendChild(el)}el.innerHTML=`<div class="modal-box" style="max-width:1120px;max-height:92vh;overflow:auto"><div class="modal-head"><div><h2>Administration</h2><div class="muted mini">Account controls, target controls, update prompts and safe broadcast messages</div></div><button class="close" onclick="document.getElementById('adminModal').remove()">×</button></div><div id="adminBody">Loading…</div></div>`;
+  try{const r=await api("/api/admin/users"),rows=(r.users||[]).map(u=>`<tr><td><strong>${safe(u.username)}</strong></td><td>${safe(u.firstName)} ${safe(u.lastName)}</td><td>${safe(u.role)}</td><td>${u.suspended?"Suspended":"Active"}</td><td class="admin-extra">${new Date(u.createdAt).toLocaleDateString()}</td><td><div class="small-actions"><button class="btn" onclick="adminOpenTarget('${u.id}','${safe(u.username)}')">Target</button><button class="btn" onclick="adminPushUpdate('${u.id}','${safe(u.username)}')">Push update</button><button class="btn" onclick="adminOpenData('${u.id}','${safe(u.username)}')">Data</button>${u.id!==authSession.user.id?`<button class="btn" onclick="adminRole('${u.id}','${u.role==="admin"?"user":"admin"}')">${u.role==="admin"?"Make user":"Make admin"}</button><button class="btn" onclick="adminSuspend('${u.id}',${!u.suspended})">${u.suspended?"Activate":"Suspend"}</button><button class="btn danger" onclick="adminDelete('${u.id}','${safe(u.username)}')">Delete</button>`:""}</div></td></tr>`).join("");document.getElementById("adminBody").innerHTML=`<div class="admin-broadcast"><h3>Send a custom popup to everyone</h3><div class="question-grid"><div class="field"><label>Title</label><input id="broadcastTitle" maxlength="80" placeholder="Announcement"></div><div class="field"><label>Effect</label><select id="broadcastEffect"><option value="none">None</option><option value="confetti">Confetti</option><option value="pulse">Pulse</option></select></div><div class="field span-2"><label>Message</label><textarea id="broadcastMessage" rows="4" maxlength="1200" placeholder="Write the message everyone should see..."></textarea></div><div class="field"><label>Button command</label><select id="broadcastAction"><option value="none">No action button</option><option value="dashboard">Open dashboard</option><option value="profile">Open Profile & Goal</option><option value="goalSetup">Review calorie goal</option><option value="refresh">Refresh app</option><option value="logout">Log out</option></select></div><div class="field"><label>Button label (optional)</label><input id="broadcastActionLabel" maxlength="40" placeholder="e.g. Review goal"></div></div><button class="btn primary" style="margin-top:10px" onclick="adminSendBroadcast()">Send to everyone</button></div><div style="overflow:auto;margin-top:16px"><table class="admin-table"><thead><tr><th>Username</th><th>Name</th><th>Role</th><th>Status</th><th class="admin-extra">Created</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table></div>`}catch(e){document.getElementById("adminBody").innerHTML=`<div class="auth-error show">${safe(e.message)}</div>`}
 };
 window.adminRole=async(id,role)=>{try{await api(`/api/admin/users/${id}/role`,{method:"PUT",body:JSON.stringify({role})});openAdminPanel()}catch(e){alert(e.message)}};
 window.adminSuspend=async(id,suspended)=>{try{await api(`/api/admin/users/${id}/status`,{method:"PUT",body:JSON.stringify({suspended})});openAdminPanel()}catch(e){alert(e.message)}};
 window.adminDelete=async(id,username)=>{if(!confirm(`Delete ${username}'s account and all cloud data?`))return;try{await api(`/api/admin/users/${id}`,{method:"DELETE"});openAdminPanel()}catch(e){alert(e.message)}};
-window.adminOpenData=async(id,username)=>{
-  try{const r=await api(`/api/admin/users/${id}/data`);const modal=document.getElementById("adminModal");modal.innerHTML=`<div class="modal-box" style="max-width:1000px;max-height:92vh;overflow:auto"><div class="modal-head"><div><h2>Edit ${safe(username)} data</h2><div class="muted mini">Advanced administrator editor</div></div><button class="close" onclick="document.getElementById('adminModal').remove()">×</button></div><textarea id="adminDataEditor" class="admin-editor">${safe(JSON.stringify(r.state||{},null,2))}</textarea><div class="small-actions" style="margin-top:12px"><button class="btn primary" onclick="adminSaveData('${id}')">Save JSON</button><button class="btn danger" onclick="adminClearData('${id}')">Clear app data</button><button class="btn" onclick="openAdminPanel()">Back</button></div></div>`}catch(e){alert(e.message)}
-};
-window.adminSaveData=async id=>{try{const state=JSON.parse(document.getElementById("adminDataEditor").value);await api(`/api/admin/users/${id}/data`,{method:"PUT",body:JSON.stringify({state})});alert("Cloud data updated.")}catch(e){alert(e.message)}};
+window.adminOpenData=async(id,username)=>{try{const r=await api(`/api/admin/users/${id}/data`);const modal=document.getElementById("adminModal");modal.innerHTML=`<div class="modal-box" style="max-width:1000px;max-height:92vh;overflow:auto"><div class="modal-head"><div><h2>Edit ${safe(username)} data</h2><div class="muted mini">Advanced administrator editor</div></div><button class="close" onclick="document.getElementById('adminModal').remove()">×</button></div><textarea id="adminDataEditor" class="admin-editor">${safe(JSON.stringify(r.state||{},null,2))}</textarea><div class="small-actions" style="margin-top:12px"><button class="btn primary" onclick="adminSaveData('${id}')">Save JSON</button><button class="btn danger" onclick="adminClearData('${id}')">Clear app data</button><button class="btn" onclick="openAdminPanel()">Back</button></div></div>`}catch(e){alert(e.message)}};
+window.adminSaveData=async id=>{try{const data=JSON.parse(document.getElementById("adminDataEditor").value);await api(`/api/admin/users/${id}/data`,{method:"PUT",body:JSON.stringify({state:data})});alert("Cloud data updated.")}catch(e){alert(e.message)}};
 window.adminClearData=async id=>{if(!confirm("Clear this user's cloud app data?"))return;try{await api(`/api/admin/users/${id}/data`,{method:"DELETE"});alert("Cloud data cleared.");openAdminPanel()}catch(e){alert(e.message)}};
+window.adminOpenTarget=async(id,username)=>{try{const r=await api(`/api/admin/users/${id}/data`),s=r.state?migrate(r.state):null,p=s?.profiles?.find(x=>x.id===s.activeId)||s?.profiles?.[0];if(!p)return alert("That user has no profile yet.");const c=generatedCalculation(p),modal=document.getElementById("adminModal");modal.innerHTML=`<div class="modal-box" style="max-width:620px"><div class="modal-head"><div><h2>${safe(username)} — calorie target</h2><div class="muted mini">App estimate: ${fmt(c.target)} kcal</div></div><button class="close" onclick="document.getElementById('adminModal').remove()">×</button></div><div class="question-grid"><div class="field"><label>Target method</label><select id="adminTargetMode" onchange="document.getElementById('adminTargetValueWrap').style.display=this.value==='custom'?'grid':'none'"><option value="generated" ${p.targetMode!=="custom"?"selected":""}>Generated</option><option value="custom" ${p.targetMode==="custom"?"selected":""}>Custom</option></select></div><div class="field" id="adminTargetValueWrap" style="display:${p.targetMode==="custom"?"grid":"none"}"><label>Custom target</label><input id="adminTargetValue" type="number" min="800" max="10000" step="10" value="${p.customCalorieTarget||Math.round(c.target)}"></div></div><div class="notice" style="margin-top:12px">Saving this queues the target change for the user and also pushes the update popup. If they are already signed in, the app checks for it automatically.</div><div class="small-actions" style="margin-top:14px"><button class="btn primary" onclick="adminSaveTarget('${id}')">Save target</button><button class="btn" onclick="openAdminPanel()">Back</button></div></div>`}catch(e){alert(e.message)}};
+window.adminSaveTarget=async id=>{const mode=v("adminTargetMode"),target=Number(v("adminTargetValue"));try{await api(`/api/admin/users/${id}/target`,{method:"PUT",body:JSON.stringify({mode,target})});alert("Target change queued and update popup pushed.");document.getElementById("adminModal")?.remove();if(id===authSession.user.id)setTimeout(checkServerNotices,200)}catch(e){alert(e.message)}};
+window.adminPushUpdate=async(id,username)=>{try{await api(`/api/admin/users/${id}/force-update`,{method:"POST",body:"{}"});alert(`Update popup queued for ${username}.`);if(id===authSession.user.id)setTimeout(checkServerNotices,200)}catch(e){alert(e.message)}};
+window.adminSendBroadcast=async()=>{const title=v("broadcastTitle"),message=v("broadcastMessage"),effect=v("broadcastEffect"),action=v("broadcastAction"),actionLabel=v("broadcastActionLabel");if(!message.trim())return alert("Enter a message.");try{await api("/api/admin/broadcasts",{method:"POST",body:JSON.stringify({title,message,effect,action,actionLabel})});alert("Popup sent to everyone.");document.getElementById("broadcastMessage").value="";setTimeout(checkServerNotices,200)}catch(e){alert(e.message)}};
 
+installProfileUI();state=migrate(state);localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
 setTimeout(async()=>{if(!(await trySession()))showSignIn()},60);
 })();
 </script>
 
+
+
+<script id="service-worker-v190">
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").then(r=>r.update()).catch(()=>{}));}
+</script>
 </body></html>
