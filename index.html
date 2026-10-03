@@ -257,7 +257,7 @@ input, select, textarea { min-height: 44px; font-size: 16px !important; }
     <button data-page="data">Data <span class="info-btn" title="What does Data track?" onclick="event.stopPropagation();showInfo('Data','Backup and recovery tools for this account and its logs. Export your data to JSON, import a previous backup, or reset the app data stored for this account.')">i</span></button>
     <button id="adminNavButton" type="button" style="display:none" onclick="openAdminPanel()">Admin Controls</button>
   </nav>
-  <div class="sidebar-foot">Cloud account sync • browser storage is kept as a local cache.<div class="app-version">Version 1.9.6</div></div>
+  <div class="sidebar-foot">Cloud account sync • browser storage is kept as a local cache.<div class="app-version">Version 1.9.6.1</div></div>
 </aside>
 <main class="main">
   <header class="topbar"><h1 id="pageTitle">Dashboard</h1><div class="topbar-right"><div class="top-actions"><span id="cloudSyncStatus" class="sync-pill">Not signed in</span><button id="adminTopButton" class="btn" style="display:none" onclick="openAdminPanel()">Admin</button></div><button id="accountMenuButton" class="account-icon-btn" type="button" aria-label="Account menu" aria-expanded="false" onclick="toggleAccountMenu()"><span aria-hidden="true">👤</span></button></div></header><div id="accountMenuPopover" class="account-popover" aria-hidden="true"></div>
@@ -275,7 +275,7 @@ input, select, textarea { min-height: 44px; font-size: 16px !important; }
         </div>
       </div>
       <div class="hero card" id="dashboardHero"></div>
-      <div id="dashboardVersionHome" class="muted mini" style="margin:10px 2px 0;font-weight:700;">Calorie Compass • Version 1.9.6</div>
+      <div id="dashboardVersionHome" class="muted mini" style="margin:10px 2px 0;font-weight:700;">Calorie Compass • Version 1.9.6.1</div>
       <div class="grid grid-4" style="margin-top:16px" id="kpis"></div>
       <div class="two-col" style="margin-top:16px">
         <div class="card"><div class="between"><h3 class="heading-with-info"><span id="dashboardTodayHeading">Today <span class="info-btn" title="What does Today track?" onclick="showInfo('Dashboard day','This card compares your logged food intake with your daily calorie target and shows exercise and quick-add controls for the date selected above. You can move backward and forward by day and edit historical days.')">i</span></h3><span id="todayStatus"></span></div><div id="todaySummary"></div></div>
@@ -498,7 +498,7 @@ function updateProfileWeightUnit(){const unit=document.getElementById('pWeightUn
 function updateOnboardingWeightPlaceholder(){const unit=document.getElementById('oWeightUnit').value;document.getElementById('oWeightLabel').textContent=`Weight (${unit})`;document.getElementById('oWeight').placeholder=unit==='kg'?'81.6':'180'}
 function saveProfile(){const p=active();if(!p)return;p.name=document.getElementById('pName').value.trim()||'Profile';p.gender=document.getElementById('pGender').value;const unit=document.getElementById('pWeightUnit').value;const w=parseFloat(document.getElementById('pWeight').value);p.weightUnit=unit;p.weightLb=unit==='kg'?w/0.45359237:w;p.age=parseInt(document.getElementById('pAge').value)||25;p.heightFt=parseInt(document.getElementById('pHeightFt').value)||5;p.heightIn=parseInt(document.getElementById('pHeightIn').value)||0;p.deficit=parseFloat(document.getElementById('pDeficit').value)||.15;save();alert('Profile saved and calories recalculated.')}
 function saveQuestionnaire(){const p=active();p.questionnaire={work:document.getElementById('qWork').value,intensity:document.getElementById('qIntensity').value,commute:document.getElementById('qCommute').value,walk:document.getElementById('qWalk').value};save();alert('Activity profile saved.')}
-function showStartup(){const screen=document.getElementById('startupScreen'),app=document.querySelector('.app');if(!screen)return;document.getElementById('startupContent').innerHTML=`<div class="auth-card"><h1 class="startup-title">Loading Calorie Compass…</h1><p class="startup-sub">Preparing your account.</p><div class="app-version">Version 1.9.6</div></div>`;screen.style.display='flex';app?.classList.add('locked')}
+function showStartup(){const screen=document.getElementById('startupScreen'),app=document.querySelector('.app');if(!screen)return;document.getElementById('startupContent').innerHTML=`<div class="auth-card"><h1 class="startup-title">Loading Calorie Compass…</h1><p class="startup-sub">Preparing your account.</p><div class="app-version">Version 1.9.6.1</div></div>`;screen.style.display='flex';app?.classList.add('locked')}
 function activateStartupProfile(id){}
 function finishOnboarding(){}
 function openProfileModal(){showPage('profile')}
@@ -600,8 +600,8 @@ initUI();
 (function(){
 "use strict";
 
-const APP_VERSION="1.9.6";
-const UPDATE_KEY="1.9.6";
+const APP_VERSION="1.9.6.1";
+const UPDATE_KEY="1.9.6.1";
 const API_BASE=(window.CALORIE_API_URL||(!location.hostname.endsWith("github.io")?location.origin:"")).replace(/\/+$/,"");
 const AUTH_KEY="calorieCompass_auth_v4";
 const CLIENT_RESET_KEY="calorieCompass_client_reset_1_9_6";
@@ -626,7 +626,18 @@ function beginAuthFlow(){authFlowGeneration+=1;return authFlowGeneration}
 function authFlowIsCurrent(flow){return flow===authFlowGeneration}
 function getAuth(){try{return JSON.parse(localStorage.getItem(AUTH_KEY)||"null")}catch{return null}}
 function accountStateKey(userId=authSession?.user?.id){return userId?`calorieCompass_account_state_${String(userId)}_v1`:null}
+function getCachedStateForAccount(userId){const key=accountStateKey(userId);if(!key)return null;try{const x=JSON.parse(localStorage.getItem(key)||"null");if(!x||typeof x!=="object")return null;const owner=String(x?.meta?.accountId||"");if(owner&&owner!==String(userId))return null;return x}catch{return null}}
 function cacheStateForAccount(userId=authSession?.user?.id){const key=accountStateKey(userId);if(key)try{localStorage.setItem(key,JSON.stringify(state))}catch{}}
+function stateRevision(x){return Math.max(0,Number(x?.meta?.revision)||0)}
+function chooseNewestAccountState(userId,cloudState,cachedState){
+  const valid=x=>{if(!x||typeof x!=="object")return null;const owner=String(x?.meta?.accountId||"");return owner&&owner!==String(userId)?null:x};
+  const cloud=valid(cloudState),cached=valid(cachedState),cloudRev=stateRevision(cloud),cacheRev=stateRevision(cached);
+  if(cached&&(!cloud||cacheRev>cloudRev))return {state:cached,source:"cache",needsUpload:true};
+  if(cloud)return {state:cloud,source:"cloud",needsUpload:false};
+  if(cached)return {state:cached,source:"cache",needsUpload:true};
+  return {state:null,source:"none",needsUpload:false};
+}
+function requestPersistentStorage(){try{navigator.storage?.persist?.().catch(()=>{})}catch{}}
 function setAuth(x){const previousId=authSession?.user?.id||null,nextId=x?.user?.id||null;if(previousId!==nextId){stopAdminRefresh();adminUsersCache=[];document.getElementById("adminModal")?.remove();closeAccountMenu?.();state=seed()}authSession=x||null;window.__calorieAuth=authSession;if(x)localStorage.setItem(AUTH_KEY,JSON.stringify(x));else localStorage.removeItem(AUTH_KEY);updateAuthUI()}
 function status(t,k=""){const e=document.getElementById("cloudSyncStatus");if(e){e.textContent=t;e.className="sync-pill"+(k?" "+k:"")}}
 function updateAuthUI(){
@@ -661,10 +672,10 @@ function api(path,opts={}){
   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),35000);
   return fetch(API_BASE+path,Object.assign({cache:"no-store"},request,{headers,signal:controller.signal,cache:"no-store"})).then(async r=>{
     clearTimeout(timer);let data={};try{data=await r.json()}catch{}
-    if(!r.ok)throw new Error(data.error||`Server error (${r.status})`);
+    if(!r.ok){const e=new Error(data.error||`Server error (${r.status})`);e.httpStatus=r.status;e.response=data;throw e}
     if(!skipAuth&&!explicitToken&&tokenAtStart&&tokenAtStart!==(authSession?.token||"")){const e=new Error("A previous account request finished after the account changed.");e.staleSession=true;throw e}
     return data;
-  }).catch(e=>{clearTimeout(timer);if(e?.name==="AbortError")throw new Error("The cloud server took too long to respond. Try again in a moment.");throw e});
+  }).catch(e=>{clearTimeout(timer);if(e?.name==="AbortError"){const x=new Error("The cloud server took too long to respond. Your saved session and local data were kept.");x.transient=true;throw x}if(!e?.httpStatus&&!e?.staleSession)e.transient=true;throw e});
 }
 async function refreshPublicSettings(){try{const r=await api("/api/public/settings",{skipAuth:true});minAccountAge=Math.max(1,Math.min(120,Number(r.minAccountAge)||16));maxAccountAge=Math.max(minAccountAge,Math.min(120,Number(r.maxAccountAge)||100));registrationsEnabled=r.registrationsEnabled!==false}catch{minAccountAge=16;maxAccountAge=100;registrationsEnabled=true}return {minAccountAge,maxAccountAge,registrationsEnabled}}
 
@@ -753,17 +764,24 @@ function migrate(s){
 }
 function oldBrowserData(){for(const k of LEGACY_KEYS)try{const raw=localStorage.getItem(k);if(raw){const x=JSON.parse(raw);if(x?.profiles?.length)return migrate(x)}}catch{}return null}
 
-function scheduleCloudSave(){if(!authSession||!apiConfigured())return;cloudDirty=true;clearTimeout(cloudSaveTimer);cloudSaveTimer=setTimeout(flushCloudSave,500)}
+function scheduleCloudSave(){if(!authSession||!apiConfigured())return;cloudDirty=true;clearTimeout(cloudSaveTimer);cloudSaveTimer=setTimeout(flushCloudSave,150)}
 async function flushCloudSave(){
   if(cloudSaving||!cloudDirty||!authSession||!apiConfigured())return;
   const saveToken=authSession.token,saveUserId=authSession.user?.id;
   cloudSaving=true;cloudDirty=false;status("Saving…","");
   const snapshot=migrate(state);
   try{await api("/api/data",{method:"PUT",body:JSON.stringify({state:snapshot})});if(authSession?.token===saveToken&&authSession?.user?.id===saveUserId)status("Synced","ok")}
-  catch(e){if(!e?.staleSession&&authSession?.token===saveToken&&authSession?.user?.id===saveUserId){cloudDirty=true;status("Sync pending","warn")}}
+  catch(e){if(!e?.staleSession&&authSession?.token===saveToken&&authSession?.user?.id===saveUserId){cloudDirty=true;status(e?.transient?"Saved on device — cloud pending":"Sync pending","warn")}}
   finally{cloudSaving=false;if(cloudDirty&&authSession?.token===saveToken&&authSession?.user?.id===saveUserId){clearTimeout(cloudSaveTimer);cloudSaveTimer=setTimeout(flushCloudSave,1800)}}
 }
 async function flushCloudSaveNow(){clearTimeout(cloudSaveTimer);if(cloudDirty)await flushCloudSave();while(cloudSaving)await new Promise(r=>setTimeout(r,80))}
+function flushCloudSaveKeepalive(){
+  if(!authSession?.token||!apiConfigured())return;
+  try{
+    state=migrate(state);state.profiles.forEach(prepareTargetHistory);if(authSession?.user?.id)state.meta.accountId=String(authSession.user.id);cacheStateForAccount();
+    fetch(API_BASE+"/api/data",{method:"PUT",headers:{"Content-Type":"application/json","Authorization":"Bearer "+authSession.token},body:JSON.stringify({state}),keepalive:true,cache:"no-store"}).catch(()=>{});
+  }catch{}
+}
 save=function(options={}){
   state=migrate(state);state.profiles.forEach(prepareTargetHistory);state.meta.revision=(Number(state.meta.revision)||0)+1;if(authSession?.user?.id)state.meta.accountId=String(authSession.user.id);cacheStateForAccount();
   if(options.render!==false){try{renderAll()}catch{}}
@@ -852,11 +870,9 @@ async function completeAccountSetup(){
     clearTimeout(cloudSaveTimer);cloudDirty=false;cloudSaving=false;setAuth(null);state=seed();
     const r=await api("/api/auth/register",{method:"POST",skipAuth:true,body:JSON.stringify({...setupAccount,age:Number(setupDraft.body.age)})});
     if(!authFlowIsCurrent(flow))throw new Error("Account setup was cancelled by another sign-in action.");
-    const verified=await api("/api/auth/me",{authToken:r.token});
-    if(!authFlowIsCurrent(flow))throw new Error("Account setup was cancelled by another sign-in action.");
-    if(!verified?.user||String(verified.user.id)!==String(r.user?.id)||String(verified.user.username||"").toLowerCase()!==expected){setAuth(null);throw new Error("The new account session could not be verified. Please sign in again.")}
-    if(verified.user.role!=="user"){setAuth(null);throw new Error("New accounts must start as standard users. The server rejected this account session for safety.")}
-    setAuth({token:r.token,user:verified.user});
+    if(!r?.token||!r?.user||String(r.user.username||"").toLowerCase()!==expected){setAuth(null);throw new Error("The server returned the wrong new account. Setup was stopped for safety.")}
+    if(r.user.role!=="user"){setAuth(null);throw new Error("New accounts must start as standard users.")}
+    setAuth({token:r.token,user:r.user});
   }
   const fresh=profileFromWizard();
   if(setupMode==="profile"){
@@ -897,32 +913,39 @@ async function signInCloud(){
     const r=await api("/api/auth/login",{method:"POST",skipAuth:true,body:JSON.stringify({username,password})});
     if(!authFlowIsCurrent(flow))return;
     if(!r?.token||!r?.user||String(r.user.username||"").toLowerCase()!==username.toLowerCase())throw new Error("The server returned the wrong account. Sign-in was cancelled for safety.");
-    const next={token:r.token,user:r.user};
-    if(r.state?.meta?.accountId&&String(r.state.meta.accountId)!==String(r.user.id))throw new Error("This account's cloud data did not match the signed-in account. Nothing was loaded.");
+    const next={token:r.token,user:r.user},cached=getCachedStateForAccount(r.user.id),picked=chooseNewestAccountState(r.user.id,r.state,cached);
     setAuth(next);
-    state=r.state?migrate(r.state):seed();
-    if(r.state){ensureActiveId();cacheStateForAccount(r.user.id);hideBusy();showApp();status("Synced","ok")}
+    state=picked.state?migrate(picked.state):seed();
+    if(picked.state){ensureActiveId();cacheStateForAccount(r.user.id);hideBusy();showApp();if(picked.needsUpload){cloudDirty=true;status("Saving recent changes…","warn");setTimeout(flushCloudSave,50)}else status("Synced","ok")}
     else{hideBusy();setupMode="profile";setupStep=2;setupAccount=r.user;setupDraft={account:{firstName:r.user.firstName,lastName:r.user.lastName,username:r.user.username},body:{},target:{mode:"generated",custom:"",deficit:"0.15"},activity:{}};openWizard("profile")}
   }catch(x){if(authFlowIsCurrent(flow)){hideBusy();setAuth(null);state=seed();e.textContent=x.message;e.classList.add("show")}}
   finally{clearTimeout(wake);if(btn&&authFlowIsCurrent(flow)){btn.disabled=false;btn.textContent="Sign in"}}
 }
 window.signInCloud=signInCloud;
-async function cloudLoad({render=false}={}){const r=await api("/api/data",{method:"GET"});if(r?.state){if(r.state?.meta?.accountId&&String(r.state.meta.accountId)!==String(authSession?.user?.id))throw new Error("Cloud data belongs to a different account.");state=migrate(r.state);ensureActiveId();cacheStateForAccount();if(render)renderAll();return true}return false}
-function showApp(){document.getElementById("startupScreen").style.display="none";document.querySelector(".app")?.classList.remove("locked");installProfileUI();renderAll();showPage("dashboard");updateAuthUI();clearInterval(noticeTimer);setTimeout(checkServerNotices,120);noticeTimer=setInterval(checkServerNotices,1200)}
+async function cloudLoad({render=false}={}){const r=await api("/api/data",{method:"GET"});if(r?.state){if(r.state?.meta?.accountId&&String(r.state.meta.accountId)!==String(authSession?.user?.id))throw new Error("Cloud data belongs to a different account.");const picked=chooseNewestAccountState(authSession.user.id,r.state,getCachedStateForAccount(authSession.user.id));state=migrate(picked.state);ensureActiveId();cacheStateForAccount();if(picked.needsUpload){cloudDirty=true;setTimeout(flushCloudSave,50)}if(render)renderAll();return true}return false}
+function showApp(){requestPersistentStorage();document.getElementById("startupScreen").style.display="none";document.querySelector(".app")?.classList.remove("locked");installProfileUI();renderAll();showPage("dashboard");updateAuthUI();clearInterval(noticeTimer);setTimeout(checkServerNotices,120);noticeTimer=setInterval(checkServerNotices,1200)}
 async function trySession(flow){
-  const saved=getAuth();if(!saved?.token)return false;
-  showBusy("Opening Calorie Compass…","Verifying your saved session with the server.");status("Checking session…","");
+  const saved=getAuth();if(!saved?.token||!saved?.user?.id)return false;
+  const cached=getCachedStateForAccount(saved.user.id);let appShown=false;
+  if(cached){setAuth(saved);state=migrate(cached);ensureActiveId();hideBusy();showApp();status("Checking cloud…","warn");appShown=true}
+  else{showBusy("Opening Calorie Compass…","Verifying your saved session with the server.");status("Checking session…","")}
   try{
     const r=await api("/api/session",{authToken:saved.token});
     if(!authFlowIsCurrent(flow))return false;
-    if(!r?.user)throw new Error("Session verification failed.");
-    setAuth({token:saved.token,user:r.user});
-    if(r.state){if(r.state?.meta?.accountId&&String(r.state.meta.accountId)!==String(r.user.id))throw new Error("Cloud data belongs to a different account.");state=migrate(r.state);ensureActiveId();cacheStateForAccount(r.user.id);hideBusy();showApp();status("Synced","ok");return true}
-    state=seed();hideBusy();setupMode="profile";setupStep=2;setupAccount=r.user;setupDraft={account:{firstName:r.user.firstName,lastName:r.user.lastName,username:r.user.username},body:{},target:{mode:"generated",custom:"",deficit:"0.15"},activity:{}};openWizard("profile");return true
-  }catch(e){if(authFlowIsCurrent(flow)){hideBusy();localStorage.removeItem(AUTH_KEY);setAuth(null);state=seed()}return false}
+    if(!r?.user||String(r.user.id)!==String(saved.user.id))throw new Error("Session verification failed.");
+    const liveToken=r.token||saved.token;setAuth({token:liveToken,user:r.user});
+    const newest=chooseNewestAccountState(r.user.id,r.state,getCachedStateForAccount(r.user.id));
+    if(newest.state){state=migrate(newest.state);ensureActiveId();cacheStateForAccount(r.user.id);hideBusy();if(!appShown)showApp();else{renderAll();updateAuthUI()}if(newest.needsUpload){cloudDirty=true;status("Saving recent changes…","warn");setTimeout(flushCloudSave,50)}else status("Synced","ok");return true}
+    state=seed();hideBusy();setupMode="profile";setupStep=2;setupAccount=r.user;setupDraft={account:{firstName:r.user.firstName,lastName:r.user.lastName,username:r.user.username},body:{},target:{mode:"generated",custom:"",deficit:"0.15"},activity:{}};openWizard("profile");return true;
+  }catch(e){
+    if(!authFlowIsCurrent(flow))return false;hideBusy();
+    if(e?.httpStatus===401||e?.httpStatus===403){localStorage.removeItem(AUTH_KEY);setAuth(null);state=seed();if(appShown)showSignIn();return false}
+    if(cached){setAuth(saved);state=migrate(cached);ensureActiveId();if(!appShown)showApp();else{renderAll();updateAuthUI()}status("Offline — changes saved on this device","warn");return true}
+    status("Cloud unavailable — session kept","warn");return false;
+  }
 }
-async function bootstrapAuth(){const flow=beginAuthFlow();const ok=await trySession(flow);if(!ok&&authFlowIsCurrent(flow))showSignIn()}
-window.logout=function(){beginAuthFlow();clearInterval(noticeTimer);clearTimeout(cloudSaveTimer);cloudDirty=false;state=seed();setAuth(null);location.reload()};
+async function bootstrapAuth(){const flow=beginAuthFlow();const ok=await trySession(flow);if(!ok&&authFlowIsCurrent(flow)&&!getAuth()?.token)showSignIn();else if(!ok&&authFlowIsCurrent(flow)){hideBusy();showSignIn();const e=document.getElementById("loginError");if(e){e.textContent="Your session is still saved, but the cloud is temporarily unavailable. Try again when the server is reachable.";e.classList.add("show")}}}
+window.logout=async function(){const flow=beginAuthFlow();clearInterval(noticeTimer);try{cacheStateForAccount();await Promise.race([flushCloudSaveNow(),new Promise(r=>setTimeout(r,1200))])}catch{}if(!authFlowIsCurrent(flow))return;clearTimeout(cloudSaveTimer);cloudDirty=false;state=seed();setAuth(null);location.reload()};
 
 function warningHTML(p){const di=targetDiffInfo(p);if(!di.significant||p.dismissedTargetWarningKey===di.key)return"";return `<div class="target-warning"><button class="target-warning-close" onclick="dismissTargetWarning()" aria-label="Dismiss warning">×</button><strong>Your custom target differs from the app estimate.</strong><div>${fmt(di.custom)} kcal custom vs ${fmt(di.generated)} kcal app estimate (${fmt(di.diff)} kcal apart).</div></div>`}
 window.dismissTargetWarning=function(){const p=active();if(!p)return;const di=targetDiffInfo(p);p.dismissedTargetWarningKey=di.key;save()};
@@ -974,7 +997,7 @@ importData=function(e){const f=e.target.files?.[0];if(!f)return;const r=new File
 async function ackUpdateToken(token){if(!token)return;try{await api("/api/notices/ack-update",{method:"POST",body:JSON.stringify({token})})}catch{}}
 function markUpdateSeen(forceToken=""){state.meta=state.meta||{};state.meta.updateSeen=state.meta.updateSeen||{};state.meta.updateSeen[UPDATE_KEY]=true;if(forceToken){state.meta.lastForceUpdateToken=forceToken;ackUpdateToken(forceToken)}save({render:false})}
 function showUpdateLog(forceToken=""){
-  if(document.getElementById("updateLogModal"))return;const p=active();if(!p)return;const c=generatedCalculation(p),current=currentTarget(p),el=document.createElement("div");el.id="updateLogModal";el.className="modal show";el.innerHTML=`<div class="modal-box update-log-box" style="max-width:650px"><div class="modal-head"><div><h2>Calorie Compass ${APP_VERSION}</h2><div class="muted mini">What's new</div></div><button class="close" id="updateClose">×</button></div><div class="update-list"><div>Sign-in was rebuilt with session fencing: an old login, sync, or notice request can no longer overwrite a newer account after you switch accounts.</div><div>v1.9.6 clears stale browser authentication and old local account caches once. Your cloud data in MongoDB is not deleted.</div><div>Each account still has exactly one tracker, and cloud data remains bound to that MongoDB account ID.</div><div>Administrators now get a permanent Admin Controls tab in the main navigation, plus the top Admin button and account-menu entry.</div><div>Age restrictions, registration controls, timed one-time announcements, user promotion, suspension, remote sign-out, target controls, and data controls remain server-authoritative.</div></div><div class="goal-choice-panel"><h3>How do you want your calorie target set?</h3><div class="goal-preview"><div><span>App estimate</span><strong>${fmt(c.target)} kcal</strong></div><div><span>Current target</span><strong>${fmt(current)} kcal</strong></div></div><div class="field"><label>Your own target (optional)</label><input id="updateCustomTarget" type="number" min="800" max="10000" step="10" value="${p.targetMode==="custom"?(p.customCalorieTarget||""):Math.round(current)}"></div><div class="target-choice-actions"><button class="btn primary" id="updateKeepGenerated">Keep/use generated target</button><button class="btn" id="updateUseCustom">Use my own target</button></div></div></div>`;document.body.appendChild(el);
+  if(document.getElementById("updateLogModal"))return;const p=active();if(!p)return;const c=generatedCalculation(p),current=currentTarget(p),el=document.createElement("div");el.id="updateLogModal";el.className="modal show";el.innerHTML=`<div class="modal-box update-log-box" style="max-width:650px"><div class="modal-head"><div><h2>Calorie Compass ${APP_VERSION}</h2><div class="muted mini">What's new</div></div><button class="close" id="updateClose">×</button></div><div class="update-list"><div>This build is based directly on v1.9.6. It does not use the v1.9.7 or v1.9.8 frontend as its base.</div><div>Your account stays signed in until you explicitly log out, clear site/app storage, the account is suspended/deleted, or an administrator remotely signs it out.</div><div>Every edit is saved immediately to this device before cloud sync, so killing the mobile app does not discard a recent entry.</div><div>When you reopen the app, the newest account copy wins: a newer local revision is uploaded instead of being overwritten by older cloud data.</div><div>If Render or the network is temporarily unavailable, your saved session and local account data are kept instead of being cleared.</div></div><div class="goal-choice-panel"><h3>How do you want your calorie target set?</h3><div class="goal-preview"><div><span>App estimate</span><strong>${fmt(c.target)} kcal</strong></div><div><span>Current target</span><strong>${fmt(current)} kcal</strong></div></div><div class="field"><label>Your own target (optional)</label><input id="updateCustomTarget" type="number" min="800" max="10000" step="10" value="${p.targetMode==="custom"?(p.customCalorieTarget||""):Math.round(current)}"></div><div class="target-choice-actions"><button class="btn primary" id="updateKeepGenerated">Keep/use generated target</button><button class="btn" id="updateUseCustom">Use my own target</button></div></div></div>`;document.body.appendChild(el);
   const close=()=>{markUpdateSeen(forceToken);el.remove()};el.querySelector("#updateClose").onclick=close;el.querySelector("#updateKeepGenerated").onclick=()=>{snapshotPastRange(p,currentTarget(p));p.targetMode="generated";p.dismissedTargetWarningKey="";p.lastResolvedTarget=Math.round(currentTarget(p));markUpdateSeen(forceToken);el.remove();renderAll()};el.querySelector("#updateUseCustom").onclick=()=>{const n=Math.round(Number(v("updateCustomTarget")));if(!(n>=800&&n<=10000))return alert("Enter a target between 800 and 10,000 kcal.");snapshotPastRange(p,currentTarget(p));p.targetMode="custom";p.customCalorieTarget=n;p.dismissedTargetWarningKey="";const finish=()=>{p.lastResolvedTarget=Math.round(currentTarget(p));markUpdateSeen(forceToken);el.remove();renderAll()};const useGenerated=()=>{p.targetMode="generated";finish()};showTargetDifferenceChoice(p,finish,useGenerated)};
 }
 function runBroadcastEffect(effect){if(effect==="confetti"){for(let i=0;i<34;i++){const s=document.createElement("span");s.className="mini-confetti";s.textContent=["●","◆","★"][i%3];s.style.left=(Math.random()*100)+"vw";s.style.animationDelay=(Math.random()*.5)+"s";document.body.appendChild(s);setTimeout(()=>s.remove(),2600)}}}
@@ -1084,7 +1107,7 @@ renderFoodDay=function(){
   document.getElementById("foodDay").innerHTML=arr.length?`<div class="between"><span class="muted mini">${arr.length} entries • ${fmt(protein)} g protein</span><strong>${fmt(tot)} kcal</strong></div><div class="stack" style="margin-top:10px">${arr.map(x=>`<div class="food-item editable-log" role="button" tabindex="0" onclick="openEditFood('${safe(x.id)}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openEditFood('${safe(x.id)}')}"><div><strong>${safe(x.name)}</strong><div class="muted mini">${Number(x.servings)||1} serving(s)${x.source?' • '+safe(x.source):''} • tap to edit</div></div><div class="row"><strong>${fmt(x.cal)}</strong><button class="btn danger" aria-label="Delete food" onclick="event.stopPropagation();deleteLog('food','${safe(x.id)}')">×</button></div></div>`).join("")}</div>`:'<div class="empty">No food logged for this day.</div>';
 };
 
-window.addEventListener("focus",()=>{if(authSession)setTimeout(checkServerNotices,40)});document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&authSession)setTimeout(checkServerNotices,40)});
+window.addEventListener("focus",()=>{if(authSession)setTimeout(checkServerNotices,40)});document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&authSession)setTimeout(checkServerNotices,40);if(document.visibilityState==="hidden"&&authSession){cacheStateForAccount();flushCloudSaveKeepalive()}});window.addEventListener("pagehide",()=>{if(authSession){cacheStateForAccount();flushCloudSaveKeepalive()}});
 installProfileUI();state=seed();
 setTimeout(bootstrapAuth,60);
 })();
